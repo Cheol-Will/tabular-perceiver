@@ -5,7 +5,8 @@
 
 # model_types=("TabNet" "ResNet" "TabTransformer" "Trompt" "ExcelFormer")
 # model_types=("LightGBM" "TabPerceiver" "TabNet" "FTTransformer" "ResNet" "TabTransformer" "Trompt" "ExcelFormer")
-model_types=("TabNet" "LightGBM" "FTTransformer" "ResNet" "TabTransformer" "Trompt" "ExcelFormer")
+# model_types=("TabNet" "LightGBM" "FTTransformer" "ResNet" "TabTransformer" "Trompt" "ExcelFormer")
+model_types=("LightGBM" "FTTransformer" "ResNet" "TabTransformer" "Trompt" "ExcelFormer")
 
 
 # model_type="TabPerceiver"

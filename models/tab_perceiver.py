@@ -6,7 +6,7 @@ import torch
 import torch.nn as nn
 
 from torch import Tensor
-from torch.nn import LayerNorm, Linear, Module, GeLU, Sequential, Parameter, Dropout
+from torch.nn import LayerNorm, Linear, Module, GELU, Sequential, Parameter, Dropout
 import torch.nn.functional as F
 
 import torch_frame
