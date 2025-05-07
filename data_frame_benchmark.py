@@ -28,10 +28,12 @@ from torch_frame.nn.models import (
     Trompt,
 )
 from models import TabPerceiver
+from models import LinearL1
 from torch_frame.typing import TaskType
 
 TRAIN_CONFIG_KEYS = ["batch_size", "gamma_rate", "base_lr"]
 GBDT_MODELS = ["XGBoost", "CatBoost", "LightGBM"]
+BASE_MODELS = ["LinearL1"]
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -54,7 +56,7 @@ parser.add_argument(
     '--model_type', type=str, default='TabNet', choices=[
         'TabNet', 'FTTransformer', 'ResNet', 'MLP', 'TabTransformer', 'Trompt',
         'ExcelFormer', 'FTTransformerBucket', 'XGBoost', 'CatBoost', 'LightGBM',
-        'TabPerceiver'
+        'TabPerceiver', 'LinearL1',
     ])
 parser.add_argument('--seed', type=int, default=0)
 parser.add_argument('--result_path', type=str, default='')
@@ -82,6 +84,11 @@ if args.model_type in GBDT_MODELS:
         'LightGBM': LightGBM
     }
     model_cls = gbdt_cls_dict[args.model_type]
+elif args.model_type in BASE_MODELS:
+    base_cls_dict = {
+        'LinearL1': LinearL1,
+    }
+    model_cls = base_cls_dict[args.model_type]
 else:
     if dataset.task_type == TaskType.BINARY_CLASSIFICATION:
         out_channels = 1
@@ -244,14 +251,15 @@ else:
 
     elif args.model_type == 'TabPerceiver':
         model_search_space = {
-            'channels': [1, 4, 16],
             'num_heads': [4, 8],
-            'num_layers': [4],
-            'num_latent_array': [8],
-            'latent_channels': [64],
+            'num_layers': [4, 6, 8],
+            'num_latents': [4, 8, 16, 32],
+            'hidden_dim': [32, 64, 128, 256],
+            'mlp_ratio': [0.25, 0.5, 1, 2, 4],
+            'dropout_prob': [0, 0.2],
         }
         train_search_space = {
-            'batch_size': [256, 512],
+            'batch_size': [128, 256],
             'base_lr': [0.0001, 0.001],
             'gamma_rate': [0.9, 0.95, 1.],
         }
@@ -327,6 +335,14 @@ def train_and_eval_with_cfg(
     train_cfg: dict[str, Any],
     trial: Optional[optuna.trial.Trial] = None,
 ) -> tuple[float, float]:
+    train_loader = DataLoader(train_tensor_frame,
+                              batch_size=train_cfg['batch_size'], shuffle=True,
+                              drop_last=True)
+    val_loader = DataLoader(val_tensor_frame,
+                            batch_size=train_cfg['batch_size'])
+    test_loader = DataLoader(test_tensor_frame,
+                             batch_size=train_cfg['batch_size'])
+    
     # Use model_cfg to set up training procedure
     if args.model_type == 'FTTransformerBucket':
         # Use LinearBucketEncoder instead
@@ -335,23 +351,27 @@ def train_and_eval_with_cfg(
             stype.numerical: LinearBucketEncoder(),
         }
         model_cfg['stype_encoder_dict'] = stype_encoder_dict
-    model = model_cls(
-        **model_cfg,
-        out_channels=out_channels,
-        col_stats=col_stats,
-        col_names_dict=col_names_dict,
-    ).to(device)
+
+    if args.model_type == 'TabPerceiver':
+        # calculate number of features to create positonal embedding
+        model = model_cls(
+            **model_cfg,
+            num_classes=out_channels,
+            col_stats=col_stats,
+            col_names_dict=col_names_dict,
+        ).to(device)
+    else:
+        model = model_cls(
+            **model_cfg,
+            out_channels=out_channels,
+            col_stats=col_stats,
+            col_names_dict=col_names_dict,
+        ).to(device)
     model.reset_parameters()
     # Use train_cfg to set up training procedure
     optimizer = torch.optim.Adam(model.parameters(), lr=train_cfg['base_lr'])
     lr_scheduler = ExponentialLR(optimizer, gamma=train_cfg['gamma_rate'])
-    train_loader = DataLoader(train_tensor_frame,
-                              batch_size=train_cfg['batch_size'], shuffle=True,
-                              drop_last=True)
-    val_loader = DataLoader(val_tensor_frame,
-                            batch_size=train_cfg['batch_size'])
-    test_loader = DataLoader(test_tensor_frame,
-                             batch_size=train_cfg['batch_size'])
+    
 
     if higher_is_better:
         best_val_metric = 0
@@ -374,7 +394,7 @@ def train_and_eval_with_cfg(
                 best_test_metric = test(model, test_loader)
         lr_scheduler.step()
         print(f'Train Loss: {train_loss:.4f}, Val: {val_metric:.4f}')
-
+        print(f'Current best test metric: {best_test_metric:.4f}')
         if trial is not None:
             trial.report(val_metric, epoch)
             if trial.should_prune():
@@ -481,6 +501,10 @@ def main_gbdt():
         os.makedirs(os.path.dirname(args.result_path), exist_ok=True)
         torch.save(result_dict, args.result_path)
 
+def main_base():
+    main_gbdt()
+
+
 
 if __name__ == '__main__':
     print(args)
@@ -489,5 +513,7 @@ if __name__ == '__main__':
     #     exit(-1)
     if args.model_type in ["XGBoost", "CatBoost", "LightGBM"]:
         main_gbdt()
+    elif args.model_type in ["LinearL1"]:
+        main_base()
     else:
         main_deep_models()
