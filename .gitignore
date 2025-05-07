@@ -1,2 +1,10 @@
+__pycache__/
+data/
+helper/
 output/
-dependencies.txt
+*.sh
+*.pt
+./gitignore
+finetune_old.py
+multitask_old.py
+pretrain.py
