@@ -57,7 +57,8 @@ def build_datasets(task_type, dataset_scale):
     """
     dataset_index_ranges = {
         'binary_classification': {
-            'small':   range(0, 14),  'medium': range(0, 9),  'large': range(0, 1),
+            'small':   range(0, 2),  'medium': range(0, 9),  'large': range(0, 1),
+            # 'small':   range(0, 14),  'medium': range(0, 9),  'large': range(0, 1),
         },
         'multiclass_classification': {
             'small':   [],            'medium': range(0, 3),  'large': range(0, 3),
