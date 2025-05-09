@@ -69,14 +69,14 @@ def print_log(args, epoch, values, name="Train Loss"):
 
 def tensorboard_write(writer, epoch, metrics, losses, task_idx=None, name="Train"):
     if task_idx is None:
-        tasks = range(len(metrics)) # write on every task
-        for task_idx in tasks:
-            writer.add_scalar(f"Task_{task_idx}_{name}_metric", metrics[task_idx], epoch)
-            writer.add_scalar(f"Task_{task_idx}_{name}_loss", losses[task_idx], epoch)
-    else: 
-        writer.add_scalar(f"Task_{task_idx}_{name}_metric", metrics, epoch)
-        writer.add_scalar(f"Task_{task_idx}_{name}_loss", losses, epoch)
-
+        metric_dict = {f"Task_{i}_{name}": metrics[i] for i in range(len(metrics))}
+        loss_dict = {f"Task_{i}_{name}": losses[i] for i in range(len(losses))}
+        
+        writer.add_scalars("metric", metric_dict, epoch)
+        writer.add_scalars("loss", loss_dict, epoch)
+    else:
+        writer.add_scalar("metric", {f"Task_{task_idx}_{name}": metrics}, epoch)
+        writer.add_scalar("loss", {f"Task_{task_idx}_{name}": losses}, epoch)
 
 def save_results(
     args,
