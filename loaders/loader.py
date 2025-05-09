@@ -100,10 +100,6 @@ def build_dataloaders(datasets, batch_size=128):
         valid_loader = DataLoader(val_tensor_frame, batch_size=batch_size)
         test_loader = DataLoader(test_tensor_frame, batch_size=batch_size)
 
-        # print(f'Training set has {len(train_tensor_frame)} instances')
-        # print(f'Validation set has {len(val_tensor_frame)} instances')
-        # print(f'Test set has {len(test_tensor_frame)} instances')
-
         col_stats = dataset.col_stats
         col_names_dict = train_tensor_frame.col_names_dict
 

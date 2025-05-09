@@ -14,7 +14,7 @@ from torch_frame.typing import TaskType
 from torch_frame.data import DataLoader
 from models import TabPerceiverMultiTask
 from loaders import build_datasets, build_dataloaders
-from utils import create_multitask_setup, init_best_metrics, tensorboard_write, print_log, save_results
+from utils import create_multitask_setup, init_best_metric, init_best_metrics, update_checkpoint, tensorboard_write, print_log, save_results
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -104,7 +104,7 @@ def evaluate_task(
                 y = y.float()
 
             loss = loss_fn(preds, y)
-            total_loss += loss * y.size(0)
+            total_loss += loss.item() * y.size(0)
             num_samples += y.size(0)
 
             if task_type == TaskType.MULTICLASS_CLASSIFICATION:
@@ -112,16 +112,9 @@ def evaluate_task(
             elif task_type == TaskType.REGRESSION and preds.ndim > 1:
                 preds = preds.view(-1)
             metric_computer.update(preds, tf.y)
-    return metric_computer.compute().item(), total_loss / num_samples
-
-
-def update_checkpoint(checkpoint, key, values, task_idx=None):
-    if task_idx is None:
-        for idx, value in enumerate(values):
-            checkpoint[idx][key] = value
-    else:
-        # task_idx is specified, thus only update that task
-        checkpoint[task_idx][key] = values        
+    eval_metric = metric_computer.compute().item()
+    eval_loss = total_loss / num_samples
+    return eval_metric, eval_loss
 
 
 def train_and_evaluate(
@@ -135,12 +128,12 @@ def train_and_evaluate(
     loss_fns: list[Module],
     metric_computers: list[Metric],
     task_types: list[TaskType],
-    higher_is_better: bool,
+    higher_is_betters: list[bool],
     writer: SummaryWriter,
 ) -> tuple[list[float], list[float]]:
 
     num_tasks = len(train_loaders)
-    best_val_metrics, best_test_metrics = init_best_metrics(higher_is_better, num_tasks)
+    best_val_metrics, best_test_metrics = init_best_metrics(higher_is_betters[0], num_tasks)
     checkpoint = {}
     for task_idx in range(num_tasks):
         checkpoint[task_idx] = {
@@ -166,22 +159,67 @@ def train_and_evaluate(
             val_metrics.append(val_metric)
             val_losses.append(val_loss)
 
-            improved = (val_metric > best_val_metrics[task_idx]) if higher_is_better else (val_metric < best_val_metrics[task_idx])
+            improved = (val_metric > best_val_metrics[task_idx]) if higher_is_betters[task_idx] else (val_metric < best_val_metrics[task_idx])
             if improved:
                 best_val_metrics[task_idx] = val_metric
                 best_test_metrics[task_idx], test_loss = evaluate_task(model, test_loaders[task_idx], loss_fn, metric_computer, task_type, task_idx)
 
+        print(train_metrics)
         # update checkpoint and tensorboard        
-        update_checkpoint(checkpoint, "train_losses", train_losses)
-        update_checkpoint(checkpoint, "train_metrics", train_metrics)
-        tensorboard_write(writer, epoch, train_metrics, train_losses, name="Train")
+        update_checkpoint(checkpoint, train_losses, train_metrics, name="train")
+        tensorboard_write(writer, epoch, train_metrics, train_losses, name="train")
 
-        update_checkpoint(checkpoint, "val_losses", val_losses)
-        update_checkpoint(checkpoint, "val_metrics", val_metrics)
-        tensorboard_write(writer, epoch, val_metrics, val_losses, name="Valid")
+        update_checkpoint(checkpoint, train_losses, train_metrics, name="val")
+        tensorboard_write(writer, epoch, val_metrics, val_losses, name="valid")
 
     return checkpoint, best_test_metrics
 
+
+def train_task(
+    args,
+    model: Module,
+    train_loader: DataLoader,
+    optimizer: torch.optim.Optimizer,
+    loss_fn: Module,
+    metric_computer: Metric,
+    task_type: TaskType,
+    task_idx: int,
+):
+    model.train()
+    metric_computer.reset()
+    total_loss = 0.0
+    total_samples = 0
+
+    for tf in train_loader:
+        tf = tf.to(device)
+        y = tf.y
+        if task_type == TaskType.BINARY_CLASSIFICATION:
+            y = y.float()
+
+        preds = model(tf, task_idx)
+        if preds.ndim > 1 and preds.size(1) == 1:
+            preds = preds.view(-1)
+
+        loss = loss_fn(preds, y)
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+
+        num_samples = y.size(0)
+        total_loss += loss.item() * num_samples
+        total_samples += num_samples
+
+        # update metric
+        if task_type == TaskType.MULTICLASS_CLASSIFICATION:
+            metric_preds = preds.argmax(dim=-1)
+        else:
+            metric_preds = preds
+        metric_computer.update(metric_preds, tf.y)
+
+    train_loss = total_loss / total_samples
+    train_acc = metric_computer.compute().item()
+
+    return train_loss, train_acc
 
 def finetune_and_evaluate(
     args,
@@ -195,51 +233,56 @@ def finetune_and_evaluate(
     metric_computer: Metric,
     task_type: TaskType,
     task_idx: int,
-    init_val: float,
-    init_test: float,
     higher_is_better: bool
-) -> float:
-    best_val_metric, best_test_metric = init_val, init_test
-    result_dict = {
-        'train_losses':[],
-        'train_metrics':[],
-        'val_losses':[],
-        'val_metrics':[],
-        'test_losses':[],
-        'test_metrics':[],
-    }
-    # train only specified task and evaluate
-    for epoch in range(args.finetune_epochs):
-        finetune_indices = [task_idx] * len(train_loader)
-        train_metrics, train_losses = train_multitask(model, train_loader, optimizer, loss_fn, metric_computer, task_type, finetune_indices)
-        scheduler.step()
-        
-        val_metric, val_loss = evaluate_task(model, valid_loader, metric_computer, task_type, task_idx)
-        improved = (val_metric > best_val_metric) if higher_is_better else (val_metric < best_val_metric)
+) -> dict:
 
+    best_val_metric, best_test_metric = init_best_metric(higher_is_better)
+    history = {
+        "finetune_train_loss": [],
+        "finetune_train_acc":  [],
+        "finetune_valid_loss": [],
+        "finetune_valid_acc":  [],
+        "finetune_test_loss":  None,
+        "finetune_test_acc":   None,
+    }
+
+    for epoch in range(args.finetune_epochs):
+        train_loss, train_acc = train_task(
+            args=args,
+            model=model,
+            train_loader=train_loader,
+            optimizer=optimizer,
+            loss_fn=loss_fn,
+            metric_computer=metric_computer,
+            task_type=task_type,
+            task_idx=task_idx,
+        )
+        scheduler.step()
+
+        val_metric, val_loss = evaluate_task(
+            model, valid_loader,
+            loss_fn, metric_computer,
+            task_type, task_idx
+        )
+
+        improved = (val_metric > best_val_metric) if higher_is_better else (val_metric < best_val_metric)
         if improved:
             best_val_metric = val_metric
-            best_test_metric, test_loss = evaluate_task(model, test_loader, metric_computer, task_type, task_idx)
-        
-        result_dict["train_losses"].append(train_losses[task_idx])
-        result_dict["train_metrics"].append(train_metrics[task_idx])
-        tensorboard_write(writer, epoch, train_metrics[task_idx], train_losses[task_idx], task_idx=task_idx, name="Train")
-    
-    
-        # update checkpoint and tensorboard        
-        update_checkpoint(checkpoint, "train_losses", train_losses)
-        update_checkpoint(checkpoint, "train_metrics", train_metrics)
-        tensorboard_write(writer, epoch, train_metrics, train_losses, name="Train")
+            best_test_metric, test_loss = evaluate_task(
+                model, test_loader,
+                loss_fn, metric_computer,
+                task_type, task_idx
+            )
 
-        update_checkpoint(checkpoint, "val_losses", val_losses)
-        update_checkpoint(checkpoint, "val_metrics", val_metrics)
-        tensorboard_write(writer, epoch, val_metrics, val_losses, name="Valid")
+        history["finetune_train_loss"].append(train_loss)
+        history["finetune_train_acc"].append(train_acc)
+        history["finetune_valid_loss"].append(val_loss)
+        history["finetune_valid_acc"].append(val_metric)
 
-    
-    
-    result_dict["test_metrics"], result_dict["test_losses"] = best_test_metric, test_loss
+    history["finetune_test_loss"] = test_loss
+    history["finetune_test_acc"]  = best_test_metric
 
-    return best_test_metric
+    return history
 
 
 def main(args):
@@ -248,7 +291,6 @@ def main(args):
     datasets = build_datasets(task_type=args.task_type, dataset_scale=args.scale)
     train_loaders, valid_loaders, test_loaders, meta = build_dataloaders(datasets)
     num_classes_list, loss_fns, metric_computers, higher_is_betters, task_types = create_multitask_setup(datasets)
-    # num_classes, loss_fn, metric_computer, higher_is_better, task_type = create_multitask_setup(datasets)
     for metric_computer in metric_computers:
         metric_computer.to(device)
 
@@ -271,7 +313,7 @@ def main(args):
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
     scheduler = ExponentialLR(optimizer, gamma=0.95)
 
-    best_val_metrics, best_test_metrics = train_and_evaluate(
+    train_log, best_test_metrics = train_and_evaluate(
         args, model, train_loaders, valid_loaders, test_loaders, optimizer, scheduler, 
         loss_fns, metric_computers, task_types, higher_is_betters, writer
     )
@@ -283,20 +325,37 @@ def main(args):
     }
 
     best_finetune_test_metrics = []
-    for idx in range(len(train_loaders)):
+    task_zip = zip(
+        train_loaders,
+        valid_loaders,
+        test_loaders,
+        loss_fns,
+        metric_computers,
+        task_types,
+        higher_is_betters
+    )
+    for task_idx, (train_loader, valid_loader, test_loader, loss_fn, metric_computer, task_type, higher_is_better) in enumerate(task_zip):
         model.load_state_dict(checkpoint["model"])
         optimizer.load_state_dict(checkpoint["optimizer"])
         scheduler.load_state_dict(checkpoint["scheduler"])
 
-        fientune_result = finetune_and_evaluate(
-            args, model, train_loaders[idx],
-            valid_loaders[idx], test_loaders[idx],
-            optimizer, scheduler, loss_fns[idx],
-            metric_computers[idx], task_types[idx],
-            idx, best_val_metrics[idx], best_test_metrics[idx], higher_is_betters[idx]
+        history = finetune_and_evaluate(
+            args=args,
+            model=model,
+            train_loader=train_loader,
+            valid_loader=valid_loader,
+            test_loader=test_loader,
+            optimizer=optimizer,
+            scheduler=scheduler,
+            loss_fn=loss_fn,
+            metric_computer=metric_computer,
+            task_type=task_type,
+            task_idx=task_idx,
+            higher_is_better=higher_is_better
         )
-        best_finetune_test_metrics.append(finetune_test_metric["test_metrics"])
-        print(f"[Task {idx}] Best test metric (before finetune): {best_test_metrics[idx]:.6f}, Best test metric (after finetune):  {finetune_test_metric:.6f}")
+        print(history)
+        # best_finetune_test_metrics.append(finetune_test_metric["test_metrics"])
+        # print(f"[Task {idx}] Best test metric (before finetune): {best_test_metrics[idx]:.6f}, Best test metric (after finetune):  {finetune_test_metric:.6f}")
 
     save_results(args, model_config, best_test_metrics, best_finetune_test_metrics)
 
