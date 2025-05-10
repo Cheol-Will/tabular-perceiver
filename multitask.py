@@ -10,41 +10,16 @@ from torch.nn import Module
 from torch.optim.lr_scheduler import ExponentialLR
 from torchmetrics import Metric
 from torch.utils.tensorboard import SummaryWriter
+from tqdm import tqdm
 
 from torch_frame.typing import TaskType
 from torch_frame.data import DataLoader
 from models import TabPerceiverMultiTask
 from loaders import build_datasets, build_dataloaders
-from utils import create_multitask_setup, init_best_metric, init_best_metrics, update_checkpoint, tensorboard_write, print_log, save_results
+from utils import create_multitask_setup, init_best_metric, init_best_metrics, update_history, update_finetune_history, tensorboard_write, save_results
+from utils import print_log_multitask, print_log_finetune, create_history, create_finetune_history, shuffle_task_indices
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-def print_log_multitask(epoch, epochs,
-                train_losses, train_metrics,
-                valid_losses, valid_metrics,
-                metric_name="Acc"):
-    headers = ["Task ID", "Train Loss", f"Train {metric_name}", "Valid Loss", f"Valid {metric_name}"]
-    table = [
-        [f"Task {i}", 
-        f"{train_losses[i]:.4f}", f"{train_metrics[i]:.4f}",
-        f"{valid_losses[i]:.4f}", f"{valid_metrics[i]:.4f}"]
-        for i in range(len(train_losses))
-    ]
-    print(f"\n[Epoch {epoch+1}/{epochs}]")
-    print(tabulate(table, headers=headers, tablefmt="grid"))
-    
-def print_log_finetune(history: dict, metric_name: str = "Acc"):
-    headers = ["Epoch", "Train Loss", f"Train {metric_name}", "Valid Loss", f"Valid {metric_name}"]
-    table = [
-        [epoch + 1,
-         f"{history['finetune_train_loss'][epoch]:.4f}",
-         f"{history['finetune_train_acc'][epoch]:.4f}",
-         f"{history['finetune_valid_loss'][epoch]:.4f}",
-         f"{history['finetune_valid_acc'][epoch]:.4f}"]
-        for epoch in range(len(history['finetune_train_loss']))
-    ]
-
-    print(tabulate(table, headers=headers, tablefmt="grid"))
 
 def setup_environment(args):
     writer = SummaryWriter(f'output/{args.task_type}/{args.scale}/{args.exp_name}')
@@ -53,12 +28,7 @@ def setup_environment(args):
 
     return writer
 
-def shuffle_task_indices(loaders: list[DataLoader]) -> list[int]:
-    task_order = []
-    for idx, loader in enumerate(loaders):
-        task_order.extend([idx] * len(loader))
-    random.shuffle(task_order)
-    return task_order
+
 
 def train_task(
     args,
@@ -114,7 +84,8 @@ def train_multitask(
     loss_fns: list[Module],
     metric_computers: list[Metric],
     task_types: list[TaskType],
-    task_idx_list: list[int]
+    task_idx_list: list[int],
+    epoch: int,
 ) -> float:
     """ Train on multiple tasks."""
     num_tasks = len(loaders)
@@ -123,7 +94,7 @@ def train_multitask(
     task_num_samples = [0] * num_tasks
 
     model.train()
-    for task_idx in task_idx_list:
+    for task_idx in tqdm(task_idx_list, desc=f'Epoch: {epoch+1}'):
         tf = next(iters[task_idx]).to(device)
         y = tf.y
         preds = model(tf, task_idx)
@@ -191,7 +162,6 @@ def evaluate_task(
     eval_metric = metric_computer.compute().item()
     return eval_loss, eval_metric 
 
-
 def train_and_evaluate(
     args,
     model: Module,
@@ -209,40 +179,37 @@ def train_and_evaluate(
     """Train on multiple tasks and evaluate on each tasks"""
     num_tasks = len(train_loaders)
     best_val_metrics, best_test_metrics = init_best_metrics(higher_is_betters[0], num_tasks)
-    checkpoint = {}
-    for task_idx in range(num_tasks):
-        checkpoint[task_idx] = {
-            'train_losses':[],
-            'train_metrics':[],
-            'val_losses':[],
-            'val_metrics':[],
-            'test_losses':[],
-            'test_metrics':[],
-        }
+    history = create_history(num_tasks)
 
     # train on every task and evaluate
     for epoch in range(args.epochs):
         task_idx_list = shuffle_task_indices(train_loaders)
-        train_losses, train_metrics = train_multitask(model, train_loaders, optimizer, loss_fns, metric_computers, task_types, task_idx_list)
+        train_losses, train_metrics = train_multitask(
+            model=model, 
+            loaders=train_loaders, 
+            optimizer=optimizer, 
+            loss_fns=loss_fns, 
+            metric_computers=metric_computers, 
+            task_types=task_types, 
+            task_idx_list=task_idx_list,
+            epoch=epoch)
         scheduler.step()
 
         val_metrics = []
         val_losses = []
         for task_idx in range(num_tasks):
             loss_fn, metric_computer, task_type = loss_fns[task_idx], metric_computers[task_idx], task_types[task_idx]
-            val_metric, val_loss = evaluate_task(model, valid_loaders[task_idx], loss_fn, metric_computer, task_type, task_idx)
+            val_loss, val_metric  = evaluate_task(model, valid_loaders[task_idx], loss_fn, metric_computer, task_type, task_idx)
             val_metrics.append(val_metric)
             val_losses.append(val_loss)
 
             improved = (val_metric > best_val_metrics[task_idx]) if higher_is_betters[task_idx] else (val_metric < best_val_metrics[task_idx])
             if improved:
                 best_val_metrics[task_idx] = val_metric
-                best_test_metrics[task_idx], test_loss = evaluate_task(model, test_loaders[task_idx], loss_fn, metric_computer, task_type, task_idx)
+                test_loss, best_test_metrics[task_idx] = evaluate_task(model, test_loaders[task_idx], loss_fn, metric_computer, task_type, task_idx)
 
-        update_checkpoint(checkpoint, train_losses, train_metrics, name="train")
+        update_history(history, train_losses, train_metrics, val_losses, val_metrics)
         tensorboard_write(writer, epoch, train_metrics, train_losses, name="train")
-
-        update_checkpoint(checkpoint, train_losses, train_metrics, name="val")
         tensorboard_write(writer, epoch, val_metrics, val_losses, name="valid")
 
         print_log_multitask(epoch, args.epochs,
@@ -250,7 +217,9 @@ def train_and_evaluate(
                 val_losses, val_metrics,
                 metric_name="Acc")
 
-    return checkpoint, best_test_metrics
+    return history, best_test_metrics
+
+
 
 def finetune_and_evaluate(
     args,
@@ -268,16 +237,9 @@ def finetune_and_evaluate(
 ) -> dict:
 
     best_val_metric, best_test_metric = init_best_metric(higher_is_better)
-    history = {
-        "finetune_train_loss": [],
-        "finetune_train_acc":  [],
-        "finetune_valid_loss": [],
-        "finetune_valid_acc":  [],
-        "finetune_test_loss":  None,
-        "finetune_test_acc":   None,
-    }
+    history = create_finetune_history()
 
-    for epoch in range(args.finetune_epochs):
+    for epoch in tqdm(range(args.finetune_epochs),  desc=f'Finetune-Task{task_idx}'):
         train_loss, train_acc = train_task(
             args=args,
             model=model,
@@ -290,7 +252,7 @@ def finetune_and_evaluate(
         )
         scheduler.step()
 
-        val_metric, val_loss = evaluate_task(
+        val_loss, val_metric = evaluate_task(
             model, valid_loader,
             loss_fn, metric_computer,
             task_type, task_idx
@@ -299,20 +261,17 @@ def finetune_and_evaluate(
         improved = (val_metric > best_val_metric) if higher_is_better else (val_metric < best_val_metric)
         if improved:
             best_val_metric = val_metric
-            best_test_metric, test_loss = evaluate_task(
+            test_loss, best_test_metric = evaluate_task(
                 model, test_loader,
                 loss_fn, metric_computer,
                 task_type, task_idx
             )
 
-        history["finetune_train_loss"].append(train_loss)
-        history["finetune_train_acc"].append(train_acc)
-        history["finetune_valid_loss"].append(val_loss)
-        history["finetune_valid_acc"].append(val_metric)
+        update_finetune_history(history, train_loss, train_acc, val_loss, val_metric)
 
     history["finetune_test_loss"] = test_loss
     history["finetune_test_acc"]  = best_test_metric
-    print_log_finetune(history=history, metric_name="Acc")
+    print_log_finetune(history=history, metric_name="Acc", task_idx=task_idx)
     return history
 
 
@@ -325,14 +284,14 @@ def main(args):
     for metric_computer in metric_computers:
         metric_computer.to(device)
 
-    # lower model's capacity
+    # parse config
     model_config = {
-        "num_heads": 4,
-        "num_layers": 6,
-        "num_latents": 16,
-        "hidden_dim": 64,
-        "mlp_ratio": 2,
-        "dropout_prob": 0,
+        "num_heads": args.num_heads,
+        "num_layers": args.num_layers,
+        "num_latents": args.num_latents,
+        "hidden_dim": args.hidden_dim,
+        "mlp_ratio": args.mlp_ratio,
+        "dropout_prob": args.dropout_prob,
     }
 
     model = TabPerceiverMultiTask(
@@ -344,7 +303,7 @@ def main(args):
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
     scheduler = ExponentialLR(optimizer, gamma=0.95)
 
-    train_log, best_test_metrics = train_and_evaluate(
+    train_history, best_test_metrics = train_and_evaluate(
         args=args,
         model=model,
         train_loaders=train_loaders,
@@ -366,7 +325,8 @@ def main(args):
     }
 
     best_finetune_test_metrics = []
-    task_zip = zip(
+    fientune_history = {}
+    task_zips = zip(
         train_loaders,
         valid_loaders,
         test_loaders,
@@ -375,7 +335,8 @@ def main(args):
         task_types,
         higher_is_betters
     )
-    for task_idx, (train_loader, valid_loader, test_loader, loss_fn, metric_computer, task_type, higher_is_better) in enumerate(task_zip):
+    for task_idx, task_zip in enumerate(task_zips):
+        train_loader, valid_loader, test_loader, loss_fn, metric_computer, task_type, higher_is_better = task_zip
         model.load_state_dict(checkpoint["model"])
         optimizer.load_state_dict(checkpoint["optimizer"])
         scheduler.load_state_dict(checkpoint["scheduler"])
@@ -394,11 +355,10 @@ def main(args):
             task_idx=task_idx,
             higher_is_better=higher_is_better
         )
-        print(history)
-        # best_finetune_test_metrics.append(finetune_test_metric["test_metrics"])
-        # print(f"[Task {idx}] Best test metric (before finetune): {best_test_metrics[idx]:.6f}, Best test metric (after finetune):  {finetune_test_metric:.6f}")
+        fientune_history[task_idx] = history
+        best_finetune_test_metrics.append(history["finetune_test_acc"])
 
-    save_results(args, model_config, best_test_metrics, best_finetune_test_metrics)
+    save_results(args, model_config, best_test_metrics, best_finetune_test_metrics, train_history, fientune_history)
 
 
 if __name__ == '__main__':
@@ -411,6 +371,14 @@ if __name__ == '__main__':
     parser.add_argument('--finetune_epochs', type=int, default=5)
     parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--exp_name', type=str, default='TabPerceiverMultiTask_')
+    # config
+    parser.add_argument('--num_heads', type=int, default=4)
+    parser.add_argument('--num_layers', type=int, default=6)
+    parser.add_argument('--num_latents', type=int, default=4)
+    parser.add_argument('--hidden_dim', type=int, default=64)
+    parser.add_argument('--mlp_ratio', type=float, default=0)
+    parser.add_argument('--dropout_prob', type=float, default=0)
+    
     args = parser.parse_args()
     
     main(args)
