@@ -2,7 +2,6 @@ import argparse
 import os
 import random
 import copy
-from tabulate import tabulate
 import numpy as np
 
 import torch
@@ -16,61 +15,10 @@ from torch_frame.typing import TaskType
 from torch_frame.data import DataLoader
 from models import TabPerceiverMultiTask
 from loaders import build_datasets, build_dataloaders
-from utils import create_multitask_setup, init_best_metric, init_best_metrics, update_history, update_finetune_history, tensorboard_write, save_results
+from utils import create_multitask_setup, init_best_metric, init_best_metrics, update_history, update_finetune_history, tensorboard_write, save_finetune_results
+from utils import print_log_multitask, print_log_finetune, create_history, create_finetune_history, shuffle_task_indices
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-def print_log_multitask(epoch, epochs,
-                train_losses, train_metrics,
-                valid_losses, valid_metrics,
-                metric_name="Acc"):
-    headers = ["Task ID", "Train Loss", f"Train {metric_name}", "Valid Loss", f"Valid {metric_name}"]
-    table = [
-        [f"Task {i}", 
-        f"{train_losses[i]:.4f}", f"{train_metrics[i]:.4f}",
-        f"{valid_losses[i]:.4f}", f"{valid_metrics[i]:.4f}"]
-        for i in range(len(train_losses))
-    ]
-    print(f"\n[Epoch {epoch+1}/{epochs}]")
-    print(tabulate(table, headers=headers, tablefmt="grid"))
-    
-def print_log_finetune(history: dict, metric_name: str = "Acc", task_idx: int = 0):
-    headers = ["Epoch", "Train Loss", f"Train {metric_name}", "Valid Loss", f"Valid {metric_name}"]
-    table = [
-        [epoch + 1,
-         f"{history['finetune_train_loss'][epoch]:.4f}",
-         f"{history['finetune_train_acc'][epoch]:.4f}",
-         f"{history['finetune_valid_loss'][epoch]:.4f}",
-         f"{history['finetune_valid_acc'][epoch]:.4f}"]
-        for epoch in range(len(history['finetune_train_loss']))
-    ]
-    print(f"Task {task_idx}")
-    print(tabulate(table, headers=headers, tablefmt="grid"))
-
-def create_history(num_tasks):
-    history = {}
-    for task_idx in range(num_tasks):
-        history[task_idx] = {
-            'train_losses':[],
-            'train_metrics':[],
-            'val_losses':[],
-            'val_metrics':[],
-            'test_losses':[],
-            'test_metrics':[],
-        }
-    return history
-
-
-def create_finetune_history():
-    history = {
-        "finetune_train_loss": [],
-        "finetune_train_acc":  [],
-        "finetune_valid_loss": [],
-        "finetune_valid_acc":  [],
-        "finetune_test_loss":  None,
-        "finetune_test_acc":   None,
-    }
-    return history
 
 def setup_environment(args):
     writer = SummaryWriter(f'output/{args.task_type}/{args.scale}/{args.exp_name}')
@@ -79,14 +27,7 @@ def setup_environment(args):
 
     return writer
 
-def shuffle_task_indices(loaders: list[DataLoader]) -> list[int]:
-    task_order = []
-    for idx, loader in enumerate(loaders):
-        task_order.extend([idx] * len(loader))
-    random.shuffle(task_order)
-    return task_order
-
-def train_task(
+def train_fewshot(
     args,
     model: Module,
     train_loader: DataLoader,
@@ -95,8 +36,13 @@ def train_task(
     metric_computer: Metric,
     task_type: TaskType,
     task_idx: int,
+    shots: int,
 ):
-    """ Train on one task for finetune."""
+    """ Train on one task with k samples for each class."""
+    # sample k samples for each class
+    
+
+
     model.train()
     metric_computer.reset()
     total_loss = 0.0
@@ -289,14 +235,15 @@ def finetune_and_evaluate(
     metric_computer: Metric,
     task_type: TaskType,
     task_idx: int,
-    higher_is_better: bool
+    higher_is_better: ,
+    shots=shots
 ) -> dict:
 
     best_val_metric, best_test_metric = init_best_metric(higher_is_better)
     history = create_finetune_history()
 
     for epoch in tqdm(range(args.finetune_epochs),  desc=f'Finetune-Task{task_idx}'):
-        train_loss, train_acc = train_task(
+        train_loss, train_acc = train_fewshot(
             args=args,
             model=model,
             train_loader=train_loader,
@@ -305,6 +252,7 @@ def finetune_and_evaluate(
             metric_computer=metric_computer,
             task_type=task_type,
             task_idx=task_idx,
+            shots=shots,
         )
         scheduler.step()
 
@@ -359,12 +307,13 @@ def main(args):
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
     scheduler = ExponentialLR(optimizer, gamma=0.95)
 
+    # pass datasets except last one
     train_history, best_test_metrics = train_and_evaluate(
         args=args,
         model=model,
-        train_loaders=train_loaders,
-        valid_loaders=valid_loaders,
-        test_loaders=test_loaders,
+        train_loaders=[:-1],
+        valid_loaders=valid_loaders[:-1],
+        test_loaders=test_loaders[:-1],
         optimizer=optimizer,
         scheduler=scheduler,
         loss_fns=loss_fns,
@@ -380,8 +329,15 @@ def main(args):
         "scheduler": scheduler.state_dict()
     }
 
+    # pass last dataset for finetune
+
+    
+    # freeze transformer
+
+    # train only embedding layer, output query, output layer, 
     best_finetune_test_metrics = []
     fientune_history = {}
+
     task_zips = zip(
         train_loaders,
         valid_loaders,
@@ -391,8 +347,11 @@ def main(args):
         task_types,
         higher_is_betters
     )
-    for task_idx, task_zip in enumerate(task_zips):
-        train_loader, valid_loader, test_loader, loss_fn, metric_computer, task_type, higher_is_better = task_zip
+
+    train_loader, valid_loader, test_loader, loss_fn, metric_computer, task_type, higher_is_better = list(task_zips)[-1]
+    task_idx = num_tasks-1
+    for shots in range(10):
+
         model.load_state_dict(checkpoint["model"])
         optimizer.load_state_dict(checkpoint["optimizer"])
         scheduler.load_state_dict(checkpoint["scheduler"])
@@ -402,19 +361,21 @@ def main(args):
             model=model,
             train_loader=train_loader,
             valid_loader=valid_loader,
-            test_loader=test_loader,
+            test_loader=test_loader
             optimizer=optimizer,
             scheduler=scheduler,
             loss_fn=loss_fn,
             metric_computer=metric_computer,
             task_type=task_type,
             task_idx=task_idx,
-            higher_is_better=higher_is_better
+            higher_is_better=higher_is_better,
+            shots=shots,
         )
-        fientune_history[task_idx] = history
+
+        fientune_history[shots] = history
         best_finetune_test_metrics.append(history["finetune_test_acc"])
 
-    save_results(args, model_config, best_test_metrics, best_finetune_test_metrics, train_history, fientune_history)
+    save_finetune_results(args, model_config, best_test_metrics, best_finetune_test_metrics, train_history, fientune_history)
 
 
 if __name__ == '__main__':
@@ -426,7 +387,7 @@ if __name__ == '__main__':
     parser.add_argument('--epochs', type=int, default=50)
     parser.add_argument('--finetune_epochs', type=int, default=5)
     parser.add_argument('--seed', type=int, default=0)
-    parser.add_argument('--exp_name', type=str, default='TabPerceiverMultiTask_')
+    parser.add_argument('--exp_name', type=str, default='TabPerceiverFewShot_')
     # config
     parser.add_argument('--num_heads', type=int, default=4)
     parser.add_argument('--num_layers', type=int, default=6)
