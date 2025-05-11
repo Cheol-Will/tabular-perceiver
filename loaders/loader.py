@@ -15,7 +15,7 @@ def build_dataset(task_type, dataset_scale, dataset_index):
     return dataset
 
 
-def build_dataloader(dataset, batch_size=128):
+def build_dataloader(dataset, batch_size=128, drop_last=True):
     """ 
         Build dataloader 
     """
@@ -26,7 +26,7 @@ def build_dataloader(dataset, batch_size=128):
     val_tensor_frame = val_dataset.tensor_frame
     test_tensor_frame = test_dataset.tensor_frame
 
-    train_loader = DataLoader(train_tensor_frame, batch_size=batch_size, shuffle=True, drop_last=True)
+    train_loader = DataLoader(train_tensor_frame, batch_size=batch_size, shuffle=True, drop_last=drop_last)
     valid_loader = DataLoader(val_tensor_frame, batch_size=batch_size)
     test_loader = DataLoader(test_tensor_frame, batch_size=batch_size)
 
@@ -36,21 +36,15 @@ def build_dataloader(dataset, batch_size=128):
 
     col_stats = dataset.col_stats
     col_names_dict = train_tensor_frame.col_names_dict
-    num_features = 0
-    for k, v in col_names_dict.items():
-        num_features += len(v)   
-
     meta_data = {
         "col_stats": col_stats,
         "col_names_dict": col_names_dict,
-        "num_features": num_features,
     }
-
     return train_loader, valid_loader, test_loader, meta_data
 
 
 
-def build_datasets(task_type, dataset_scale):
+def build_datasets(task_type, dataset_scale, num_tasks = None):
     """
         Build datasets for specified task_type and dataset_scale for multitask learning.
         Return a list of dataset.
@@ -67,12 +61,13 @@ def build_datasets(task_type, dataset_scale):
             'small':   range(0, 13),  'medium': range(0, 6),  'large': range(0, 6),
         },
     }
-
     datasets = []
-    dataset_indices = list(dataset_index_ranges[task_type][dataset_scale])
+    if num_tasks is None:
+        dataset_indices = list(dataset_index_ranges[task_type][dataset_scale])
+    else:
+        dataset_indices = list(range(0, num_tasks))
     for dataset_index in dataset_indices:
         path = osp.join(osp.dirname(osp.realpath(__file__)), '..', 'data')
-
         dataset = build_dataset(task_type, dataset_scale, dataset_index)
         datasets.append(dataset)
 
