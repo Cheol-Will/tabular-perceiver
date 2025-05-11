@@ -344,6 +344,7 @@ class TabPerceiverMultiTask(nn.Module):
     ):
         super(TabPerceiverMultiTask, self).__init__()
         self.num_tasks = len(col_stats)
+        self.hidden_dim = hidden_dim
         self.is_moe = is_moe
         num_experts = self.num_tasks if is_moe else None
         num_features_list = self.calculate_num_features(col_names_dicts)
@@ -407,7 +408,6 @@ class TabPerceiverMultiTask(nn.Module):
             num_experts=num_experts,
             moe_ratio=moe_ratio,
         )
-        
         self.projections = nn.ModuleList([
             nn.Linear(hidden_dim, num_classes[i])
             for i in range(self.num_tasks)
@@ -464,6 +464,43 @@ class TabPerceiverMultiTask(nn.Module):
         x = self.decoder(queries, x, expert_idx).reshape(batch_size, -1)
         x = self.projections[task_idx](x)
         return x
+
+    def freeze_transformer(self):
+        for param in self.blocks.parameters():
+            param.requires_grad = False
+
+        print("Freeze Transformer Blocks")
+        self.latents.requires_grad = False
+
+        # self.queries.requires_grad = False
+
+    def add_new_task(self, num_classes, col_stats, col_names_dict):
+        num_features = self.calculate_num_features([col_names_dict])[0]
+        self.tensor_frame_encoders.append(
+            StypeWiseFeatureEncoder(
+                out_channels=self.hidden_dim,
+                col_stats=col_stats,
+                col_names_dict=col_names_dict,
+                stype_encoder_dict={
+                    stype.categorical: EmbeddingEncoder(),
+                    stype.numerical: LinearEncoder(),
+                }
+            )
+        )
+        self.pos_embeddings.append(
+            nn.Parameter(torch.empty(1, num_features, self.hidden_dim))
+        )
+        self.queries.append(
+            nn.Parameter(torch.empty(1, 1, self.hidden_dim))
+        )
+        self.projections.append(
+            nn.Linear(self.hidden_dim, num_classes)
+        )
+        self.tensor_frame_encoders[-1].reset_parameters()
+        nn.init.normal_(self.pos_embeddings[-1])
+        nn.init.trunc_normal_(self.queries[-1], std=0.02)
+        self.projections[-1].reset_parameters()
+        print(f"Add new task, now model has {len(self.queries)} tasks")
 
 
 class TabPerceiverTransfer(TabPerceiver):
