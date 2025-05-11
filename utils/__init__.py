@@ -7,6 +7,7 @@ from .utils import update_finetune_history
 from .utils import tensorboard_write
 from .utils import print_log
 from .utils import save_results
+from .utils import save_finetune_results
 from .utils import print_log_multitask
 from .utils import print_log_finetune
 from .utils import create_history

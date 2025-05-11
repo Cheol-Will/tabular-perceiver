@@ -1,9 +1,12 @@
 import os
 import math
 import torch
+import random
 from torch.nn import CrossEntropyLoss, MSELoss, BCEWithLogitsLoss
 from torchmetrics import Accuracy, AUROC, MeanSquaredError
 from torch_frame.typing import TaskType
+from torch_frame.data import DataLoader
+from tabulate import tabulate
 
 def create_train_setup(dataset):
     if dataset.task_type == TaskType.BINARY_CLASSIFICATION:
@@ -81,8 +84,8 @@ def save_results(
     model_config: dict,
     best_test_metrics: list[float],
     best_finetune_test_metrics: list[float],
-    train_history: dict  ,
-    finetune_history: dict  ,
+    train_history: dict,
+    finetune_history: dict,
 ):
     for idx, finetune_test_metric in enumerate(best_finetune_test_metrics):
         path = os.path.join("output", args.task_type, args.scale, str(idx), f"{args.exp_name}.pt")
@@ -96,6 +99,28 @@ def save_results(
             'best_test_metric': finetune_test_metric
         }, path)
         print(f"Saved results to {path}")
+
+def save_finetune_results(
+    args,
+    model_config: dict,
+    best_test_metrics: list[float],
+    best_finetune_test_metrics: list[float],
+    train_history: dict,
+    finetune_history: dict,
+):
+    for idx, finetune_test_metric in enumerate(best_finetune_test_metrics):
+        path = os.path.join("output", args.task_type, args.scale, str(idx), f"{args.exp_name}.pt")
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        torch.save({
+            'args': vars(args),
+            'model_config': model_config,
+            'train_history': train_history[idx],  
+            'finetune_history': finetune_history[idx],  
+            'best_test_before_finetune': best_test_metrics[idx],
+            'best_test_metric': finetune_test_metric
+        }, path)
+        print(f"Saved results to {path}")
+
 
 
 def update_history(
