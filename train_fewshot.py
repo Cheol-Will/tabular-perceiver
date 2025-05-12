@@ -349,7 +349,10 @@ def main(args):
     for k, v in fewshot_train_dataset.col_stats.items():
         print(k)
         print(v)
-        
+
+
+    # During inference, need to handle unseen categories of categorical features.
+
     return 
 
     shot_trials = [1, 5, 10, 100]

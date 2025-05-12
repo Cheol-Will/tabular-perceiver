@@ -46,6 +46,7 @@ class LinearL1:
         tf: TensorFrame,
         columns: Optional[List[str]] = None
     ) -> Tuple[np.ndarray, np.ndarray, List[str]]:
+        print(f"input columns: {columns}")
         tf = tf.cpu()
         y = tf.y.numpy() if tf.y is not None else None
         dfs: List[pd.DataFrame] = []
@@ -55,6 +56,10 @@ class LinearL1:
         if stype.categorical in tf.feat_dict:
             arr = tf.feat_dict[stype.categorical].numpy()
             cols = np.arange(offset, offset + arr.shape[1])
+            # print(f"debug arr: {arr}")
+            # print(f"cols: {cols}")
+            # print(f"Added Df: ")
+            print(pd.DataFrame(arr, columns=cols.astype(str)))
             dfs.append(pd.DataFrame(arr, columns=cols.astype(str)))
             cat_idxs.append(cols)
             offset += arr.shape[1]
@@ -76,9 +81,16 @@ class LinearL1:
         if cat_idxs:
             cols_to_dummy = [str(c) for arr in cat_idxs for c in arr]
             df = pd.get_dummies(df, columns=cols_to_dummy, drop_first=True)
+            # print("Debug: ")
+            # print(f"df with dummies {df.head()}")   
+            # print(df.shape)
         # align columns
+        # filter only categories(dummy-columns) seen during training.
         if columns is not None:
             df = df.reindex(columns=columns, fill_value=0)
+            # print("Debug: ")
+            # print(f"df after reindexing {df.head()}")   
+            # print(df.shape)
         # return updated columns
         return df.values, y, df.columns.tolist()
 
@@ -136,6 +148,7 @@ class LinearL1:
     ):
         # prepare train/val with consistent columns
         train_x, train_y, cols = self._to_linear_input(tf_train, columns=None)
+        print(f"Cat features: {cols}")
         val_x, val_y, _ = self._to_linear_input(tf_val, columns=cols)
         self.columns = cols
         direction = 'minimize' if self.metric in (Metric.RMSE, Metric.MAE) else 'maximize'
