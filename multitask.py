@@ -8,26 +8,20 @@ import torch
 from torch.nn import Module
 from torch.optim.lr_scheduler import ExponentialLR
 from torchmetrics import Metric
-from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 
 from torch_frame.typing import TaskType
 from torch_frame.data import DataLoader
 from models import TabPerceiverMultiTask
 from loaders import build_datasets, build_dataloaders
-from utils import create_multitask_setup, init_best_metric, init_best_metrics, update_history, update_finetune_history, tensorboard_write, save_results
+from utils import create_multitask_setup, init_best_metric, init_best_metrics, update_history, update_finetune_history, save_results
 from utils import print_log_multitask, print_log_finetune, create_history, create_finetune_history, shuffle_task_indices
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 def setup_environment(args):
-    writer = SummaryWriter(f'output/{args.task_type}/{args.scale}/{args.exp_name}')
     torch.manual_seed(args.seed)
     random.seed(args.seed)
-
-    return writer
-
-
 
 def train_task(
     args,
@@ -76,6 +70,43 @@ def train_task(
 
     return train_loss, train_metric
 
+def evaluate_task(
+    model: Module,
+    loader: DataLoader,
+    loss_fn: Module,
+    metric_computer: Metric,
+    task_type: TaskType,
+    task_idx: int
+) -> tuple[float, float]:
+    """Evaluate on one task"""
+    model.eval()
+    metric_computer.reset()
+    total_loss = 0.0
+    num_samples = 0
+    with torch.no_grad():
+        for tf in loader:
+            tf = tf.to(device)
+            y = tf.y
+            preds = model(tf, task_idx)
+            
+            if preds.size(1) == 1:
+                preds = preds.view(-1)
+            if task_type == TaskType.BINARY_CLASSIFICATION:
+                y = y.float()
+
+            loss = loss_fn(preds, y)
+            total_loss += loss.item() * y.size(0)
+            num_samples += y.size(0)
+
+            if task_type == TaskType.MULTICLASS_CLASSIFICATION:
+                preds = preds.argmax(dim=-1)
+            elif task_type == TaskType.REGRESSION and preds.ndim > 1:
+                preds = preds.view(-1)
+            metric_computer.update(preds, tf.y)
+    eval_loss = total_loss / num_samples
+    eval_metric = metric_computer.compute().item()
+    return eval_loss, eval_metric 
+
 def train_multitask(
     model: Module,
     loaders: list[DataLoader],
@@ -123,44 +154,6 @@ def train_multitask(
 
     return task_losses, task_metrics
 
-
-def evaluate_task(
-    model: Module,
-    loader: DataLoader,
-    loss_fn: Module,
-    metric_computer: Metric,
-    task_type: TaskType,
-    task_idx: int
-) -> tuple[float, float]:
-    """Evaluate on one task"""
-    model.eval()
-    metric_computer.reset()
-    total_loss = 0.0
-    num_samples = 0
-    with torch.no_grad():
-        for tf in loader:
-            tf = tf.to(device)
-            y = tf.y
-            preds = model(tf, task_idx)
-            
-            if preds.size(1) == 1:
-                preds = preds.view(-1)
-            if task_type == TaskType.BINARY_CLASSIFICATION:
-                y = y.float()
-
-            loss = loss_fn(preds, y)
-            total_loss += loss.item() * y.size(0)
-            num_samples += y.size(0)
-
-            if task_type == TaskType.MULTICLASS_CLASSIFICATION:
-                preds = preds.argmax(dim=-1)
-            elif task_type == TaskType.REGRESSION and preds.ndim > 1:
-                preds = preds.view(-1)
-            metric_computer.update(preds, tf.y)
-    eval_loss = total_loss / num_samples
-    eval_metric = metric_computer.compute().item()
-    return eval_loss, eval_metric 
-
 def train_and_evaluate(
     args,
     model: Module,
@@ -173,7 +166,6 @@ def train_and_evaluate(
     metric_computers: list[Metric],
     task_types: list[TaskType],
     higher_is_betters: list[bool],
-    writer: SummaryWriter,
 ) -> tuple[list[float], list[float]]:
     """Train on multiple tasks and evaluate on each tasks"""
     num_tasks = len(train_loaders)
@@ -202,15 +194,13 @@ def train_and_evaluate(
             val_metrics.append(val_metric)
             val_losses.append(val_loss)
 
+            # update test metrics if improved
             improved = (val_metric > best_val_metrics[task_idx]) if higher_is_betters[task_idx] else (val_metric < best_val_metrics[task_idx])
             if improved:
                 best_val_metrics[task_idx] = val_metric
                 test_loss, best_test_metrics[task_idx] = evaluate_task(model, test_loaders[task_idx], loss_fn, metric_computer, task_type, task_idx)
 
         update_history(history, train_losses, train_metrics, val_losses, val_metrics)
-        tensorboard_write(writer, epoch, train_metrics, train_losses, name="train")
-        tensorboard_write(writer, epoch, val_metrics, val_losses, name="valid")
-
         print_log_multitask(epoch, args.epochs,
                 train_losses, train_metrics,
                 val_losses, val_metrics,
@@ -275,7 +265,7 @@ def finetune_and_evaluate(
 
 
 def main(args):
-    writer = setup_environment(args)
+    setup_environment(args)
     
     datasets = build_datasets(task_type=args.task_type, dataset_scale=args.scale)
     train_loaders, valid_loaders, test_loaders, meta = build_dataloaders(datasets)
@@ -314,7 +304,6 @@ def main(args):
         metric_computers=metric_computers,
         task_types=task_types,
         higher_is_betters=higher_is_betters,
-        writer=writer,
     )
 
     checkpoint = {
@@ -336,6 +325,8 @@ def main(args):
     )
     for task_idx, task_zip in enumerate(task_zips):
         train_loader, valid_loader, test_loader, loss_fn, metric_computer, task_type, higher_is_better = task_zip
+        
+        # load state dict
         model.load_state_dict(checkpoint["model"])
         optimizer.load_state_dict(checkpoint["optimizer"])
         scheduler.load_state_dict(checkpoint["scheduler"])
