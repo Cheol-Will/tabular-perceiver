@@ -1,6 +1,7 @@
 import os.path as osp
+import pandas as pd
 from torch_frame.typing import TaskType
-from torch_frame.data import DataLoader
+from torch_frame.data import DataLoader, Dataset
 from torch_frame.datasets import DataFrameBenchmark
 
 def build_dataset(task_type, dataset_scale, dataset_index):
@@ -14,6 +15,35 @@ def build_dataset(task_type, dataset_scale, dataset_index):
     dataset.materialize()
     return dataset
 
+def build_fewshot_dataset(dataset, shots, seed=0):
+    """
+        input: train_dataset
+        return: sampled train_dataset
+    """
+    # sample k samples for each class
+    y_col = dataset.target_col
+    df_train = dataset.df
+    unique_classses = df_train[y_col].unique()
+    sampled_dfs = []
+    for target_class in unique_classses:
+        sampled = df_train[df_train[y_col] == target_class].sample(n=shots, random_state=seed) 
+        sampled_dfs.append(sampled)
+    fewshot_train_df = pd.concat(sampled_dfs)
+
+    fewshot_dataset = Dataset(
+        df=fewshot_train_df,
+        col_to_stype=dataset.col_to_stype,
+        target_col=dataset.target_col,
+        split_col=dataset.split_col,
+        col_to_sep=dataset.col_to_sep,
+        col_to_text_embedder_cfg=dataset.col_to_text_embedder_cfg,
+        col_to_text_tokenizer_cfg=dataset.col_to_text_tokenizer_cfg,
+        col_to_image_embedder_cfg=dataset.col_to_image_embedder_cfg,
+        col_to_time_format=dataset.col_to_time_format
+    )
+
+    fewshot_dataset.materialize()
+    return fewshot_dataset
 
 def build_dataloader(dataset, batch_size=128, drop_last=True):
     """ 

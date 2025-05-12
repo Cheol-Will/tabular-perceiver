@@ -1,10 +1,13 @@
+.gitignore
 __pycache__/
 data/
 helper/
 output/
 *.sh
 *.pt
+*.pyc
 ./gitignore
 finetune_old.py
 multitask_old.py
 pretrain.py
+pat.txt

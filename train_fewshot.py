@@ -12,9 +12,9 @@ from torchmetrics import Metric
 from tqdm import tqdm
 
 from torch_frame.typing import TaskType
-from torch_frame.data import DataLoader, Dataset
+from torch_frame.data import DataLoader
 from models import TabPerceiverMultiTask
-from loaders import build_dataset, build_dataloader, build_datasets, build_dataloaders
+from loaders import build_dataset, build_fewshot_dataset, build_dataloader, build_datasets, build_dataloaders
 from utils import create_train_setup, create_multitask_setup, init_best_metric, init_best_metrics, update_history, update_finetune_history, save_finetune_results
 from utils import print_log_multitask, print_log_finetune, create_history, create_finetune_history, shuffle_task_indices
 
@@ -96,12 +96,10 @@ def train_multitask(
         if task_types[task_idx] == TaskType.BINARY_CLASSIFICATION:
             y = y.float()
 
-        # loss = loss_fn(preds, y)
         loss = loss_fns[task_idx](preds, y)
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-        # total_loss += loss.item() * y.size(0)
         task_total_losses[task_idx] += loss.item() * y.size(0)
         task_num_samples[task_idx] += y.size(0)
 
@@ -263,37 +261,28 @@ def finetune_and_evaluate(
     print_log_finetune(history=history, metric_name="Acc", task_idx=task_idx)
     return history
 
-def build_fewshot_dataset(dataset, shots):
-    train_dataset = dataset.get_split("train")
-    val_dataset = dataset.get_split("val")
-    test_dataset = dataset.get_split("test")
+def build_fewshot_dataloader(train_dataset, val_dataset, test_dataset, batch_size=128, drop_last=True):
+    train_tensor_frame = train_dataset.tensor_frame
+    val_tensor_frame = val_dataset.tensor_frame
+    test_tensor_frame = test_dataset.tensor_frame
 
-    # sample k samples for each class
-    y_col = train_dataset.target_col
-    df_train = train_dataset.df
-    unique_classses = df_train[y_col].unique()
-    sampled_dfs = []
-    for target_class in unique_classses:
-        sampled = df_train[df_train[y_col] == target_class].sample(n=shots, random_state=args.seed) 
-        sampled_dfs.append(sampled)
-    fewshot_train_df = pd.concat(sampled_dfs)
+    train_loader = DataLoader(train_tensor_frame, batch_size=batch_size, shuffle=True, drop_last=drop_last)
+    valid_loader = DataLoader(val_tensor_frame, batch_size=batch_size)
+    test_loader = DataLoader(test_tensor_frame, batch_size=batch_size)
 
-    # add split
-    merged_df = pd.concat([fewshot_train_df, val_dataset.df, test_dataset.df]).reset_index(drop=True)
-    fewshot_dataset = Dataset(
-        df=merged_df,
-        col_to_stype=dataset.col_to_stype,
-        target_col=dataset.target_col,
-        split_col=dataset.split_col,
-        col_to_sep=dataset.col_to_sep,
-        col_to_text_embedder_cfg=dataset.col_to_text_embedder_cfg,
-        col_to_text_tokenizer_cfg=dataset.col_to_text_tokenizer_cfg,
-        col_to_image_embedder_cfg=dataset.col_to_image_embedder_cfg,
-        col_to_time_format=dataset.col_to_time_format
-    )
+    print(f'Training set has {len(train_tensor_frame)} instances')
+    print(f'Validation set has {len(val_tensor_frame)} instances')
+    print(f'Test set has {len(test_tensor_frame)} instances')
 
-    fewshot_dataset.materialize()
-    return fewshot_dataset
+    col_stats = train_dataset.col_stats
+    col_names_dict = train_tensor_frame.col_names_dict
+    meta_data = {
+        "col_stats": col_stats,
+        "col_names_dict": col_names_dict,
+    }
+    print(col_stats)
+    return train_loader, valid_loader, test_loader, meta_data
+
 
 def main(args):
     
@@ -345,11 +334,38 @@ def main(args):
     task_idx = 13
     dataset = build_dataset(task_type=args.task_type, dataset_scale=args.scale, dataset_index=task_idx)
     num_classes, loss_fn, metric_computer, higher_is_better, task_type = create_train_setup(dataset)
-    shot_trials = [1, 2, 3, 4, 5, 10, 15, 20, 50, 100, 1000]
+    
+    dataset = dataset.shuffle()
+    train_dataset, val_dataset, test_dataset = dataset.split()
+    print(f"Original dataset:")
+    for k, v in dataset.col_stats.items():
+        print(k)
+        print(v)
+
+
+    print(f"\n\nSampled dataset:")
+    fewshot_train_dataset = build_fewshot_dataset(train_dataset, 1)
+
+    for k, v in fewshot_train_dataset.col_stats.items():
+        print(k)
+        print(v)
+        
+    return 
+
+    shot_trials = [1, 5, 10, 100]
     for shots in shot_trials:
-        # load datasets with k-shots samples
-        fewshot_dataset = build_fewshot_dataset(dataset, shots)
-        fewshot_train_loader, fewshot_valid_loader, fewshot_test_loader, fewshot_meta_data = build_dataloader(fewshot_dataset, batch_size=128, drop_last=False)
+        # sample k shots
+        torch.manual_seed(args.seed)
+        random.seed(args.seed)
+        fewshot_train_dataset = build_fewshot_dataset(train_dataset, shots)
+        target_col = fewshot_train_dataset.target_col 
+        print(f"Train dataset has {len(fewshot_train_dataset)} instances.")
+        print(fewshot_train_dataset.df[target_col])
+
+        # dataloader
+        fewshot_train_loader, fewshot_valid_loader, fewshot_test_loader, fewshot_meta_data = build_fewshot_dataloader(fewshot_train_dataset, val_dataset, test_dataset, batch_size=128, drop_last=False)
+        
+        # fewshot_train_loader, fewshot_valid_loader, fewshot_test_loader, fewshot_meta_data = build_dataloader(dataset, batch_size=128, drop_last=False)
         # init model with pretrained weights and add new task head 
         model = TabPerceiverMultiTask(
             **model_config,
