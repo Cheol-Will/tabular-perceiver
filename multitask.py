@@ -348,8 +348,7 @@ def main(args):
         fientune_history[task_idx] = history
         best_finetune_test_metrics.append(history["finetune_test_acc"])
 
-    save_results(args, model_config, best_test_metrics, best_finetune_test_metrics, train_history, fientune_history)
-
+    save_results(args, model_config, best_test_metrics, train_history, best_finetune_test_metrics, fientune_history)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Multitask training and fine-tuning script")

@@ -11,7 +11,9 @@ from torch.optim.lr_scheduler import ExponentialLR
 from torchmetrics import Metric
 from tqdm import tqdm
 
+from torch_frame import NAStrategy, stype
 from torch_frame.typing import TaskType
+from torch_frame.data.stats import StatType
 from torch_frame.data import DataLoader
 from models import TabPerceiverMultiTask
 from loaders import build_dataset, build_fewshot_dataset, build_dataloader, build_datasets, build_dataloaders
@@ -261,7 +263,28 @@ def finetune_and_evaluate(
     print_log_finetune(history=history, metric_name="Acc", task_idx=task_idx)
     return history
 
+def replace_unseen_categories(df, col_to_stype, col_stats):
+    df = df.copy()
+    for col, st in col_to_stype.items():
+        if st == stype.categorical:
+            seen_values = set(col_stats[col][StatType.COUNT][0])
+            df[col] = df[col].apply(lambda x: x if x in seen_values else -1)
+    return df
+
+
 def build_fewshot_dataloader(train_dataset, val_dataset, test_dataset, batch_size=128, drop_last=True):
+    # replace unseen value in train_dataset with -1
+    print("Debug: ")
+    print(val_dataset.df.iloc[:5, :5])
+    print(val_dataset.df.iloc[:5, 5:10])
+    val_dataset.df = replace_unseen_categories(val_dataset.df, train_dataset.col_to_stype, train_dataset.col_stats)
+    test_dataset.df = replace_unseen_categories(test_dataset.df, train_dataset.col_to_stype, train_dataset.col_stats)
+    print("Debug: ")
+    print(val_dataset.df.iloc[:5, :5])
+    print(val_dataset.df.iloc[:5, 5:10])
+    val_dataset.materialize()
+    test_dataset.materialize()
+
     train_tensor_frame = train_dataset.tensor_frame
     val_tensor_frame = val_dataset.tensor_frame
     test_tensor_frame = test_dataset.tensor_frame
@@ -280,7 +303,6 @@ def build_fewshot_dataloader(train_dataset, val_dataset, test_dataset, batch_siz
         "col_stats": col_stats,
         "col_names_dict": col_names_dict,
     }
-    print(col_stats)
     return train_loader, valid_loader, test_loader, meta_data
 
 
@@ -352,9 +374,6 @@ def main(args):
 
 
     # During inference, need to handle unseen categories of categorical features.
-
-    return 
-
     shot_trials = [1, 5, 10, 100]
     for shots in shot_trials:
         # sample k shots

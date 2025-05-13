@@ -83,21 +83,35 @@ def save_results(
     args,
     model_config: dict,
     best_test_metrics: list[float],
-    best_finetune_test_metrics: list[float],
     train_history: dict,
-    finetune_history: dict,
+    best_finetune_test_metrics: list[float] = None,
+    finetune_history: dict = None,
 ):
-    for idx, finetune_test_metric in enumerate(best_finetune_test_metrics):
+    if best_finetune_test_metrics is not None:
+        num_runs = len(best_finetune_test_metrics)
+    else:
+        num_runs = len(best_test_metrics)
+
+    for idx in range(num_runs):
         path = os.path.join("output", args.task_type, args.scale, str(idx), f"{args.exp_name}.pt")
         os.makedirs(os.path.dirname(path), exist_ok=True)
-        torch.save({
+
+        payload = {
             'args': vars(args),
             'model_config': model_config,
-            'train_history': train_history[idx],  
-            'finetune_history': finetune_history[idx],  
-            'best_test_before_finetune': best_test_metrics[idx],
-            'best_test_metric': finetune_test_metric
-        }, path)
+            'train_history': train_history[idx],
+        }
+
+        if best_finetune_test_metrics is not None and finetune_history is not None:
+            payload.update({
+                'finetune_history': finetune_history[idx],
+                'best_test_before_finetune': best_test_metrics[idx],
+                'best_test_metric': best_finetune_test_metrics[idx],
+            })
+        else:
+            payload['best_test_metric'] = best_test_metrics[idx]
+
+        torch.save(payload, path)
         print(f"Saved results to {path}")
 
 def save_finetune_results(
