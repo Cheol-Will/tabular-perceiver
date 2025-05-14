@@ -15,7 +15,7 @@ def build_dataset(task_type, dataset_scale, dataset_index):
     dataset.materialize()
     return dataset
 
-def build_fewshot_dataset(dataset, shots, seed=0):
+def build_fewshot_dataset(dataset, shots, seed):
     """
         input: train_dataset
         return: sampled train_dataset
@@ -72,8 +72,6 @@ def build_dataloader(dataset, batch_size=128, drop_last=True):
     }
     return train_loader, valid_loader, test_loader, meta_data
 
-
-
 def build_datasets(task_type, dataset_scale, num_tasks = None):
     """
         Build datasets for specified task_type and dataset_scale for multitask learning.
@@ -102,7 +100,6 @@ def build_datasets(task_type, dataset_scale, num_tasks = None):
         datasets.append(dataset)
 
     return datasets
-
 
 def build_dataloaders(datasets, batch_size=128):
     """
@@ -133,6 +130,4 @@ def build_dataloaders(datasets, batch_size=128):
         test_loaders.append(test_loader)
         meta_datas["col_stats"].append(col_stats)
         meta_datas["col_names_dicts"].append(col_names_dict)
-
-
     return train_loaders, valid_loaders, test_loaders, meta_datas
