@@ -197,3 +197,39 @@ class LinearL1:
         self.params = data.get('params', {})
         self.columns = data.get('columns', [])
         self._is_fitted = True
+
+    def cross_validation(self, tf_train: TensorFrame, tf_test: TensorFrame, seed: int):
+        """Grid Search with Cross Validation."""
+        from sklearn.model_selection import StratifiedKFold, GridSearchCV, KFold
+
+        def compute_metric(clf_in, X, y):
+            """Helper function for calculating metric"""
+            p = np.argmax(clf_in.predict_proba(X), axis=1)
+            metric_score = np.sum(p == np.array(y)) / p.shape[0]
+            return metric_score
+
+        parameters = {
+            'C': [1e-4, 1e-3, 1e-2, 1e-1, 1, 10.0,],
+        }
+
+        # define model
+        estimator = LogisticRegression(
+            penalty='l1', C=self.params['C'], solver='saga', max_iter=10000,
+            multi_class='auto'
+        )
+        # convert input tensorframe into pandas data frame
+        train_x, train_y, cols = self._to_linear_input(tf_train)
+        test_x, test_y, _ = self._to_linear_input(tf_test, cols)
+
+        # create KFold
+        folds = 5
+        inner_cv = KFold(n_splits=folds, shuffle=True, random_state=seed)
+
+        # create GridSearchCV and fit
+        clf = GridSearchCV(estimator=estimator, param_grid=parameters, cv=inner_cv, scoring="accuracy", n_jobs=40, verbose=0)
+        clf.fit(train_x, train_y)
+
+        # test with best hyperparameters        
+        score_train = compute_metric(clf, train_x, train_y)
+        score_test = compute_metric(clf, test_x, test_y)
+        return score_train, score_test
