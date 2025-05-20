@@ -239,7 +239,12 @@ class LightGBM(GBDT):
 
         parameters = {
             "verbosity": [-1],
-            'num_leaves': [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096],
+            "max_depth": [3, 5, 7, 9, 11],
+            'num_leaves': [2, 4, 8, 16],
+            # 'num_leaves': [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024],
+            # "subsample": [0.05, 0.1, 0.5, 1.0],
+            # "colsample_bytree": [0.05, 0.1, 0.5, 1.0],
+            "min_data_in_leaf": [2, 4, 8, ], 
             'lambda_l1': [1e-8, 1e-7, 1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1, 1., 10.],
             'lambda_l2': [1e-8, 1e-7, 1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1, 1., 10.],
             'learning_rate': [0.01, 0.03, 0.1, 0.3],
@@ -263,4 +268,4 @@ class LightGBM(GBDT):
         # test with best hyperparameters        
         score_train = compute_metric(clf, train_x, train_y)
         score_test = compute_metric(clf, test_x, test_y)
-        return score_train, score_test
+        return score_train, score_test, clf.best_params_

@@ -214,9 +214,9 @@ class LinearL1:
 
         # define model
         estimator = LogisticRegression(
-            penalty='l1', C=self.params['C'], solver='saga', max_iter=10000,
-            multi_class='auto'
+            penalty='l1', solver='saga', max_iter=10000, multi_class='auto'
         )
+
         # convert input tensorframe into pandas data frame
         train_x, train_y, cols = self._to_linear_input(tf_train)
         test_x, test_y, _ = self._to_linear_input(tf_test, cols)
@@ -232,4 +232,4 @@ class LinearL1:
         # test with best hyperparameters        
         score_train = compute_metric(clf, train_x, train_y)
         score_test = compute_metric(clf, test_x, test_y)
-        return score_train, score_test
+        return score_train, score_test, clf.best_params_

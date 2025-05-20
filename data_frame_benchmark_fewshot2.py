@@ -41,8 +41,6 @@ parser.add_argument('--scale', type=str, choices=['small', 'medium', 'large'],
 parser.add_argument('--idx', type=int, default=0,
                     help='The index of the dataset within DataFrameBenchmark')
 parser.add_argument('--epochs', type=int, default=50)
-parser.add_argument('--num_trials', type=int, default=20,
-                    help='Number of Optuna-based hyper-parameter tuning.')
 parser.add_argument(
     '--num_repeats', type=int, default=5,
     help='Number of repeated training and eval on the best config.')
@@ -122,11 +120,15 @@ else:
     col_names_dict = train_tensor_frame.col_names_dict
 
 
-def main_gbdt():
+def main_base():
     # pseudo fewshot learning of tree model with CV
-    seeds = list(range(100))
+    # seeds = [0, 1, 32, 42, 1024]
+    seeds = list(range(30))
     num_classes = dataset.num_classes
-    result = []
+    history = {
+        "train_metric": [],
+        "test_metric": [],
+    }
     print(f'col stats of original train dataset: {train_dataset.col_stats}')
     for seed in tqdm(seeds):
         # CV with k-shot dataset
@@ -135,24 +137,24 @@ def main_gbdt():
         if args.model_type == "LightGBM":
             estimator = LightGBM(task_type=dataset.task_type, num_classes=num_classes)
         elif args.model_type == "LinearL1":
-            estimator = Lasso(task_type=dataset.task_type, num_classes=num_classes)
+            estimator = LinearL1(task_type=dataset.task_type, num_classes=num_classes)
         # merge valid and test dataset or just use only test dataset
         # test_dataset = merge_val_tests(val_dataset, test_dataset)
 
-        train_metric, test_metric = estimator.cross_validation(fewshot_train_dataset.tensor_frame, test_dataset.tensor_frame, seed)
-        print(f"train metric :{train_metric:.7f}")
-        print(f"test metric :{test_metric:.7f}")
-        result.append(test_metric)
-    print(result)
-    print(np.mean(result))
+        train_metric, test_metric, hyperparameters = estimator.cross_validation(fewshot_train_dataset.tensor_frame, test_dataset.tensor_frame, seed)
+        print(f"Train Metric: {train_metric:.7f} | Test Metric: {test_metric:.7f}")
+        print(f"best hyperparameters: {hyperparameters}")
+        history["train_metric"].append(train_metric)
+        history["test_metric"].append(test_metric)
+
+    print(history)
+    print(np.mean(history["test_metric"]))
 
 
 if __name__ == '__main__':
     print(args)
 
-    if args.model_type in ["XGBoost", "CatBoost", "LightGBM"]:
-        main_gbdt()
-    elif args.model_type in ["LinearL1"]:
+    if args.model_type in ["XGBoost", "CatBoost", "LightGBM", "LinearL1"]:
         main_base()
     else:
         main_deep_models()
