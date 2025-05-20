@@ -214,7 +214,10 @@ class LinearL1:
 
         # define model
         estimator = LogisticRegression(
-            penalty='l1', solver='saga', max_iter=10000, multi_class='auto'
+            penalty='l1', 
+            solver='saga', 
+            max_iter=10000, 
+            # multi_class='auto'
         )
 
         # convert input tensorframe into pandas data frame
