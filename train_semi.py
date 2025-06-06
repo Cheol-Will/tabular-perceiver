@@ -468,6 +468,7 @@ def main(args):
         history.append(seed_history)
 
     path = f"output/{args.task_type}/{args.scale}/{args.idx}/{args.exp_name}.pt"
+    os.makedirs(os.path.dirname(path), exist_ok=True)
     torch.save(history, path)
     for hist in history:
         print(hist["finetune"]["test_metrics"])

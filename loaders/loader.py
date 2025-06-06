@@ -1,8 +1,18 @@
 import os.path as osp
 import pandas as pd
+import torch
 from torch_frame.typing import TaskType
-from torch_frame.data import DataLoader, Dataset
+from torch_frame.data import DataLoader, Dataset, TensorFrame
 from torch_frame.datasets import DataFrameBenchmark
+from torch_frame.typing import IndexSelectType
+
+class CustomDataLoader(DataLoader):
+    r"""A custom data loader which creates mini-batches and indicies 
+    so that it is possible to track each instance in the memory bank.
+    """
+
+    def collate_fn(self, index: IndexSelectType) -> TensorFrame:
+        return self.tensor_frame[index], torch.as_tensor(index)
 
 def build_dataset(task_type, dataset_scale, dataset_index):
     """ 
@@ -45,7 +55,7 @@ def build_fewshot_dataset(dataset, shots, seed):
     fewshot_dataset.materialize()
     return fewshot_dataset
 
-def build_dataloader(dataset, batch_size=128, drop_last=True):
+def build_dataloader(dataset, batch_size=128, drop_last=True, is_custom=False):
     """ 
         Build dataloader 
     """
@@ -55,10 +65,15 @@ def build_dataloader(dataset, batch_size=128, drop_last=True):
     train_tensor_frame = train_dataset.tensor_frame
     val_tensor_frame = val_dataset.tensor_frame
     test_tensor_frame = test_dataset.tensor_frame
-
-    train_loader = DataLoader(train_tensor_frame, batch_size=batch_size, shuffle=True, drop_last=drop_last)
-    valid_loader = DataLoader(val_tensor_frame, batch_size=batch_size)
-    test_loader = DataLoader(test_tensor_frame, batch_size=batch_size)
+    if not is_custom:
+        train_loader = DataLoader(train_tensor_frame, batch_size=batch_size, shuffle=True, drop_last=drop_last)
+        valid_loader = DataLoader(val_tensor_frame, batch_size=batch_size)
+        test_loader = DataLoader(test_tensor_frame, batch_size=batch_size)
+    else:
+        # train_loader returns (tensor_frame, index)
+        train_loader = CustomDataLoader(train_tensor_frame, batch_size=batch_size, shuffle=True, drop_last=drop_last)
+        valid_loader = DataLoader(val_tensor_frame, batch_size=batch_size)
+        test_loader = DataLoader(test_tensor_frame, batch_size=batch_size)
 
     print(f'Training set has {len(train_tensor_frame)} instances')
     print(f'Validation set has {len(val_tensor_frame)} instances')
@@ -66,10 +81,19 @@ def build_dataloader(dataset, batch_size=128, drop_last=True):
 
     col_stats = dataset.col_stats
     col_names_dict = train_tensor_frame.col_names_dict
-    meta_data = {
-        "col_stats": col_stats,
-        "col_names_dict": col_names_dict,
-    }
+    if not is_custom:
+        meta_data = {
+            "col_stats": col_stats,
+            "col_names_dict": col_names_dict,
+        }
+    else: 
+        num_samples = len(train_tensor_frame)
+        meta_data = {
+            "col_stats": col_stats,
+            "col_names_dict": col_names_dict,
+            "num_samples": num_samples,
+        }
+
     return train_loader, valid_loader, test_loader, meta_data
 
 def build_datasets(task_type, dataset_scale, num_tasks = None):
