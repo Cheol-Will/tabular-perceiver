@@ -129,7 +129,7 @@ def train_and_evaluate(
             epoch=epoch
         )
         scheduler.step()
-        print(f"Epoch {epoch+1}/{epochs} - Train Loss: {train_loss:.4f} - Train Metric: {train_metric:.4f}")
+        
         val_metric = evaluate(model, valid_loader, metric_computer, task_type)
         improved = (val_metric > best_val_metric) if higher_is_better else (val_metric < best_val_metric)
 
@@ -141,9 +141,12 @@ def train_and_evaluate(
             trial.report(val_metric, epoch)
             if trial.should_prune():
                 raise optuna.TrialPruned()
-
+        print(f"Epoch {epoch+1}/{epochs} - Train Loss: {train_loss:.4f} - Train Metric: {train_metric:.4f}")
+        print(f"Epoch {epoch+1}/{epochs} - Val Metric: {val_metric:.4f}")
         # After one epoch update memory bank for every instance
         model.update_memory(train_loader)    
+    print(
+        f'Best val: {best_val_metric:.4f}, Best test: {best_test_metric:.4f}')
 
     return best_val_metric, best_test_metric
 
@@ -160,6 +163,7 @@ def train_and_eval_with_cfg(
     model = MemPerceiver(
         **model_cfg,
         **meta,
+        ensemble=True,
         num_classes=num_classes,
     ).to(device)
 
@@ -182,8 +186,6 @@ def train_and_eval_with_cfg(
     )
     return best_val_metrics, best_test_metrics
 
-
-
 def main(args):
     
     print("Hyper-parameter search via Optuna")
@@ -199,7 +201,7 @@ def main(args):
         'hidden_dim': [32, 64, 128, 256],
         'mlp_ratio': [0.25, 0.5, 1, 2, 4],
         'dropout_prob': [0, 0.2],
-        # need to add top-k
+        'top_k': [1, 3, 5],
     }
     train_search_space = {
         'batch_size': [128, 256],
@@ -256,7 +258,7 @@ def main(args):
     final_model_time = (end_time - start_time) / args.num_repeats
     best_val_metrics = np.array(best_val_metrics)
     best_test_metrics = np.array(best_test_metrics)
-    
+    print(best_test_metrics)
     result_dict = {
         'args': args.__dict__,
         'best_val_metrics': best_val_metrics,

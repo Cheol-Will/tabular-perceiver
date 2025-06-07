@@ -211,6 +211,7 @@ class CrossAttention(nn.Module):
 class MemPerceiver(nn.Module):
     def __init__(
         self,
+        top_k: int,
         num_classes: int,
         num_samples: int,
         num_heads: int,
@@ -221,12 +222,14 @@ class MemPerceiver(nn.Module):
         dropout_prob: float,
         col_stats: dict[str, dict[StatType, Any]],
         col_names_dict: dict[torch_frame.stype, list[str]],
+        ensemble = None,
     ):
         super(MemPerceiver, self).__init__()
-
+        self.top_k = top_k
         self.hidden_dim = hidden_dim
         self.num_features = self.calculate_num_features(col_names_dict)
-
+        self.ensemble = ensemble 
+        
         self.register_buffer('memory', torch.empty(num_samples, num_latents, hidden_dim))
         self.pos_embedding = nn.Parameter(torch.empty(1, self.num_features, hidden_dim))
         self.latents = nn.Parameter(torch.empty(1, num_latents, hidden_dim))
@@ -293,7 +296,7 @@ class MemPerceiver(nn.Module):
         self.proj[1].reset_parameters()
 
     @torch.no_grad()
-    def retrieve(self, x, k=5):
+    def retrieve(self, x, attention=None):
         r"""
             Retrieve top k instances from memory bank.
             return: tensor (batch_size, k, num_latents, hidden_dim)
@@ -305,12 +308,15 @@ class MemPerceiver(nn.Module):
 
         # option 1: average cosine similarity on latent dimension
         cos_sim = torch.einsum("bld,nld->bnl", x_norm, memory_norm)  # (B, N, L)
-        cos_sim_avg = cos_sim.mean(dim=-1)  # (B, N)
-        
+        if attention is None:
+            cos_sim_avg = cos_sim.mean(dim=-1)  # (B, N)
+        else:
+            # average the cosine similarities with weights=attention score in encoder
+            cos_sim_avg = cos_sim
         # retrieve top k for each batch
-        _, top_k_indices = torch.topk(cos_sim_avg, k=min(k, num_samples), dim=-1) # (B, K)
+        _, top_k_indices = torch.topk(cos_sim_avg, k=min(self.top_k, num_samples), dim=-1) # (B, K)
         retrievals = self.memory[top_k_indices.view(-1), :, :]  # (B*k, L, D)
-        retrievals = retrievals.view(batch_size, k, num_latents, hidden_dim)  # (B, k, L, D)        
+        retrievals = retrievals.view(batch_size, self.top_k, num_latents, hidden_dim)  # (B, k, L, D)        
 
         return retrievals
 
@@ -341,20 +347,45 @@ class MemPerceiver(nn.Module):
 
     def forward(self, tf):
         # (B, F, 1) -> (B, F, D)
-        batch_size = len(tf)
-        latents = self.latents.repeat(batch_size, 1, 1)
-        query = self.query.repeat(batch_size, 1, 1)
+        if self.ensemble is None:
+            batch_size = len(tf)
+            latents = self.latents.repeat(batch_size, 1, 1)
+            query = self.query.repeat(batch_size, 1, 1)
 
-        # Feature embed and encode into latent space
-        x, _ = self.tensor_frame_encoder(tf) # x, all_col_names
-        x = x + self.pos_embedding
-        x = self.encoder(latents, x) # (B, L, D)
+            # Feature embed and encode into latent space
+            x, _ = self.tensor_frame_encoder(tf) # x, all_col_names
+            x = x + self.pos_embedding
+            x = self.encoder(latents, x) # (B, L, D)
 
-        # Retrieve top-k from memory bank
-        retrievals = self.retrieve(x).view(batch_size, -1, x.shape[-1]) # (B, K*L, D)
-        x = torch.cat([x, retrievals], dim=1) # (B, (K+1)*L, D)
-        x = self.blocks(x)
-        x = self.decoder(query, x).reshape(batch_size, -1)
-        x = self.proj(x)
+            # Retrieve top-k from memory bank
+            retrievals = self.retrieve(x).view(batch_size, -1, x.shape[-1]) # (B, K*L, D)
+
+            # (B, K, 2L, D)
+            # Average over K retrievals
+
+            x = torch.cat([x, retrievals], dim=1) # (B, (K+1)*L, D)
+            x = self.blocks(x)
+            x = self.decoder(query, x).reshape(batch_size, -1)
+            x = self.proj(x)
+        else:
+            batch_size = len(tf)
+            latents = self.latents.repeat(batch_size, 1, 1)
+            query = self.query.repeat(batch_size * self.top_k, 1, 1) # (B*K, 1, D)
+            
+            x, _ = self.tensor_frame_encoder(tf)
+            x = x + self.pos_embedding
+            x = self.encoder(latents, x)
+            
+            retrievals = self.retrieve(x) # (B, K, L, D)
+
+            x = x.unsqueeze(1).repeat(1, self.top_k, 1, 1) # (B, K, L, D)
+            x = torch.cat([x, retrievals], dim=2) # (B, K, 2L, D)
+            x = x.view(batch_size * self.top_k, -1, self.hidden_dim) # (B*K, 2L, D)
+
+            x = self.blocks(x) # (B*K, 2L, D)
+            x = self.decoder(query, x) # (B*K, 1, D)
+            x = self.proj(x) #  (B*K, 1, num_classes)
+            x = x.view(batch_size, self.top_k, -1).mean(dim=1) 
+            
 
         return x
