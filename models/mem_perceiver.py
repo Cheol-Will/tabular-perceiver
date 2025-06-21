@@ -18,12 +18,18 @@ from torch_frame.nn.encoder.stype_encoder import (
 from torch_frame.nn.encoder.stypewise_encoder import StypeWiseFeatureEncoder
 
 def attend(query, key, value, dropout_prob=0.0, train=True):
+    r"""
+        input: query, key, value
+        return: attention outputs and attention scores
+    """
+    
     _, _, _, head_dim = query.shape
     
     attention = F.softmax(torch.einsum("bhqd,bhkd->bhqk", query, key) / (head_dim**(0.5)), dim=-1) 
     attention = F.dropout(attention, p=dropout_prob, training=train)
     weighted_sum = torch.einsum("bhqk,bhkd->bhqd", attention, value) # (batch_size, num_heads, query_len, head_dim)
-    return weighted_sum
+
+    return weighted_sum, attention
 
 
 class MLP(nn.Module):
@@ -110,11 +116,11 @@ class Attention(nn.Module):
         V = self._value(value).reshape(B, -1, H, head_dim).transpose(1,2)
 
         # (batch_size, num_heads, query_len, head_dim) -> (batch_size, query_len, hidden_dim)
-        out = attend(Q, K, V, self.dropout_prob, self.training) 
-        out = out.permute(0, 2, 1, 3).reshape(B, N, -1)
+        attn_output, attn_output_weights = attend(Q, K, V, self.dropout_prob, self.training) 
+        out = attn_output.permute(0, 2, 1, 3).reshape(B, N, -1)
         out = self.proj(out)
-        return out
 
+        return out, attn_output_weights
 
 class SelfAttention(nn.Module):
     """Self Attention Module including Normalization, Dropout, MLP"""
@@ -154,7 +160,8 @@ class SelfAttention(nn.Module):
                 mlp.reset_parameters()
 
     def forward(self, x, expert_idx=None):
-        x = x + self.attention(self.norm1(x))
+        attn_outputs, _ = self.attention(self.norm1(x))
+        x = x + attn_outputs
         x = x + self.mlp(self.norm2(x))
         if expert_idx is not None:
             x = x + self.moe[expert_idx](self.norm2(x))
@@ -200,18 +207,22 @@ class CrossAttention(nn.Module):
             for mlp in self.moe:
                 mlp.reset_parameters()
 
-    def forward(self, query, key, expert_idx=None):
-        x = query + self.attention(self.q_norm(query), self.kv_norm(key))
+    def forward(self, query, key, expert_idx=None, need_weights=False):
+        attn_output, attn_output_weights = self.attention(self.q_norm(query), self.kv_norm(key))
+        x = query + attn_output
         x = x + self.mlp(self.mlp_norm(x))
+
         if expert_idx is not None:
             x = x + self.moe[expert_idx](self.mlp_norm(x))
-        return x
-
+        
+        if need_weights:
+            return x, attn_output_weights
+        else: 
+            return x
 
 class MemPerceiver(nn.Module):
     def __init__(
         self,
-        top_k: int,
         num_classes: int,
         num_samples: int,
         num_heads: int,
@@ -222,13 +233,19 @@ class MemPerceiver(nn.Module):
         dropout_prob: float,
         col_stats: dict[str, dict[StatType, Any]],
         col_names_dict: dict[torch_frame.stype, list[str]],
-        ensemble = None,
+        top_k: int = 5,
+        attn_retrival: bool = False,
+        ensemble: bool = False,
+        is_cos_sim: bool = True,
     ):
         super(MemPerceiver, self).__init__()
+
         self.top_k = top_k
+        self.attn_retrival = attn_retrival
+        self.ensemble = ensemble 
+        self.is_cos_sim = is_cos_sim
         self.hidden_dim = hidden_dim
         self.num_features = self.calculate_num_features(col_names_dict)
-        self.ensemble = ensemble 
         
         self.register_buffer('memory', torch.empty(num_samples, num_latents, hidden_dim))
         self.pos_embedding = nn.Parameter(torch.empty(1, self.num_features, hidden_dim))
@@ -296,25 +313,54 @@ class MemPerceiver(nn.Module):
         self.proj[1].reset_parameters()
 
     @torch.no_grad()
-    def retrieve(self, x, attention=None):
+    def retrieve(self, x, attn_output_weights=None, is_cos_sim=True):
         r"""
             Retrieve top k instances from memory bank.
-            return: tensor (batch_size, k, num_latents, hidden_dim)
+            input: 
+                x: Encoded Latents (B, L, D)
+                attention: Attention Scores from Encoder (B, L, F) 
+                    where L is the number of latents, and F is the number of features.
+            return: 
+                tensor (batch_size, k, num_latents, hidden_dim)
         """
         batch_size, num_latents, hidden_dim = x.shape
         num_samples = self.memory.shape[0]
-        x_norm = F.normalize(x, dim=-1)  # (B, L, D)
-        memory_norm = F.normalize(self.memory, dim=-1)  # (N, L, D)
 
-        # option 1: average cosine similarity on latent dimension
-        cos_sim = torch.einsum("bld,nld->bnl", x_norm, memory_norm)  # (B, N, L)
-        if attention is None:
-            cos_sim_avg = cos_sim.mean(dim=-1)  # (B, N)
+        if is_cos_sim:
+            x_norm = F.normalize(x, dim=-1)  # (B, L, D)
+            memory_norm = F.normalize(self.memory, dim=-1)  # (N, L, D)
+
+            cos_sim = torch.einsum("bld,nld->bnl", x_norm, memory_norm)  # (B, N, L)
+
+            if attn_output_weights is None:
+                # option 1: average cosine similarity on latent dimension
+                cos_sim_avg = cos_sim.mean(dim=-1)  # (B, N)
+            else:
+                # option 2: average the cos sim with attention score
+                latent_weights = attn_output_weights.mean(dim=-1) # (B, L)
+                cos_sim_avg = torch.einsum("bnl,bl->bn", cos_sim, latent_weights) # (B, N)
+
+            # retrieve top k for each batch
+            _, top_k_indices = torch.topk(cos_sim_avg, k=min(self.top_k, num_samples), dim=-1) # (B, K)
         else:
-            # average the cosine similarities with weights=attention score in encoder
-            cos_sim_avg = cos_sim
-        # retrieve top k for each batch
-        _, top_k_indices = torch.topk(cos_sim_avg, k=min(self.top_k, num_samples), dim=-1) # (B, K)
+            x_expanded = x.unsqueeze(1)                # (B, 1, L, D)
+            memory_expanded = self.memory.unsqueeze(0) # (1, N, L, D)
+
+            # Compute squared L2 distance for each latent
+            l2_dist_squared = ((x_expanded - memory_expanded) ** 2).sum(dim=-1)  # (B, N, L)
+
+            if attn_output_weights is None:
+                # option 1: average distance across latent dimension
+                dist_avg = l2_dist_squared.mean(dim=-1)  # (B, N)
+            else:
+                # option 2: weighted average using attention scores
+                latent_weights = attn_output_weights.mean(dim=-1)  # (B, L)
+                dist_avg = torch.einsum("bnl,bl->bn", l2_dist_squared, latent_weights)  # (B, N)
+
+            # retrieve top-k closest(smallest distances)
+            _, top_k_indices = torch.topk(-dist_avg, k=min(self.top_k, num_samples), dim=-1)  # (B, K)
+    
+
         retrievals = self.memory[top_k_indices.view(-1), :, :]  # (B*k, L, D)
         retrievals = retrievals.view(batch_size, self.top_k, num_latents, hidden_dim)  # (B, k, L, D)        
 
@@ -346,19 +392,27 @@ class MemPerceiver(nn.Module):
         self.memory.index_copy_(0, idx, feat)          
 
     def forward(self, tf):
+        is_cos_sim = self.is_cos_sim
         # (B, F, 1) -> (B, F, D)
-        if self.ensemble is None:
+        if not self.ensemble:
             batch_size = len(tf)
             latents = self.latents.repeat(batch_size, 1, 1)
             query = self.query.repeat(batch_size, 1, 1)
 
-            # Feature embed and encode into latent space
+            # Embed features and encode into latent space
             x, _ = self.tensor_frame_encoder(tf) # x, all_col_names
             x = x + self.pos_embedding
-            x = self.encoder(latents, x) # (B, L, D)
+            
+            if self.attn_retrival:
+                # Retrieve top-k from memory bank with weighted sum using attention score
+                x, attn_output_weights = self.encoder(latents, x, need_weights=True) # (B, L, D)
+                retrievals = self.retrieve(x, attn_output_weights=attn_output_weights, is_cos_sim=is_cos_sim).view(batch_size, -1, x.shape[-1]) # (B, K*L, D)
 
-            # Retrieve top-k from memory bank
-            retrievals = self.retrieve(x).view(batch_size, -1, x.shape[-1]) # (B, K*L, D)
+            else:
+                # Retrieve top-k from memory bank
+                x = self.encoder(latents, x) # (B, L, D)
+                # retrievals = self.retrieve(x).view(batch_size, -1, x.shape[-1]) # (B, K*L, D)
+                retrievals = self.retrieve(x, attn_output_weights=None, is_cos_sim=is_cos_sim).view(batch_size, -1, x.shape[-1]) # (B, K*L, D)
 
             # (B, K, 2L, D)
             # Average over K retrievals
@@ -368,6 +422,7 @@ class MemPerceiver(nn.Module):
             x = self.decoder(query, x).reshape(batch_size, -1)
             x = self.proj(x)
         else:
+            # ensemble
             batch_size = len(tf)
             latents = self.latents.repeat(batch_size, 1, 1)
             query = self.query.repeat(batch_size * self.top_k, 1, 1) # (B*K, 1, D)
@@ -387,5 +442,4 @@ class MemPerceiver(nn.Module):
             x = self.proj(x) #  (B*K, 1, num_classes)
             x = x.view(batch_size, self.top_k, -1).mean(dim=1) 
             
-
         return x
