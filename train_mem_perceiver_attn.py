@@ -164,7 +164,7 @@ def train_and_eval_with_cfg(
         **model_cfg,
         **meta,
         ensemble=True,
-        is_cos_sim=True,
+        attn_retrival=True,
         num_classes=num_classes,
     ).to(device)
 
