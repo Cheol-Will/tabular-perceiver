@@ -25,4 +25,4 @@ def clean_btxt_with_exceptions(input_path: str, output_path: str):
 if __name__ == "__main__":
     input_path = "helper/b.txt"
     output_path = "helper/multi_large.csv"
-    clean_btxt_with_exceptions(input_path, output_path)
+    # clean_btxt_with_exceptions(input_path, output_path)
