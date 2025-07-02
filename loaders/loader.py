@@ -55,7 +55,13 @@ def build_fewshot_dataset(dataset, shots, seed):
     fewshot_dataset.materialize()
     return fewshot_dataset
 
-def build_dataloader(dataset, batch_size=128, drop_last=True, is_custom=False):
+def build_dataloader(
+    dataset, 
+    batch_size: int = 128, 
+    drop_last: bool = True, 
+    is_custom: bool = False, 
+    use_train_dataset: bool = False
+):
     """ 
         Build dataloader 
     """
@@ -94,7 +100,10 @@ def build_dataloader(dataset, batch_size=128, drop_last=True, is_custom=False):
             "num_samples": num_samples,
         }
 
-    return train_loader, valid_loader, test_loader, meta_data
+    if not use_train_dataset: 
+        return train_loader, valid_loader, test_loader, meta_data
+    else:
+        return train_loader, valid_loader, test_loader, meta_data, train_dataset
 
 def build_datasets(task_type, dataset_scale, num_tasks = None):
     """

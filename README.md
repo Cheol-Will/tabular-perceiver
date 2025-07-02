@@ -11,6 +11,12 @@ However, TabPFN cannot handle arbitrary shape of input and output; thus, it uses
 
 TabPerceiver is based on Pytorch-Frame and designed to handle arbitrary shape of inputs and outputs. 
 
+```
+conda env create -f environment.yaml -n torch_frame
+```
+
+
+
 <div>
   <ul>
     <li><code>data_frame_benchmark.py</code>: Script for benchmarks including GBDT, Deep Learning Models and TabPerceiver</li>

@@ -1,0 +1,8 @@
+Hyper-parameter search via Optuna
+Namespace(task_type='binary_classification', scale='small', idx=0, epochs=1, num_trials=1, num_repeats=1, seed=0, exp_name='MemPer_PLE', result_path='output/binary_classification/small/0/MemPer_PLE.pt')
+Device: cuda
+Start building binary_classification dataset_small_0
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+[tensor([17, 24, 27, 29, 35, 43, 54, 61, 90]), tensor([    0,    57,  3048,  3120,  4243,  4462,  5119,  5316,  7073, 99999]), tensor([   0, 1448, 1568, 1820, 1881, 1978, 2168, 2364, 4356]), tensor([ 1, 34, 39, 43, 46, 49, 61, 99])]

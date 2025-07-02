@@ -353,7 +353,6 @@ def train_and_eval_with_cfg(
         model_cfg['stype_encoder_dict'] = stype_encoder_dict
 
     if args.model_type == 'TabPerceiver':
-        # calculate number of features to create positonal embedding
         model = model_cls(
             **model_cfg,
             num_classes=out_channels,
