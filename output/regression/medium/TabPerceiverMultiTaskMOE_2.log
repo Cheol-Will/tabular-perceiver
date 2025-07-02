@@ -1,0 +1,92 @@
+Start building regression dataset_medium_0
+Start building regression dataset_medium_1
+Start building regression dataset_medium_2
+Start building regression dataset_medium_3
+Start building regression dataset_medium_4
+Start building regression dataset_medium_5
+Training set has 150654 instances
+Validation set has 18831 instances
+Test set has 18833 instances
+Training set has 193280 instances
+Validation set has 24160 instances
+Test set has 24160 instances
+Training set has 43152 instances
+Validation set has 5394 instances
+Test set has 5394 instances
+Training set has 130452 instances
+Validation set has 16306 instances
+Test set has 16307 instances
+Training set has 315439 instances
+Validation set has 39429 instances
+Test set has 39431 instances
+Training set has 41624 instances
+Validation set has 5203 instances
+Test set has 5204 instances
+Train Loss: 0.4234903
+Train Loss: 0.2663261
+Train Loss: 0.2569480
+Train Loss: 0.2519303
+Train Loss: 0.2491960
+Train Loss: 0.2465524
+Train Loss: 0.2452987
+Train Loss: 0.2434721
+Train Loss: 0.2418757
+Train Loss: 0.2405874
+Train Loss: 0.2396044
+Train Loss: 0.2384292
+Train Loss: 0.2374165
+Train Loss: 0.2364632
+Train Loss: 0.2353330
+Train Loss: 0.2338026
+Train Loss: 0.2326687
+Train Loss: 0.2311341
+Train Loss: 0.2298672
+Train Loss: 0.2290004
+Train Loss: 0.2279549
+Train Loss: 0.2270670
+Train Loss: 0.2262218
+Train Loss: 0.2254843
+Train Loss: 0.2247672
+Train Loss: 0.2239743
+Train Loss: 0.2231795
+Train Loss: 0.2225769
+Train Loss: 0.2218343
+Train Loss: 0.2212790
+Train Loss: 0.2206619
+Train Loss: 0.2200946
+Train Loss: 0.2195446
+Train Loss: 0.2190808
+Train Loss: 0.2185739
+Train Loss: 0.2181633
+Train Loss: 0.2177250
+Train Loss: 0.2173860
+Train Loss: 0.2170055
+Train Loss: 0.2166443
+Train Loss: 0.2163358
+Train Loss: 0.2161187
+Train Loss: 0.2158308
+Train Loss: 0.2155864
+Train Loss: 0.2153841
+Train Loss: 0.2151818
+Train Loss: 0.2149315
+Train Loss: 0.2148296
+Train Loss: 0.2146964
+Train Loss: 0.2145319
+[Task 0]
+Test metric: 0.682101
+Result is saved into output/regression/medium/0/TabPerceiverMultiTaskMOE_2.pt
+[Task 1]
+Test metric: 0.014190
+Result is saved into output/regression/medium/1/TabPerceiverMultiTaskMOE_2.pt
+[Task 2]
+Test metric: 0.103038
+Result is saved into output/regression/medium/2/TabPerceiverMultiTaskMOE_2.pt
+[Task 3]
+Test metric: 0.143786
+Result is saved into output/regression/medium/3/TabPerceiverMultiTaskMOE_2.pt
+[Task 4]
+Test metric: 0.554562
+Result is saved into output/regression/medium/4/TabPerceiverMultiTaskMOE_2.pt
+[Task 5]
+Test metric: 0.921040
+Result is saved into output/regression/medium/5/TabPerceiverMultiTaskMOE_2.pt

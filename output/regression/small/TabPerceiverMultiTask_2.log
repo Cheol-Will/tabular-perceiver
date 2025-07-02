@@ -1,0 +1,284 @@
+Start building regression dataset_small_0
+Start building regression dataset_small_1
+Start building regression dataset_small_2
+Start building regression dataset_small_3
+Start building regression dataset_small_4
+Start building regression dataset_small_5
+Start building regression dataset_small_6
+Start building regression dataset_small_7
+Start building regression dataset_small_8
+Start building regression dataset_small_9
+Start building regression dataset_small_10
+Start building regression dataset_small_11
+Start building regression dataset_small_12
+Training set has 13903 instances
+Validation set has 1737 instances
+Test set has 1739 instances
+Training set has 8553 instances
+Validation set has 1069 instances
+Test set has 1070 instances
+Training set has 6553 instances
+Validation set has 819 instances
+Test set has 820 instances
+Training set has 13279 instances
+Validation set has 1659 instances
+Test set has 1661 instances
+Training set has 17290 instances
+Validation set has 2161 instances
+Test set has 2162 instances
+Training set has 16512 instances
+Validation set has 2064 instances
+Test set has 2064 instances
+Training set has 8064 instances
+Validation set has 1008 instances
+Test set has 1009 instances
+Training set has 17010 instances
+Validation set has 2126 instances
+Test set has 2127 instances
+Training set has 7108 instances
+Validation set has 888 instances
+Test set has 889 instances
+Training set has 6912 instances
+Validation set has 864 instances
+Test set has 865 instances
+Training set has 5197 instances
+Validation set has 649 instances
+Test set has 651 instances
+Training set has 7108 instances
+Validation set has 888 instances
+Test set has 889 instances
+Training set has 16512 instances
+Validation set has 2064 instances
+Test set has 2064 instances
+Train Loss: 1.0938920
+Train Loss: 0.8663625
+Train Loss: 0.6540171
+Train Loss: 0.5242219
+Train Loss: 0.4686319
+Train Loss: 0.4318691
+Train Loss: 0.4361490
+Train Loss: 0.3980753
+Train Loss: 0.3861471
+Train Loss: 0.3886416
+Train Loss: 0.3718967
+Train Loss: 0.3637935
+Train Loss: 0.3313842
+Train Loss: 0.3178798
+Train Loss: 0.3183041
+Train Loss: 0.3113852
+Train Loss: 0.3091701
+Train Loss: 0.3095485
+Train Loss: 0.3018949
+Train Loss: 0.3023456
+Train Loss: 0.2968570
+Train Loss: 0.2940403
+Train Loss: 0.2923708
+Train Loss: 0.2889944
+Train Loss: 0.2844818
+Train Loss: 0.2847352
+Train Loss: 0.2817838
+Train Loss: 0.2807844
+Train Loss: 0.2790477
+Train Loss: 0.2772004
+Train Loss: 0.2762454
+Train Loss: 0.2751242
+Train Loss: 0.2729379
+Train Loss: 0.2706784
+Train Loss: 0.2712040
+Train Loss: 0.2686795
+Train Loss: 0.2677680
+Train Loss: 0.2663645
+Train Loss: 0.2652924
+Train Loss: 0.2639571
+Train Loss: 0.2634364
+Train Loss: 0.2617815
+Train Loss: 0.2612663
+Train Loss: 0.2597344
+Train Loss: 0.2589459
+Train Loss: 0.2580773
+Train Loss: 0.2569815
+Train Loss: 0.2555581
+Train Loss: 0.2550334
+Train Loss: 0.2537748
+Train Loss: 0.4060380
+Train Loss: 0.4029372
+Train Loss: 0.4033639
+Train Loss: 0.4014037
+Train Loss: 0.4014211
+Train Loss: 0.3994240
+Train Loss: 0.3991865
+Train Loss: 0.3967307
+Train Loss: 0.3975143
+Train Loss: 0.3956509
+[Task 0]
+Test metric (before finetune): 0.660163
+Test metric (after finetune):  0.659119
+Result is saved into output/regression/small/0/TabPerceiverMultiTask_2.pt
+Train Loss: 0.0361708
+Train Loss: 0.0352568
+Train Loss: 0.0351761
+Train Loss: 0.0349444
+Train Loss: 0.0346978
+Train Loss: 0.0342162
+Train Loss: 0.0343719
+Train Loss: 0.0340612
+Train Loss: 0.0338233
+Train Loss: 0.0337561
+[Task 1]
+Test metric (before finetune): 0.209298
+Test metric (after finetune):  0.192847
+Result is saved into output/regression/small/1/TabPerceiverMultiTask_2.pt
+Train Loss: 0.0194975
+Train Loss: 0.0191294
+Train Loss: 0.0190160
+Train Loss: 0.0190126
+Train Loss: 0.0189165
+Train Loss: 0.0189302
+Train Loss: 0.0188012
+Train Loss: 0.0188464
+Train Loss: 0.0187962
+Train Loss: 0.0187448
+[Task 2]
+Test metric (before finetune): 0.161693
+Test metric (after finetune):  0.154619
+Result is saved into output/regression/small/2/TabPerceiverMultiTask_2.pt
+Train Loss: 0.0855153
+Train Loss: 0.0832282
+Train Loss: 0.0831546
+Train Loss: 0.0819153
+Train Loss: 0.0811539
+Train Loss: 0.0810707
+Train Loss: 0.0807691
+Train Loss: 0.0797866
+Train Loss: 0.0794274
+Train Loss: 0.0792088
+[Task 3]
+Test metric (before finetune): 0.298997
+Test metric (after finetune):  0.288886
+Result is saved into output/regression/small/3/TabPerceiverMultiTask_2.pt
+Train Loss: 0.1287123
+Train Loss: 0.1281807
+Train Loss: 0.1271564
+Train Loss: 0.1265013
+Train Loss: 0.1259423
+Train Loss: 0.1254040
+Train Loss: 0.1252217
+Train Loss: 0.1250822
+Train Loss: 0.1247804
+Train Loss: 0.1242878
+[Task 4]
+Test metric (before finetune): 0.362288
+Test metric (after finetune):  0.358806
+Result is saved into output/regression/small/4/TabPerceiverMultiTask_2.pt
+Train Loss: 0.2221380
+Train Loss: 0.2191939
+Train Loss: 0.2188575
+Train Loss: 0.2159247
+Train Loss: 0.2142380
+Train Loss: 0.2137617
+Train Loss: 0.2120964
+Train Loss: 0.2117403
+Train Loss: 0.2103976
+Train Loss: 0.2090441
+[Task 5]
+Test metric (before finetune): 0.476981
+Test metric (after finetune):  0.464230
+Result is saved into output/regression/small/5/TabPerceiverMultiTask_2.pt
+Train Loss: 0.2628115
+Train Loss: 0.2469851
+Train Loss: 0.2636830
+Train Loss: 0.2394245
+Train Loss: 0.2387598
+Train Loss: 0.2322437
+Train Loss: 0.2280103
+Train Loss: 0.2209852
+Train Loss: 0.2211807
+Train Loss: 0.2183939
+[Task 6]
+Test metric (before finetune): 0.351270
+Test metric (after finetune):  0.340286
+Result is saved into output/regression/small/6/TabPerceiverMultiTask_2.pt
+Train Loss: 0.1245439
+Train Loss: 0.1153035
+Train Loss: 0.1112691
+Train Loss: 0.1088946
+Train Loss: 0.1053472
+Train Loss: 0.1032984
+Train Loss: 0.1032014
+Train Loss: 0.1008902
+Train Loss: 0.0977857
+Train Loss: 0.0981134
+[Task 7]
+Test metric (before finetune): 0.390985
+Test metric (after finetune):  0.350458
+Result is saved into output/regression/small/7/TabPerceiverMultiTask_2.pt
+Train Loss: 0.8967808
+Train Loss: 0.8948867
+Train Loss: 0.8811419
+Train Loss: 0.8729316
+Train Loss: 0.8698197
+Train Loss: 0.8665835
+Train Loss: 0.8607030
+Train Loss: 0.8537301
+Train Loss: 0.8519340
+Train Loss: 0.8499846
+[Task 8]
+Test metric (before finetune): 0.894235
+Test metric (after finetune):  0.898298
+Result is saved into output/regression/small/8/TabPerceiverMultiTask_2.pt
+Train Loss: 0.0064265
+Train Loss: 0.0051684
+Train Loss: 0.0050198
+Train Loss: 0.0049621
+Train Loss: 0.0049363
+Train Loss: 0.0048891
+Train Loss: 0.0048917
+Train Loss: 0.0048340
+Train Loss: 0.0048117
+Train Loss: 0.0047897
+[Task 9]
+Test metric (before finetune): 0.114177
+Test metric (after finetune):  0.072178
+Result is saved into output/regression/small/9/TabPerceiverMultiTask_2.pt
+Train Loss: 0.6342675
+Train Loss: 0.6304387
+Train Loss: 0.6211788
+Train Loss: 0.6218472
+Train Loss: 0.6169135
+Train Loss: 0.6120992
+Train Loss: 0.6038725
+Train Loss: 0.6021946
+Train Loss: 0.5995442
+Train Loss: 0.5976983
+[Task 10]
+Test metric (before finetune): 0.821904
+Test metric (after finetune):  0.830336
+Result is saved into output/regression/small/10/TabPerceiverMultiTask_2.pt
+Train Loss: 0.9473077
+Train Loss: 0.9445869
+Train Loss: 0.9414238
+Train Loss: 0.9396239
+Train Loss: 0.9376752
+Train Loss: 0.9381871
+Train Loss: 0.9411245
+Train Loss: 0.9377085
+Train Loss: 0.9370337
+Train Loss: 0.9373992
+[Task 11]
+Test metric (before finetune): 0.930039
+Test metric (after finetune):  0.929004
+Result is saved into output/regression/small/11/TabPerceiverMultiTask_2.pt
+Train Loss: 0.1980863
+Train Loss: 0.1912958
+Train Loss: 0.1892250
+Train Loss: 0.1851727
+Train Loss: 0.1847108
+Train Loss: 0.1823139
+Train Loss: 0.1818502
+Train Loss: 0.1802732
+Train Loss: 0.1785937
+Train Loss: 0.1773234
+[Task 12]
+Test metric (before finetune): 0.523611
+Test metric (after finetune):  0.468297
+Result is saved into output/regression/small/12/TabPerceiverMultiTask_2.pt

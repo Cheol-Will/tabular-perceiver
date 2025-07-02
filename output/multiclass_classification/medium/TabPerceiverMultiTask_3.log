@@ -1,0 +1,68 @@
+Start building multiclass_classification dataset_medium_0
+Start building multiclass_classification dataset_medium_1
+Start building multiclass_classification dataset_medium_2
+Training set has 86400 instances
+Validation set has 10800 instances
+Test set has 10800 instances
+Training set has 52156 instances
+Validation set has 6519 instances
+Test set has 6521 instances
+Training set has 66986 instances
+Validation set has 8373 instances
+Test set has 8374 instances
+Epoch 1/50 - Train Loss: 4.0395
+Epoch 2/50 - Train Loss: 2.8754
+Epoch 3/50 - Train Loss: 2.1300
+Epoch 4/50 - Train Loss: 1.7729
+Epoch 5/50 - Train Loss: 1.5869
+Epoch 6/50 - Train Loss: 1.4738
+Epoch 7/50 - Train Loss: 1.3912
+Epoch 8/50 - Train Loss: 1.3303
+Epoch 9/50 - Train Loss: 1.2749
+Epoch 10/50 - Train Loss: 1.2331
+Epoch 11/50 - Train Loss: 1.1929
+Epoch 12/50 - Train Loss: 1.1607
+Epoch 13/50 - Train Loss: 1.1310
+Epoch 14/50 - Train Loss: 1.1043
+Epoch 15/50 - Train Loss: 1.0820
+Epoch 16/50 - Train Loss: 1.0595
+Epoch 17/50 - Train Loss: 1.0434
+Epoch 18/50 - Train Loss: 1.0226
+Epoch 19/50 - Train Loss: 1.0077
+Epoch 20/50 - Train Loss: 0.9936
+Epoch 21/50 - Train Loss: 0.9783
+Epoch 22/50 - Train Loss: 0.9663
+Epoch 23/50 - Train Loss: 0.9534
+Epoch 24/50 - Train Loss: 0.9417
+Epoch 25/50 - Train Loss: 0.9304
+Epoch 26/50 - Train Loss: 0.9210
+Epoch 27/50 - Train Loss: 0.9107
+Epoch 28/50 - Train Loss: 0.9009
+Epoch 29/50 - Train Loss: 0.8917
+Epoch 30/50 - Train Loss: 0.8826
+Epoch 31/50 - Train Loss: 0.8747
+Epoch 32/50 - Train Loss: 0.8660
+Epoch 33/50 - Train Loss: 0.8579
+Epoch 34/50 - Train Loss: 0.8501
+Epoch 35/50 - Train Loss: 0.8424
+Epoch 36/50 - Train Loss: 0.8352
+Epoch 37/50 - Train Loss: 0.8277
+Epoch 38/50 - Train Loss: 0.8207
+Epoch 39/50 - Train Loss: 0.8135
+Epoch 40/50 - Train Loss: 0.8075
+Epoch 41/50 - Train Loss: 0.7997
+Epoch 42/50 - Train Loss: 0.7942
+Epoch 43/50 - Train Loss: 0.7878
+Epoch 44/50 - Train Loss: 0.7814
+Epoch 45/50 - Train Loss: 0.7745
+Epoch 46/50 - Train Loss: 0.7689
+Epoch 47/50 - Train Loss: 0.7637
+Epoch 48/50 - Train Loss: 0.7577
+Epoch 49/50 - Train Loss: 0.7524
+Epoch 50/50 - Train Loss: 0.7467
+[Task 0] Best test metric (before finetune): 0.914352, Best test metric (after finetune):  0.914167
+[Task 1] Best test metric (before finetune): 0.347953, Best test metric (after finetune):  0.347953
+[Task 2] Best test metric (before finetune): 0.707070, Best test metric (after finetune):  0.707070
+Saved results to output/multiclass_classification/medium/0/TabPerceiverMultiTask_3.pt
+Saved results to output/multiclass_classification/medium/1/TabPerceiverMultiTask_3.pt
+Saved results to output/multiclass_classification/medium/2/TabPerceiverMultiTask_3.pt

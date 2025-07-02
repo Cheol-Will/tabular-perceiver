@@ -1,0 +1,6 @@
+Train dataset has 2 instances.
+19888    1
+4479     0
+Name: target_col, dtype: int64
+Namespace(task_type='binary_classification', scale='small', idx=13, epochs=50, num_trials=100, num_repeats=5, model_type='LightGBM', seed=0, shots=1, result_path='output/binary_classification/small/13/LightGBM_1.pt')
+{'args': {'task_type': 'binary_classification', 'scale': 'small', 'idx': 13, 'epochs': 50, 'num_trials': 100, 'num_repeats': 5, 'model_type': 'LightGBM', 'seed': 0, 'shots': 1, 'result_path': 'output/binary_classification/small/13/LightGBM_1.pt'}, 'best_val_metric': 0.5260888543704145, 'best_test_metric': 0.5008464000931261, 'best_cfg': {'verbosity': -1, 'bagging_freq': 1, 'feature_pre_filter': False, 'max_depth': 5, 'learning_rate': 0.0018044577270644175, 'num_leaves': 275, 'subsample': 0.5192288471863639, 'colsample_bytree': 0.48743970753758525, 'lambda_l1': 1.5330636310840922e-05, 'lambda_l2': 0.02451925757985803, 'min_data_in_leaf': 1, 'objective': 'binary', 'metric': 'auc'}, 'total_time': 5.54563307762146}

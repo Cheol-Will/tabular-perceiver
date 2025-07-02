@@ -1,0 +1,14 @@
+Train dataset has 10 instances.
+19888    1
+5899     1
+26574    1
+11740    1
+11695    1
+4479     0
+12144    0
+44972    0
+32344    0
+36164    0
+Name: target_col, dtype: int64
+Namespace(task_type='binary_classification', scale='small', idx=13, epochs=50, num_trials=100, num_repeats=5, model_type='LightGBM', seed=0, shots=5, result_path='output/binary_classification/small/13/LightGBM_5.pt')
+{'args': {'task_type': 'binary_classification', 'scale': 'small', 'idx': 13, 'epochs': 50, 'num_trials': 100, 'num_repeats': 5, 'model_type': 'LightGBM', 'seed': 0, 'shots': 5, 'result_path': 'output/binary_classification/small/13/LightGBM_5.pt'}, 'best_val_metric': 0.8295682393275503, 'best_test_metric': 0.8326047377917466, 'best_cfg': {'verbosity': -1, 'bagging_freq': 1, 'feature_pre_filter': False, 'max_depth': 3, 'learning_rate': 0.007421251854991195, 'num_leaves': 70, 'subsample': 0.9217109924157296, 'colsample_bytree': 0.387342239310192, 'lambda_l1': 0.07432025746048788, 'lambda_l2': 0.005483597548835008, 'min_data_in_leaf': 2, 'objective': 'binary', 'metric': 'auc'}, 'total_time': 9.680380582809448}

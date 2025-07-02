@@ -1,0 +1,212 @@
+Start building binary_classification dataset_medium_0
+Start building binary_classification dataset_medium_1
+Start building binary_classification dataset_medium_2
+Start building binary_classification dataset_medium_3
+Start building binary_classification dataset_medium_4
+Start building binary_classification dataset_medium_5
+Start building binary_classification dataset_medium_6
+Start building binary_classification dataset_medium_7
+Start building binary_classification dataset_medium_8
+Training set has 74120 instances
+Validation set has 9265 instances
+Test set has 9265 instances
+Training set has 159618 instances
+Validation set has 19952 instances
+Test set has 19953 instances
+Training set has 56872 instances
+Validation set has 7109 instances
+Test set has 7109 instances
+Training set has 58398 instances
+Validation set has 7299 instances
+Test set has 7301 instances
+Training set has 46601 instances
+Validation set has 5825 instances
+Test set has 5826 instances
+Training set has 338944 instances
+Validation set has 42368 instances
+Test set has 42368 instances
+Training set has 46064 instances
+Validation set has 5758 instances
+Test set has 5758 instances
+Training set has 89409 instances
+Validation set has 11176 instances
+Test set has 11177 instances
+Training set has 78440 instances
+Validation set has 9805 instances
+Test set has 9805 instances
+Train Loss: 0.5611856
+Train Loss: 0.4775023
+Train Loss: 0.4607390
+Train Loss: 0.4517705
+Train Loss: 0.4402266
+Train Loss: 0.4250606
+Train Loss: 0.4122284
+Train Loss: 0.3966532
+Train Loss: 0.3826620
+Train Loss: 0.3710664
+Train Loss: 0.3593070
+Train Loss: 0.3506524
+Train Loss: 0.3424360
+Train Loss: 0.3359420
+Train Loss: 0.3302615
+Train Loss: 0.3254184
+Train Loss: 0.3208361
+Train Loss: 0.3166173
+Train Loss: 0.3132409
+Train Loss: 0.3096073
+Train Loss: 0.3063652
+Train Loss: 0.3035003
+Train Loss: 0.3009048
+Train Loss: 0.2983214
+Train Loss: 0.2957777
+Train Loss: 0.2935388
+Train Loss: 0.2914730
+Train Loss: 0.2892904
+Train Loss: 0.2870631
+Train Loss: 0.2850399
+Train Loss: 0.2833794
+Train Loss: 0.2818074
+Train Loss: 0.2798199
+Train Loss: 0.2783795
+Train Loss: 0.2767623
+Train Loss: 0.2752809
+Train Loss: 0.2737151
+Train Loss: 0.2725399
+Train Loss: 0.2709319
+Train Loss: 0.2695812
+Train Loss: 0.2684511
+Train Loss: 0.2671049
+Train Loss: 0.2659376
+Train Loss: 0.2645515
+Train Loss: 0.2635585
+Train Loss: 0.2624718
+Train Loss: 0.2612357
+Train Loss: 0.2602972
+Train Loss: 0.2591776
+Train Loss: 0.2583073
+Train Loss: 0.6533298
+Train Loss: 0.6523199
+Train Loss: 0.6511853
+Train Loss: 0.6499433
+Train Loss: 0.6483283
+Train Loss: 0.6461144
+Train Loss: 0.6440098
+Train Loss: 0.6417695
+Train Loss: 0.6389459
+Train Loss: 0.6362243
+[Task 0]
+Test metric (before finetune): 0.622377
+Test metric (after finetune):  0.604040
+Result is saved into output/binary_classification/medium/0/TabPerceiverMultiTask_2.pt
+Train Loss: 0.0165928
+Train Loss: 0.0133869
+Train Loss: 0.0119195
+Train Loss: 0.0106020
+Train Loss: 0.0098256
+Train Loss: 0.0085821
+Train Loss: 0.0072790
+Train Loss: 0.0068840
+Train Loss: 0.0061598
+Train Loss: 0.0055097
+[Task 1]
+Test metric (before finetune): 0.792653
+Test metric (after finetune):  0.801155
+Result is saved into output/binary_classification/medium/1/TabPerceiverMultiTask_2.pt
+Train Loss: 0.6562520
+Train Loss: 0.6554714
+Train Loss: 0.6551605
+Train Loss: 0.6545528
+Train Loss: 0.6542161
+Train Loss: 0.6538627
+Train Loss: 0.6534086
+Train Loss: 0.6530157
+Train Loss: 0.6526288
+Train Loss: 0.6519373
+[Task 2]
+Test metric (before finetune): 0.636176
+Test metric (after finetune):  0.633121
+Result is saved into output/binary_classification/medium/2/TabPerceiverMultiTask_2.pt
+Train Loss: 0.2074832
+Train Loss: 0.1976287
+Train Loss: 0.1934096
+Train Loss: 0.1899507
+Train Loss: 0.1868685
+Train Loss: 0.1839468
+Train Loss: 0.1813220
+Train Loss: 0.1786331
+Train Loss: 0.1763681
+Train Loss: 0.1745127
+[Task 3]
+Test metric (before finetune): 0.957604
+Test metric (after finetune):  0.959096
+Result is saved into output/binary_classification/medium/3/TabPerceiverMultiTask_2.pt
+Train Loss: 0.6086783
+Train Loss: 0.6039678
+Train Loss: 0.6018069
+Train Loss: 0.5998411
+Train Loss: 0.5976791
+Train Loss: 0.5959717
+Train Loss: 0.5936143
+Train Loss: 0.5912987
+Train Loss: 0.5887128
+Train Loss: 0.5862961
+[Task 4]
+Test metric (before finetune): 0.688624
+Test metric (after finetune):  0.688339
+Result is saved into output/binary_classification/medium/4/TabPerceiverMultiTask_2.pt
+Train Loss: 0.0498189
+Train Loss: 0.0383258
+Train Loss: 0.0357642
+Train Loss: 0.0340956
+Train Loss: 0.0323340
+Train Loss: 0.0309400
+Train Loss: 0.0298712
+Train Loss: 0.0288814
+Train Loss: 0.0277083
+Train Loss: 0.0268269
+[Task 5]
+Test metric (before finetune): 0.989862
+Test metric (after finetune):  0.995373
+Result is saved into output/binary_classification/medium/5/TabPerceiverMultiTask_2.pt
+Train Loss: 0.4308265
+Train Loss: 0.4235029
+Train Loss: 0.4199370
+Train Loss: 0.4159566
+Train Loss: 0.4132062
+Train Loss: 0.4101036
+Train Loss: 0.4061472
+Train Loss: 0.4034630
+Train Loss: 0.3997257
+Train Loss: 0.3969693
+[Task 6]
+Test metric (before finetune): 0.834115
+Test metric (after finetune):  0.835837
+Result is saved into output/binary_classification/medium/6/TabPerceiverMultiTask_2.pt
+Train Loss: 0.3935581
+Train Loss: 0.3900740
+Train Loss: 0.3883895
+Train Loss: 0.3868265
+Train Loss: 0.3857161
+Train Loss: 0.3842639
+Train Loss: 0.3830899
+Train Loss: 0.3813407
+Train Loss: 0.3799406
+Train Loss: 0.3787043
+[Task 7]
+Test metric (before finetune): 0.878065
+Test metric (after finetune):  0.877898
+Result is saved into output/binary_classification/medium/7/TabPerceiverMultiTask_2.pt
+Train Loss: 0.6267781
+Train Loss: 0.6229996
+Train Loss: 0.6213476
+Train Loss: 0.6199088
+Train Loss: 0.6185165
+Train Loss: 0.6166877
+Train Loss: 0.6152253
+Train Loss: 0.6138515
+Train Loss: 0.6124241
+Train Loss: 0.6110674
+[Task 8]
+Test metric (before finetune): 0.672362
+Test metric (after finetune):  0.671074
+Result is saved into output/binary_classification/medium/8/TabPerceiverMultiTask_2.pt

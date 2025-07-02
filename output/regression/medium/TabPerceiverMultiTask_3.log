@@ -1,0 +1,68 @@
+Start building regression dataset_medium_0
+Start building regression dataset_medium_1
+Start building regression dataset_medium_2
+Start building regression dataset_medium_3
+Start building regression dataset_medium_4
+Start building regression dataset_medium_5
+Epoch 1/50 - Train Loss: 0.4435
+Epoch 2/50 - Train Loss: 0.2701
+Epoch 3/50 - Train Loss: 0.2589
+Epoch 4/50 - Train Loss: 0.2535
+Epoch 5/50 - Train Loss: 0.2501
+Epoch 6/50 - Train Loss: 0.2479
+Epoch 7/50 - Train Loss: 0.2455
+Epoch 8/50 - Train Loss: 0.2433
+Epoch 9/50 - Train Loss: 0.2412
+Epoch 10/50 - Train Loss: 0.2403
+Epoch 11/50 - Train Loss: 0.2380
+Epoch 12/50 - Train Loss: 0.2364
+Epoch 13/50 - Train Loss: 0.2354
+Epoch 14/50 - Train Loss: 0.2343
+Epoch 15/50 - Train Loss: 0.2330
+Epoch 16/50 - Train Loss: 0.2318
+Epoch 17/50 - Train Loss: 0.2306
+Epoch 18/50 - Train Loss: 0.2300
+Epoch 19/50 - Train Loss: 0.2289
+Epoch 20/50 - Train Loss: 0.2278
+Epoch 21/50 - Train Loss: 0.2269
+Epoch 22/50 - Train Loss: 0.2261
+Epoch 23/50 - Train Loss: 0.2255
+Epoch 24/50 - Train Loss: 0.2248
+Epoch 25/50 - Train Loss: 0.2242
+Epoch 26/50 - Train Loss: 0.2234
+Epoch 27/50 - Train Loss: 0.2229
+Epoch 28/50 - Train Loss: 0.2220
+Epoch 29/50 - Train Loss: 0.2212
+Epoch 30/50 - Train Loss: 0.2208
+Epoch 31/50 - Train Loss: 0.2203
+Epoch 32/50 - Train Loss: 0.2195
+Epoch 33/50 - Train Loss: 0.2190
+Epoch 34/50 - Train Loss: 0.2184
+Epoch 35/50 - Train Loss: 0.2177
+Epoch 36/50 - Train Loss: 0.2171
+Epoch 37/50 - Train Loss: 0.2166
+Epoch 38/50 - Train Loss: 0.2159
+Epoch 39/50 - Train Loss: 0.2154
+Epoch 40/50 - Train Loss: 0.2147
+Epoch 41/50 - Train Loss: 0.2142
+Epoch 42/50 - Train Loss: 0.2139
+Epoch 43/50 - Train Loss: 0.2131
+Epoch 44/50 - Train Loss: 0.2126
+Epoch 45/50 - Train Loss: 0.2121
+Epoch 46/50 - Train Loss: 0.2117
+Epoch 47/50 - Train Loss: 0.2112
+Epoch 48/50 - Train Loss: 0.2107
+Epoch 49/50 - Train Loss: 0.2102
+Epoch 50/50 - Train Loss: 0.2095
+[Task 0] Best test metric (before finetune): 0.679186, Best test metric (after finetune):  0.679186
+[Task 1] Best test metric (before finetune): 0.014668, Best test metric (after finetune):  0.013571
+[Task 2] Best test metric (before finetune): 0.104269, Best test metric (after finetune):  0.095499
+[Task 3] Best test metric (before finetune): 0.143804, Best test metric (after finetune):  0.143754
+[Task 4] Best test metric (before finetune): 0.536828, Best test metric (after finetune):  0.536828
+[Task 5] Best test metric (before finetune): 0.920667, Best test metric (after finetune):  0.920474
+Saved results to output/regression/medium/0/TabPerceiverMultiTask_3.pt
+Saved results to output/regression/medium/1/TabPerceiverMultiTask_3.pt
+Saved results to output/regression/medium/2/TabPerceiverMultiTask_3.pt
+Saved results to output/regression/medium/3/TabPerceiverMultiTask_3.pt
+Saved results to output/regression/medium/4/TabPerceiverMultiTask_3.pt
+Saved results to output/regression/medium/5/TabPerceiverMultiTask_3.pt

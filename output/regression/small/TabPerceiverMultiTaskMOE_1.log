@@ -1,0 +1,141 @@
+Start building regression dataset_small_0
+Start building regression dataset_small_1
+Start building regression dataset_small_2
+Start building regression dataset_small_3
+Start building regression dataset_small_4
+Start building regression dataset_small_5
+Start building regression dataset_small_6
+Start building regression dataset_small_7
+Start building regression dataset_small_8
+Start building regression dataset_small_9
+Start building regression dataset_small_10
+Start building regression dataset_small_11
+Start building regression dataset_small_12
+Training set has 13903 instances
+Validation set has 1737 instances
+Test set has 1739 instances
+Training set has 8553 instances
+Validation set has 1069 instances
+Test set has 1070 instances
+Training set has 6553 instances
+Validation set has 819 instances
+Test set has 820 instances
+Training set has 13279 instances
+Validation set has 1659 instances
+Test set has 1661 instances
+Training set has 17290 instances
+Validation set has 2161 instances
+Test set has 2162 instances
+Training set has 16512 instances
+Validation set has 2064 instances
+Test set has 2064 instances
+Training set has 8064 instances
+Validation set has 1008 instances
+Test set has 1009 instances
+Training set has 17010 instances
+Validation set has 2126 instances
+Test set has 2127 instances
+Training set has 7108 instances
+Validation set has 888 instances
+Test set has 889 instances
+Training set has 6912 instances
+Validation set has 864 instances
+Test set has 865 instances
+Training set has 5197 instances
+Validation set has 649 instances
+Test set has 651 instances
+Training set has 7108 instances
+Validation set has 888 instances
+Test set has 889 instances
+Training set has 16512 instances
+Validation set has 2064 instances
+Test set has 2064 instances
+Train Loss: 1.1891554
+Train Loss: 0.9889970
+Train Loss: 0.7344829
+Train Loss: 0.5027353
+Train Loss: 0.4317071
+Train Loss: 0.3947254
+Train Loss: 0.3702217
+Train Loss: 0.3527379
+Train Loss: 0.3444010
+Train Loss: 0.3225206
+Train Loss: 0.3144300
+Train Loss: 0.3029868
+Train Loss: 0.2975016
+Train Loss: 0.2900258
+Train Loss: 0.2844619
+Train Loss: 0.2854796
+Train Loss: 0.2806008
+Train Loss: 0.2789109
+Train Loss: 0.2760795
+Train Loss: 0.2732007
+Train Loss: 0.2714647
+Train Loss: 0.2705993
+Train Loss: 0.2690612
+Train Loss: 0.2673589
+Train Loss: 0.2669082
+Train Loss: 0.2665235
+Train Loss: 0.2655214
+Train Loss: 0.2642554
+Train Loss: 0.2621895
+Train Loss: 0.2624972
+Train Loss: 0.2615614
+Train Loss: 0.2607369
+Train Loss: 0.2600821
+Train Loss: 0.2608839
+Train Loss: 0.2602029
+Train Loss: 0.2595220
+Train Loss: 0.2592232
+Train Loss: 0.2593055
+Train Loss: 0.2591563
+Train Loss: 0.2589796
+Train Loss: 0.2583304
+Train Loss: 0.2587808
+Train Loss: 0.2573991
+Train Loss: 0.2576397
+Train Loss: 0.2577530
+Train Loss: 0.2567445
+Train Loss: 0.2574973
+Train Loss: 0.2568972
+Train Loss: 0.2567216
+Train Loss: 0.2572513
+[Task 0]
+Test metric: 0.322344
+Result is saved into output/regression/small/0/TabPerceiverMultiTaskMOE_1.pt
+[Task 1]
+Test metric: 0.238730
+Result is saved into output/regression/small/1/TabPerceiverMultiTaskMOE_1.pt
+[Task 2]
+Test metric: 0.156063
+Result is saved into output/regression/small/2/TabPerceiverMultiTaskMOE_1.pt
+[Task 3]
+Test metric: 0.280029
+Result is saved into output/regression/small/3/TabPerceiverMultiTaskMOE_1.pt
+[Task 4]
+Test metric: 0.363105
+Result is saved into output/regression/small/4/TabPerceiverMultiTaskMOE_1.pt
+[Task 5]
+Test metric: 0.466745
+Result is saved into output/regression/small/5/TabPerceiverMultiTaskMOE_1.pt
+[Task 6]
+Test metric: 0.339880
+Result is saved into output/regression/small/6/TabPerceiverMultiTaskMOE_1.pt
+[Task 7]
+Test metric: 0.423371
+Result is saved into output/regression/small/7/TabPerceiverMultiTaskMOE_1.pt
+[Task 8]
+Test metric: 0.895360
+Result is saved into output/regression/small/8/TabPerceiverMultiTaskMOE_1.pt
+[Task 9]
+Test metric: 0.043175
+Result is saved into output/regression/small/9/TabPerceiverMultiTaskMOE_1.pt
+[Task 10]
+Test metric: 0.804948
+Result is saved into output/regression/small/10/TabPerceiverMultiTaskMOE_1.pt
+[Task 11]
+Test metric: 0.931888
+Result is saved into output/regression/small/11/TabPerceiverMultiTaskMOE_1.pt
+[Task 12]
+Test metric: 0.523393
+Result is saved into output/regression/small/12/TabPerceiverMultiTaskMOE_1.pt

@@ -1,0 +1,386 @@
+Start building binary_classification dataset_medium_0
+Start building binary_classification dataset_medium_1
+Start building binary_classification dataset_medium_2
+Start building binary_classification dataset_medium_3
+Start building binary_classification dataset_medium_4
+Start building binary_classification dataset_medium_5
+Start building binary_classification dataset_medium_6
+Start building binary_classification dataset_medium_7
+Start building binary_classification dataset_medium_8
+Training set has 74120 instances
+Validation set has 9265 instances
+Test set has 9265 instances
+Training set has 159618 instances
+Validation set has 19952 instances
+Test set has 19953 instances
+Training set has 56872 instances
+Validation set has 7109 instances
+Test set has 7109 instances
+Training set has 58398 instances
+Validation set has 7299 instances
+Test set has 7301 instances
+Training set has 46601 instances
+Validation set has 5825 instances
+Test set has 5826 instances
+Training set has 338944 instances
+Validation set has 42368 instances
+Test set has 42368 instances
+Training set has 46064 instances
+Validation set has 5758 instances
+Test set has 5758 instances
+Training set has 89409 instances
+Validation set has 11176 instances
+Test set has 11177 instances
+Training set has 78440 instances
+Validation set has 9805 instances
+Test set has 9805 instances
+Epoch 1/50 - Train Loss: 0.5166
+Epoch 1/50 [Task 0] - Best test metric: 0.508321
+Epoch 1/50 [Task 1] - Best test metric: 0.934936
+Epoch 1/50 [Task 2] - Best test metric: 0.638600
+Epoch 1/50 [Task 3] - Best test metric: 0.928141
+Epoch 1/50 [Task 4] - Best test metric: 0.695500
+Epoch 1/50 [Task 5] - Best test metric: 0.860216
+Epoch 1/50 [Task 6] - Best test metric: 0.805351
+Epoch 1/50 [Task 7] - Best test metric: 0.789030
+Epoch 1/50 [Task 8] - Best test metric: 0.590290
+Epoch 2/50 - Train Loss: 0.4653
+Epoch 2/50 [Task 0] - Best test metric: 0.554008
+Epoch 2/50 [Task 1] - Best test metric: 0.939003
+Epoch 2/50 [Task 2] - Best test metric: 0.638600
+Epoch 2/50 [Task 3] - Best test metric: 0.938920
+Epoch 2/50 [Task 4] - Best test metric: 0.701314
+Epoch 2/50 [Task 5] - Best test metric: 0.867024
+Epoch 2/50 [Task 6] - Best test metric: 0.810597
+Epoch 2/50 [Task 7] - Best test metric: 0.793015
+Epoch 2/50 [Task 8] - Best test metric: 0.604267
+Epoch 3/50 - Train Loss: 0.4565
+Epoch 3/50 [Task 0] - Best test metric: 0.579019
+Epoch 3/50 [Task 1] - Best test metric: 0.938530
+Epoch 3/50 [Task 2] - Best test metric: 0.638600
+Epoch 3/50 [Task 3] - Best test metric: 0.940093
+Epoch 3/50 [Task 4] - Best test metric: 0.698336
+Epoch 3/50 [Task 5] - Best test metric: 0.872914
+Epoch 3/50 [Task 6] - Best test metric: 0.809928
+Epoch 3/50 [Task 7] - Best test metric: 0.803733
+Epoch 3/50 [Task 8] - Best test metric: 0.604267
+Epoch 4/50 - Train Loss: 0.4493
+Epoch 4/50 [Task 0] - Best test metric: 0.579019
+Epoch 4/50 [Task 1] - Best test metric: 0.938530
+Epoch 4/50 [Task 2] - Best test metric: 0.638600
+Epoch 4/50 [Task 3] - Best test metric: 0.942059
+Epoch 4/50 [Task 4] - Best test metric: 0.698336
+Epoch 4/50 [Task 5] - Best test metric: 0.879610
+Epoch 4/50 [Task 6] - Best test metric: 0.818679
+Epoch 4/50 [Task 7] - Best test metric: 0.816133
+Epoch 4/50 [Task 8] - Best test metric: 0.605348
+Epoch 5/50 - Train Loss: 0.4412
+Epoch 5/50 [Task 0] - Best test metric: 0.588024
+Epoch 5/50 [Task 1] - Best test metric: 0.938530
+Epoch 5/50 [Task 2] - Best test metric: 0.638600
+Epoch 5/50 [Task 3] - Best test metric: 0.946183
+Epoch 5/50 [Task 4] - Best test metric: 0.704596
+Epoch 5/50 [Task 5] - Best test metric: 0.891101
+Epoch 5/50 [Task 6] - Best test metric: 0.823202
+Epoch 5/50 [Task 7] - Best test metric: 0.816133
+Epoch 5/50 [Task 8] - Best test metric: 0.635115
+Epoch 6/50 - Train Loss: 0.4304
+Epoch 6/50 [Task 0] - Best test metric: 0.588024
+Epoch 6/50 [Task 1] - Best test metric: 0.938530
+Epoch 6/50 [Task 2] - Best test metric: 0.635570
+Epoch 6/50 [Task 3] - Best test metric: 0.949822
+Epoch 6/50 [Task 4] - Best test metric: 0.708675
+Epoch 6/50 [Task 5] - Best test metric: 0.901515
+Epoch 6/50 [Task 6] - Best test metric: 0.823202
+Epoch 6/50 [Task 7] - Best test metric: 0.827344
+Epoch 6/50 [Task 8] - Best test metric: 0.638956
+Epoch 7/50 - Train Loss: 0.4201
+Epoch 7/50 [Task 0] - Best test metric: 0.592932
+Epoch 7/50 [Task 1] - Best test metric: 0.938530
+Epoch 7/50 [Task 2] - Best test metric: 0.638761
+Epoch 7/50 [Task 3] - Best test metric: 0.950950
+Epoch 7/50 [Task 4] - Best test metric: 0.708675
+Epoch 7/50 [Task 5] - Best test metric: 0.920388
+Epoch 7/50 [Task 6] - Best test metric: 0.829538
+Epoch 7/50 [Task 7] - Best test metric: 0.832737
+Epoch 7/50 [Task 8] - Best test metric: 0.647584
+Epoch 8/50 - Train Loss: 0.4052
+Epoch 8/50 [Task 0] - Best test metric: 0.593142
+Epoch 8/50 [Task 1] - Best test metric: 0.938530
+Epoch 8/50 [Task 2] - Best test metric: 0.639740
+Epoch 8/50 [Task 3] - Best test metric: 0.954105
+Epoch 8/50 [Task 4] - Best test metric: 0.709665
+Epoch 8/50 [Task 5] - Best test metric: 0.935475
+Epoch 8/50 [Task 6] - Best test metric: 0.827588
+Epoch 8/50 [Task 7] - Best test metric: 0.851097
+Epoch 8/50 [Task 8] - Best test metric: 0.656294
+Epoch 9/50 - Train Loss: 0.3912
+Epoch 9/50 [Task 0] - Best test metric: 0.597503
+Epoch 9/50 [Task 1] - Best test metric: 0.938530
+Epoch 9/50 [Task 2] - Best test metric: 0.639740
+Epoch 9/50 [Task 3] - Best test metric: 0.955903
+Epoch 9/50 [Task 4] - Best test metric: 0.711930
+Epoch 9/50 [Task 5] - Best test metric: 0.944080
+Epoch 9/50 [Task 6] - Best test metric: 0.831665
+Epoch 9/50 [Task 7] - Best test metric: 0.855981
+Epoch 9/50 [Task 8] - Best test metric: 0.659768
+Epoch 10/50 - Train Loss: 0.3802
+Epoch 10/50 [Task 0] - Best test metric: 0.600394
+Epoch 10/50 [Task 1] - Best test metric: 0.938530
+Epoch 10/50 [Task 2] - Best test metric: 0.637728
+Epoch 10/50 [Task 3] - Best test metric: 0.957068
+Epoch 10/50 [Task 4] - Best test metric: 0.711411
+Epoch 10/50 [Task 5] - Best test metric: 0.950305
+Epoch 10/50 [Task 6] - Best test metric: 0.833789
+Epoch 10/50 [Task 7] - Best test metric: 0.856264
+Epoch 10/50 [Task 8] - Best test metric: 0.659768
+Epoch 11/50 - Train Loss: 0.3688
+Epoch 11/50 [Task 0] - Best test metric: 0.602671
+Epoch 11/50 [Task 1] - Best test metric: 0.938530
+Epoch 11/50 [Task 2] - Best test metric: 0.638989
+Epoch 11/50 [Task 3] - Best test metric: 0.957068
+Epoch 11/50 [Task 4] - Best test metric: 0.711411
+Epoch 11/50 [Task 5] - Best test metric: 0.958939
+Epoch 11/50 [Task 6] - Best test metric: 0.834370
+Epoch 11/50 [Task 7] - Best test metric: 0.859382
+Epoch 11/50 [Task 8] - Best test metric: 0.668494
+Epoch 12/50 - Train Loss: 0.3584
+Epoch 12/50 [Task 0] - Best test metric: 0.604356
+Epoch 12/50 [Task 1] - Best test metric: 0.938530
+Epoch 12/50 [Task 2] - Best test metric: 0.637158
+Epoch 12/50 [Task 3] - Best test metric: 0.959263
+Epoch 12/50 [Task 4] - Best test metric: 0.711411
+Epoch 12/50 [Task 5] - Best test metric: 0.963714
+Epoch 12/50 [Task 6] - Best test metric: 0.841346
+Epoch 12/50 [Task 7] - Best test metric: 0.859382
+Epoch 12/50 [Task 8] - Best test metric: 0.668494
+Epoch 13/50 - Train Loss: 0.3501
+Epoch 13/50 [Task 0] - Best test metric: 0.602070
+Epoch 13/50 [Task 1] - Best test metric: 0.938530
+Epoch 13/50 [Task 2] - Best test metric: 0.637158
+Epoch 13/50 [Task 3] - Best test metric: 0.960765
+Epoch 13/50 [Task 4] - Best test metric: 0.711411
+Epoch 13/50 [Task 5] - Best test metric: 0.964695
+Epoch 13/50 [Task 6] - Best test metric: 0.841346
+Epoch 13/50 [Task 7] - Best test metric: 0.862257
+Epoch 13/50 [Task 8] - Best test metric: 0.672598
+Epoch 14/50 - Train Loss: 0.3455
+Epoch 14/50 [Task 0] - Best test metric: 0.606638
+Epoch 14/50 [Task 1] - Best test metric: 0.938530
+Epoch 14/50 [Task 2] - Best test metric: 0.637158
+Epoch 14/50 [Task 3] - Best test metric: 0.960904
+Epoch 14/50 [Task 4] - Best test metric: 0.715716
+Epoch 14/50 [Task 5] - Best test metric: 0.973150
+Epoch 14/50 [Task 6] - Best test metric: 0.841346
+Epoch 14/50 [Task 7] - Best test metric: 0.862257
+Epoch 14/50 [Task 8] - Best test metric: 0.674145
+Epoch 15/50 - Train Loss: 0.3365
+Epoch 15/50 [Task 0] - Best test metric: 0.606638
+Epoch 15/50 [Task 1] - Best test metric: 0.938530
+Epoch 15/50 [Task 2] - Best test metric: 0.639427
+Epoch 15/50 [Task 3] - Best test metric: 0.962024
+Epoch 15/50 [Task 4] - Best test metric: 0.715716
+Epoch 15/50 [Task 5] - Best test metric: 0.977351
+Epoch 15/50 [Task 6] - Best test metric: 0.843813
+Epoch 15/50 [Task 7] - Best test metric: 0.862257
+Epoch 15/50 [Task 8] - Best test metric: 0.674145
+Epoch 16/50 - Train Loss: 0.3309
+Epoch 16/50 [Task 0] - Best test metric: 0.606638
+Epoch 16/50 [Task 1] - Best test metric: 0.938530
+Epoch 16/50 [Task 2] - Best test metric: 0.639427
+Epoch 16/50 [Task 3] - Best test metric: 0.962024
+Epoch 16/50 [Task 4] - Best test metric: 0.715716
+Epoch 16/50 [Task 5] - Best test metric: 0.979719
+Epoch 16/50 [Task 6] - Best test metric: 0.845297
+Epoch 16/50 [Task 7] - Best test metric: 0.864216
+Epoch 16/50 [Task 8] - Best test metric: 0.678429
+Epoch 17/50 - Train Loss: 0.3250
+Epoch 17/50 [Task 0] - Best test metric: 0.610863
+Epoch 17/50 [Task 1] - Best test metric: 0.938530
+Epoch 17/50 [Task 2] - Best test metric: 0.638468
+Epoch 17/50 [Task 3] - Best test metric: 0.963351
+Epoch 17/50 [Task 4] - Best test metric: 0.715716
+Epoch 17/50 [Task 5] - Best test metric: 0.982243
+Epoch 17/50 [Task 6] - Best test metric: 0.845297
+Epoch 17/50 [Task 7] - Best test metric: 0.865407
+Epoch 17/50 [Task 8] - Best test metric: 0.676535
+Epoch 18/50 - Train Loss: 0.3212
+Epoch 18/50 [Task 0] - Best test metric: 0.611443
+Epoch 18/50 [Task 1] - Best test metric: 0.938530
+Epoch 18/50 [Task 2] - Best test metric: 0.637305
+Epoch 18/50 [Task 3] - Best test metric: 0.963388
+Epoch 18/50 [Task 4] - Best test metric: 0.715716
+Epoch 18/50 [Task 5] - Best test metric: 0.984027
+Epoch 18/50 [Task 6] - Best test metric: 0.845297
+Epoch 18/50 [Task 7] - Best test metric: 0.865407
+Epoch 18/50 [Task 8] - Best test metric: 0.676535
+Epoch 19/50 - Train Loss: 0.3155
+Epoch 19/50 [Task 0] - Best test metric: 0.611852
+Epoch 19/50 [Task 1] - Best test metric: 0.938530
+Epoch 19/50 [Task 2] - Best test metric: 0.637305
+Epoch 19/50 [Task 3] - Best test metric: 0.963388
+Epoch 19/50 [Task 4] - Best test metric: 0.715716
+Epoch 19/50 [Task 5] - Best test metric: 0.984027
+Epoch 19/50 [Task 6] - Best test metric: 0.848343
+Epoch 19/50 [Task 7] - Best test metric: 0.867256
+Epoch 19/50 [Task 8] - Best test metric: 0.679402
+Epoch 20/50 - Train Loss: 0.3137
+Epoch 20/50 [Task 0] - Best test metric: 0.612391
+Epoch 20/50 [Task 1] - Best test metric: 0.938530
+Epoch 20/50 [Task 2] - Best test metric: 0.637305
+Epoch 20/50 [Task 3] - Best test metric: 0.964107
+Epoch 20/50 [Task 4] - Best test metric: 0.715578
+Epoch 20/50 [Task 5] - Best test metric: 0.986477
+Epoch 20/50 [Task 6] - Best test metric: 0.848343
+Epoch 20/50 [Task 7] - Best test metric: 0.867868
+Epoch 20/50 [Task 8] - Best test metric: 0.679952
+Epoch 21/50 - Train Loss: 0.3082
+Epoch 21/50 [Task 0] - Best test metric: 0.612391
+Epoch 21/50 [Task 1] - Best test metric: 0.938530
+Epoch 21/50 [Task 2] - Best test metric: 0.637305
+Epoch 21/50 [Task 3] - Best test metric: 0.964107
+Epoch 21/50 [Task 4] - Best test metric: 0.715578
+Epoch 21/50 [Task 5] - Best test metric: 0.988452
+Epoch 21/50 [Task 6] - Best test metric: 0.848343
+Epoch 21/50 [Task 7] - Best test metric: 0.867752
+Epoch 21/50 [Task 8] - Best test metric: 0.679952
+Epoch 22/50 - Train Loss: 0.3050
+Epoch 22/50 [Task 0] - Best test metric: 0.612391
+Epoch 22/50 [Task 1] - Best test metric: 0.938530
+Epoch 22/50 [Task 2] - Best test metric: 0.637305
+Epoch 22/50 [Task 3] - Best test metric: 0.965191
+Epoch 22/50 [Task 4] - Best test metric: 0.715578
+Epoch 22/50 [Task 5] - Best test metric: 0.989339
+Epoch 22/50 [Task 6] - Best test metric: 0.848343
+Epoch 22/50 [Task 7] - Best test metric: 0.867752
+Epoch 22/50 [Task 8] - Best test metric: 0.681334
+Epoch 23/50 - Train Loss: 0.3022
+Epoch 23/50 [Task 0] - Best test metric: 0.612391
+Epoch 23/50 [Task 1] - Best test metric: 0.938530
+Epoch 23/50 [Task 2] - Best test metric: 0.637305
+Epoch 23/50 [Task 3] - Best test metric: 0.965191
+Epoch 23/50 [Task 4] - Best test metric: 0.715578
+Epoch 23/50 [Task 5] - Best test metric: 0.990067
+Epoch 23/50 [Task 6] - Best test metric: 0.848343
+Epoch 23/50 [Task 7] - Best test metric: 0.867752
+Epoch 23/50 [Task 8] - Best test metric: 0.681834
+Epoch 24/50 - Train Loss: 0.3006
+Epoch 24/50 [Task 0] - Best test metric: 0.612391
+Epoch 24/50 [Task 1] - Best test metric: 0.938530
+Epoch 24/50 [Task 2] - Best test metric: 0.637305
+Epoch 24/50 [Task 3] - Best test metric: 0.965191
+Epoch 24/50 [Task 4] - Best test metric: 0.717511
+Epoch 24/50 [Task 5] - Best test metric: 0.990025
+Epoch 24/50 [Task 6] - Best test metric: 0.848343
+Epoch 24/50 [Task 7] - Best test metric: 0.867752
+Epoch 24/50 [Task 8] - Best test metric: 0.682560
+Epoch 25/50 - Train Loss: 0.2978
+Epoch 25/50 [Task 0] - Best test metric: 0.615323
+Epoch 25/50 [Task 1] - Best test metric: 0.938530
+Epoch 25/50 [Task 2] - Best test metric: 0.637305
+Epoch 25/50 [Task 3] - Best test metric: 0.966002
+Epoch 25/50 [Task 4] - Best test metric: 0.718010
+Epoch 25/50 [Task 5] - Best test metric: 0.990345
+Epoch 25/50 [Task 6] - Best test metric: 0.855491
+Epoch 25/50 [Task 7] - Best test metric: 0.867752
+Epoch 25/50 [Task 8] - Best test metric: 0.682560
+Epoch 26/50 - Train Loss: 0.2944
+Epoch 26/50 [Task 0] - Best test metric: 0.615323
+Epoch 26/50 [Task 1] - Best test metric: 0.938530
+Epoch 26/50 [Task 2] - Best test metric: 0.637305
+Epoch 26/50 [Task 3] - Best test metric: 0.966002
+Epoch 26/50 [Task 4] - Best test metric: 0.718010
+Epoch 26/50 [Task 5] - Best test metric: 0.990345
+Epoch 26/50 [Task 6] - Best test metric: 0.855491
+Epoch 26/50 [Task 7] - Best test metric: 0.867752
+Epoch 26/50 [Task 8] - Best test metric: 0.682560
+Epoch 27/50 - Train Loss: 0.2919
+Epoch 27/50 [Task 0] - Best test metric: 0.614405
+Epoch 27/50 [Task 1] - Best test metric: 0.938530
+Epoch 27/50 [Task 2] - Best test metric: 0.637305
+Epoch 27/50 [Task 3] - Best test metric: 0.966234
+Epoch 27/50 [Task 4] - Best test metric: 0.718010
+Epoch 27/50 [Task 5] - Best test metric: 0.991720
+Epoch 27/50 [Task 6] - Best test metric: 0.855491
+Epoch 27/50 [Task 7] - Best test metric: 0.867752
+Epoch 27/50 [Task 8] - Best test metric: 0.682560
+Epoch 28/50 - Train Loss: 0.2895
+Epoch 28/50 [Task 0] - Best test metric: 0.614405
+Epoch 28/50 [Task 1] - Best test metric: 0.938530
+Epoch 28/50 [Task 2] - Best test metric: 0.637305
+Epoch 28/50 [Task 3] - Best test metric: 0.966234
+Epoch 28/50 [Task 4] - Best test metric: 0.718010
+Epoch 28/50 [Task 5] - Best test metric: 0.992438
+Epoch 28/50 [Task 6] - Best test metric: 0.855491
+Epoch 28/50 [Task 7] - Best test metric: 0.867752
+Epoch 28/50 [Task 8] - Best test metric: 0.681715
+Epoch 29/50 - Train Loss: 0.2878
+Epoch 29/50 [Task 0] - Best test metric: 0.614405
+Epoch 29/50 [Task 1] - Best test metric: 0.938530
+Epoch 29/50 [Task 2] - Best test metric: 0.637305
+Epoch 29/50 [Task 3] - Best test metric: 0.966234
+Epoch 29/50 [Task 4] - Best test metric: 0.718010
+Epoch 29/50 [Task 5] - Best test metric: 0.992438
+Epoch 29/50 [Task 6] - Best test metric: 0.855491
+Epoch 29/50 [Task 7] - Best test metric: 0.867752
+Epoch 29/50 [Task 8] - Best test metric: 0.684819
+Epoch 30/50 - Train Loss: 0.2859
+Epoch 30/50 [Task 0] - Best test metric: 0.614405
+Epoch 30/50 [Task 1] - Best test metric: 0.938530
+Epoch 30/50 [Task 2] - Best test metric: 0.639963
+Epoch 30/50 [Task 3] - Best test metric: 0.966234
+Epoch 30/50 [Task 4] - Best test metric: 0.718010
+Epoch 30/50 [Task 5] - Best test metric: 0.993157
+Epoch 30/50 [Task 6] - Best test metric: 0.857473
+Epoch 30/50 [Task 7] - Best test metric: 0.867752
+Epoch 30/50 [Task 8] - Best test metric: 0.684819
+Epoch 31/50 - Train Loss: 0.2836
+Epoch 31/50 [Task 0] - Best test metric: 0.614405
+Epoch 31/50 [Task 1] - Best test metric: 0.938530
+Epoch 31/50 [Task 2] - Best test metric: 0.639963
+Epoch 31/50 [Task 3] - Best test metric: 0.966234
+Epoch 31/50 [Task 4] - Best test metric: 0.718010
+Epoch 31/50 [Task 5] - Best test metric: 0.993537
+Epoch 31/50 [Task 6] - Best test metric: 0.857473
+Epoch 31/50 [Task 7] - Best test metric: 0.867752
+Epoch 31/50 [Task 8] - Best test metric: 0.684819
+Epoch 32/50 - Train Loss: 0.2813
+Epoch 32/50 [Task 0] - Best test metric: 0.614405
+Epoch 32/50 [Task 1] - Best test metric: 0.938530
+Epoch 32/50 [Task 2] - Best test metric: 0.639963
+Epoch 32/50 [Task 3] - Best test metric: 0.966234
+Epoch 32/50 [Task 4] - Best test metric: 0.714591
+Epoch 32/50 [Task 5] - Best test metric: 0.993711
+Epoch 32/50 [Task 6] - Best test metric: 0.857473
+Epoch 32/50 [Task 7] - Best test metric: 0.867752
+Epoch 32/50 [Task 8] - Best test metric: 0.681246
+Epoch 33/50 - Train Loss: 0.2792
+Epoch 33/50 [Task 0] - Best test metric: 0.614405
+Epoch 33/50 [Task 1] - Best test metric: 0.938530
+Epoch 33/50 [Task 2] - Best test metric: 0.639963
+Epoch 33/50 [Task 3] - Best test metric: 0.966286
+Epoch 33/50 [Task 4] - Best test metric: 0.714591
+Epoch 33/50 [Task 5] - Best test metric: 0.993711
+Epoch 33/50 [Task 6] - Best test metric: 0.857473
+Epoch 33/50 [Task 7] - Best test metric: 0.867752
+Epoch 33/50 [Task 8] - Best test metric: 0.681246
+Epoch 34/50 - Train Loss: 0.2778
+Epoch 34/50 [Task 0] - Best test metric: 0.612236
+Epoch 34/50 [Task 1] - Best test metric: 0.938530
+Epoch 34/50 [Task 2] - Best test metric: 0.639963
+Epoch 34/50 [Task 3] - Best test metric: 0.966229
+Epoch 34/50 [Task 4] - Best test metric: 0.714591
+Epoch 34/50 [Task 5] - Best test metric: 0.994562
+Epoch 34/50 [Task 6] - Best test metric: 0.857473
+Epoch 34/50 [Task 7] - Best test metric: 0.867752
+Epoch 34/50 [Task 8] - Best test metric: 0.681246
+Epoch 35/50 - Train Loss: 0.2755
+Epoch 35/50 [Task 0] - Best test metric: 0.612236
+Epoch 35/50 [Task 1] - Best test metric: 0.938530
+Epoch 35/50 [Task 2] - Best test metric: 0.639963
+Epoch 35/50 [Task 3] - Best test metric: 0.966229
+Epoch 35/50 [Task 4] - Best test metric: 0.714591
+Epoch 35/50 [Task 5] - Best test metric: 0.994562
+Epoch 35/50 [Task 6] - Best test metric: 0.857473
+Epoch 35/50 [Task 7] - Best test metric: 0.869636
+Epoch 35/50 [Task 8] - Best test metric: 0.682832

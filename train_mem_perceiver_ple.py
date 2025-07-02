@@ -11,19 +11,14 @@ from typing import Any, Optional
 
 import torch
 from torch.nn import Module
-from torch.nn import CrossEntropyLoss, MSELoss, BCEWithLogitsLoss
-from torchmetrics import Accuracy, AUROC, MeanSquaredError
 from torch.optim.lr_scheduler import ExponentialLR
 from torchmetrics import Metric
-from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 
 import torch_frame
-from torch_frame import NAStrategy, stype
 from torch_frame.typing import TaskType
-from torch_frame.data.stats import StatType
-from torch_frame.data import DataLoader, Dataset
-from models import MemPerceiver
+from torch_frame.data import DataLoader
+from models import MemPerceiverPLE
 
 from encoder.piecewise_linear_encoder import compute_bins 
 
@@ -56,10 +51,6 @@ def train(
         
         tf = tf.to(device)
         y = tf.y
-        print("Dubug: tf")
-        print(tf)
-        print("Debug: y")
-        print(y)
         pred = model(tf)
         if pred.size(1) == 1:
             pred = pred.view(-1, )
@@ -168,7 +159,6 @@ def train_and_eval_with_cfg(
     # train_loader returns (tensor_frame, index) 
     train_loader, valid_loader, test_loader, meta, train_dataset = build_dataloader(dataset, train_cfg["batch_size"], is_custom=True, use_train_dataset=True)
     num_classes, loss_fn, metric_computer, higher_is_better, task_type = create_train_setup(dataset)
-    n_bins = 48
 
     if "n_bins" in train_cfg: 
         numerical_cols = meta["col_names_dict"][torch_frame.numerical]
@@ -187,23 +177,15 @@ def train_and_eval_with_cfg(
             **compute_bins_kwargs,
             tree_kwargs={'min_samples_leaf': 64, 'min_impurity_decrease': 1e-4},
         )
-
-
-
-
-    # bins_list = compute_bins(
-    #     X=torch.tensor(train_dataset.df[numerical_cols].values), # pass numerical columns only.
-    #     n_bins=n_bins,
-    #     y=train_dataset.tensor_frame.y, # pass target labels here
-    #     regression=True if task_type == TaskType.REGRESSION else False,
-    # )
-    model = MemPerceiver(
+        print(f"Bin edges for {numerical_cols}")
+        print(bin_edges)
+    model = MemPerceiverPLE(
         **model_cfg,
         **meta,
         ensemble=True,
         is_cos_sim=True,
         num_classes=num_classes,
-        bins_list=bin_edges,
+        bins_list=bin_edges, # pass pre-computed bins for numerical features.
     ).to(device)
 
     # Use train_cfg to set up training procedure
@@ -232,7 +214,7 @@ def main(args):
     print(f"Device: {device}")
 
     # define search space
-    TRAIN_CONFIG_KEYS = ["batch_size", "gamma_rate", "base_lr"]
+    TRAIN_CONFIG_KEYS = ["batch_size", "gamma_rate", "base_lr", "n_bins"]
     model_search_space = {
         'num_heads': [4, 8],
         'num_layers': [4, 6, 8],
@@ -332,7 +314,7 @@ def main(args):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="MemPerceiver Hyperparameter Tuning Script")
+    parser = argparse.ArgumentParser(description="MemPerceiver-PLE Hyperparameter Tuning Script")
     parser.add_argument('--task_type', type=str,
                         choices=['binary_classification', 'multiclass_classification', 'regression'],
                         default='binary_classification')
@@ -346,7 +328,7 @@ if __name__ == '__main__':
         '--num_repeats', type=int, default=5,
         help='Number of repeated training and eval on the best config.')
     parser.add_argument('--seed', type=int, default=0)
-    parser.add_argument('--exp_name', type=str, default='MemPerceiver')
+    parser.add_argument('--exp_name', type=str, default='MemPerceiverPLE')
     parser.add_argument('--result_path', type=str, default='')
     args = parser.parse_args()
     

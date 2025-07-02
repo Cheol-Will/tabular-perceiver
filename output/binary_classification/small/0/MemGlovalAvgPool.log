@@ -1,0 +1,1498 @@
+Hyper-parameter search via Optuna
+Namespace(task_type='binary_classification', scale='small', idx=0, epochs=50, num_trials=20, num_repeats=5, seed=0, exp_name='MemGlovalAvgPool', result_path='output/binary_classification/small/0/MemGlovalAvgPool.pt')
+Device: cuda
+Start building binary_classification dataset_small_0
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Epoch 1/50 - Train Loss: 0.5339 - Train Metric: 0.6630
+Epoch 1/50 - Val Metric: 0.8171
+Epoch 2/50 - Train Loss: 0.4328 - Train Metric: 0.8210
+Epoch 2/50 - Val Metric: 0.8590
+Epoch 3/50 - Train Loss: 0.4078 - Train Metric: 0.8458
+Epoch 3/50 - Val Metric: 0.8693
+Epoch 4/50 - Train Loss: 0.3956 - Train Metric: 0.8557
+Epoch 4/50 - Val Metric: 0.8751
+Epoch 5/50 - Train Loss: 0.3855 - Train Metric: 0.8643
+Epoch 5/50 - Val Metric: 0.8829
+Epoch 6/50 - Train Loss: 0.3773 - Train Metric: 0.8708
+Epoch 6/50 - Val Metric: 0.8864
+Epoch 7/50 - Train Loss: 0.3709 - Train Metric: 0.8752
+Epoch 7/50 - Val Metric: 0.8918
+Epoch 8/50 - Train Loss: 0.3654 - Train Metric: 0.8793
+Epoch 8/50 - Val Metric: 0.8944
+Epoch 9/50 - Train Loss: 0.3631 - Train Metric: 0.8805
+Epoch 9/50 - Val Metric: 0.8954
+Epoch 10/50 - Train Loss: 0.3583 - Train Metric: 0.8842
+Epoch 10/50 - Val Metric: 0.8977
+Epoch 11/50 - Train Loss: 0.3554 - Train Metric: 0.8860
+Epoch 11/50 - Val Metric: 0.8990
+Epoch 12/50 - Train Loss: 0.3530 - Train Metric: 0.8876
+Epoch 12/50 - Val Metric: 0.8997
+Epoch 13/50 - Train Loss: 0.3517 - Train Metric: 0.8885
+Epoch 13/50 - Val Metric: 0.9005
+Epoch 14/50 - Train Loss: 0.3483 - Train Metric: 0.8907
+Epoch 14/50 - Val Metric: 0.9013
+Epoch 15/50 - Train Loss: 0.3501 - Train Metric: 0.8892
+Epoch 15/50 - Val Metric: 0.9017
+Epoch 16/50 - Train Loss: 0.3464 - Train Metric: 0.8917
+Epoch 16/50 - Val Metric: 0.9020
+Epoch 17/50 - Train Loss: 0.3475 - Train Metric: 0.8906
+Epoch 17/50 - Val Metric: 0.9023
+Epoch 18/50 - Train Loss: 0.3450 - Train Metric: 0.8925
+Epoch 18/50 - Val Metric: 0.9026
+Epoch 19/50 - Train Loss: 0.3439 - Train Metric: 0.8933
+Epoch 19/50 - Val Metric: 0.9029
+Epoch 20/50 - Train Loss: 0.3443 - Train Metric: 0.8929
+Epoch 20/50 - Val Metric: 0.9032
+Epoch 21/50 - Train Loss: 0.3434 - Train Metric: 0.8935
+Epoch 21/50 - Val Metric: 0.9035
+Epoch 22/50 - Train Loss: 0.3430 - Train Metric: 0.8938
+Epoch 22/50 - Val Metric: 0.9036
+Epoch 23/50 - Train Loss: 0.3403 - Train Metric: 0.8955
+Epoch 23/50 - Val Metric: 0.9037
+Epoch 24/50 - Train Loss: 0.3416 - Train Metric: 0.8947
+Epoch 24/50 - Val Metric: 0.9039
+Epoch 25/50 - Train Loss: 0.3433 - Train Metric: 0.8932
+Epoch 25/50 - Val Metric: 0.9040
+Epoch 26/50 - Train Loss: 0.3405 - Train Metric: 0.8955
+Epoch 26/50 - Val Metric: 0.9041
+Epoch 27/50 - Train Loss: 0.3398 - Train Metric: 0.8955
+Epoch 27/50 - Val Metric: 0.9043
+Epoch 28/50 - Train Loss: 0.3399 - Train Metric: 0.8958
+Epoch 28/50 - Val Metric: 0.9043
+Epoch 29/50 - Train Loss: 0.3418 - Train Metric: 0.8942
+Epoch 29/50 - Val Metric: 0.9045
+Epoch 30/50 - Train Loss: 0.3405 - Train Metric: 0.8953
+Epoch 30/50 - Val Metric: 0.9045
+Epoch 31/50 - Train Loss: 0.3400 - Train Metric: 0.8956
+Epoch 31/50 - Val Metric: 0.9047
+Epoch 32/50 - Train Loss: 0.3408 - Train Metric: 0.8948
+Epoch 32/50 - Val Metric: 0.9047
+Epoch 33/50 - Train Loss: 0.3388 - Train Metric: 0.8963
+Epoch 33/50 - Val Metric: 0.9048
+Epoch 34/50 - Train Loss: 0.3395 - Train Metric: 0.8959
+Epoch 34/50 - Val Metric: 0.9048
+Epoch 35/50 - Train Loss: 0.3403 - Train Metric: 0.8952
+Epoch 35/50 - Val Metric: 0.9048
+Epoch 36/50 - Train Loss: 0.3388 - Train Metric: 0.8961
+Epoch 36/50 - Val Metric: 0.9049
+Epoch 37/50 - Train Loss: 0.3408 - Train Metric: 0.8949
+Epoch 37/50 - Val Metric: 0.9049
+Epoch 38/50 - Train Loss: 0.3385 - Train Metric: 0.8965
+Epoch 38/50 - Val Metric: 0.9050
+Epoch 39/50 - Train Loss: 0.3381 - Train Metric: 0.8967
+Epoch 39/50 - Val Metric: 0.9050
+Epoch 40/50 - Train Loss: 0.3396 - Train Metric: 0.8956
+Epoch 40/50 - Val Metric: 0.9050
+Epoch 41/50 - Train Loss: 0.3390 - Train Metric: 0.8958
+Epoch 41/50 - Val Metric: 0.9050
+Epoch 42/50 - Train Loss: 0.3401 - Train Metric: 0.8953
+Epoch 42/50 - Val Metric: 0.9050
+Epoch 43/50 - Train Loss: 0.3386 - Train Metric: 0.8964
+Epoch 43/50 - Val Metric: 0.9050
+Epoch 44/50 - Train Loss: 0.3383 - Train Metric: 0.8965
+Epoch 44/50 - Val Metric: 0.9051
+Epoch 45/50 - Train Loss: 0.3377 - Train Metric: 0.8970
+Epoch 45/50 - Val Metric: 0.9051
+Epoch 46/50 - Train Loss: 0.3381 - Train Metric: 0.8967
+Epoch 46/50 - Val Metric: 0.9051
+Epoch 47/50 - Train Loss: 0.3389 - Train Metric: 0.8961
+Epoch 47/50 - Val Metric: 0.9051
+Epoch 48/50 - Train Loss: 0.3395 - Train Metric: 0.8957
+Epoch 48/50 - Val Metric: 0.9051
+Epoch 49/50 - Train Loss: 0.3373 - Train Metric: 0.8974
+Epoch 49/50 - Val Metric: 0.9051
+Epoch 50/50 - Train Loss: 0.3395 - Train Metric: 0.8957
+Epoch 50/50 - Val Metric: 0.9051
+Best val: 0.9051, Best test: 0.9048
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Epoch 1/50 - Train Loss: 0.4125 - Train Metric: 0.8287
+Epoch 1/50 - Val Metric: 0.8942
+Epoch 2/50 - Train Loss: 0.3225 - Train Metric: 0.9044
+Epoch 2/50 - Val Metric: 0.9039
+Epoch 3/50 - Train Loss: 0.3110 - Train Metric: 0.9108
+Epoch 3/50 - Val Metric: 0.9050
+Epoch 4/50 - Train Loss: 0.3112 - Train Metric: 0.9113
+Epoch 4/50 - Val Metric: 0.9031
+Epoch 5/50 - Train Loss: 0.3069 - Train Metric: 0.9132
+Epoch 5/50 - Val Metric: 0.9087
+Epoch 6/50 - Train Loss: 0.3038 - Train Metric: 0.9149
+Epoch 6/50 - Val Metric: 0.9093
+Epoch 7/50 - Train Loss: 0.3030 - Train Metric: 0.9154
+Epoch 7/50 - Val Metric: 0.9085
+Epoch 8/50 - Train Loss: 0.3005 - Train Metric: 0.9167
+Epoch 8/50 - Val Metric: 0.9109
+Epoch 9/50 - Train Loss: 0.3005 - Train Metric: 0.9168
+Epoch 9/50 - Val Metric: 0.9106
+Epoch 10/50 - Train Loss: 0.2996 - Train Metric: 0.9172
+Epoch 10/50 - Val Metric: 0.9090
+Epoch 11/50 - Train Loss: 0.2973 - Train Metric: 0.9186
+Epoch 11/50 - Val Metric: 0.9117
+Epoch 12/50 - Train Loss: 0.2962 - Train Metric: 0.9191
+Epoch 12/50 - Val Metric: 0.9123
+Epoch 13/50 - Train Loss: 0.2938 - Train Metric: 0.9205
+Epoch 13/50 - Val Metric: 0.9080
+Epoch 14/50 - Train Loss: 0.2939 - Train Metric: 0.9205
+Epoch 14/50 - Val Metric: 0.9106
+Epoch 15/50 - Train Loss: 0.2899 - Train Metric: 0.9226
+Epoch 15/50 - Val Metric: 0.9117
+Epoch 16/50 - Train Loss: 0.2887 - Train Metric: 0.9233
+Epoch 16/50 - Val Metric: 0.9126
+Epoch 17/50 - Train Loss: 0.2871 - Train Metric: 0.9244
+Epoch 17/50 - Val Metric: 0.9138
+Epoch 18/50 - Train Loss: 0.2881 - Train Metric: 0.9238
+Epoch 18/50 - Val Metric: 0.9089
+Epoch 19/50 - Train Loss: 0.2864 - Train Metric: 0.9246
+Epoch 19/50 - Val Metric: 0.9127
+Epoch 20/50 - Train Loss: 0.2829 - Train Metric: 0.9264
+Epoch 20/50 - Val Metric: 0.9096
+Epoch 21/50 - Train Loss: 0.2828 - Train Metric: 0.9268
+Epoch 21/50 - Val Metric: 0.9140
+Epoch 22/50 - Train Loss: 0.2796 - Train Metric: 0.9283
+Epoch 22/50 - Val Metric: 0.9135
+Epoch 23/50 - Train Loss: 0.2778 - Train Metric: 0.9292
+Epoch 23/50 - Val Metric: 0.9123
+Epoch 24/50 - Train Loss: 0.2758 - Train Metric: 0.9302
+Epoch 24/50 - Val Metric: 0.9132
+Epoch 25/50 - Train Loss: 0.2742 - Train Metric: 0.9310
+Epoch 25/50 - Val Metric: 0.9122
+Epoch 26/50 - Train Loss: 0.2730 - Train Metric: 0.9317
+Epoch 26/50 - Val Metric: 0.9136
+Epoch 27/50 - Train Loss: 0.2716 - Train Metric: 0.9324
+Epoch 27/50 - Val Metric: 0.9120
+Epoch 28/50 - Train Loss: 0.2701 - Train Metric: 0.9333
+Epoch 28/50 - Val Metric: 0.9125
+Epoch 29/50 - Train Loss: 0.2691 - Train Metric: 0.9339
+Epoch 29/50 - Val Metric: 0.9122
+Epoch 30/50 - Train Loss: 0.2676 - Train Metric: 0.9346
+Epoch 30/50 - Val Metric: 0.9116
+Epoch 31/50 - Train Loss: 0.2667 - Train Metric: 0.9351
+Epoch 31/50 - Val Metric: 0.9118
+Epoch 32/50 - Train Loss: 0.2650 - Train Metric: 0.9361
+Epoch 32/50 - Val Metric: 0.9114
+Epoch 33/50 - Train Loss: 0.2645 - Train Metric: 0.9362
+Epoch 33/50 - Val Metric: 0.9121
+Epoch 34/50 - Train Loss: 0.2634 - Train Metric: 0.9368
+Epoch 34/50 - Val Metric: 0.9112
+Epoch 35/50 - Train Loss: 0.2624 - Train Metric: 0.9372
+Epoch 35/50 - Val Metric: 0.9114
+Epoch 36/50 - Train Loss: 0.2617 - Train Metric: 0.9378
+Epoch 36/50 - Val Metric: 0.9104
+Epoch 37/50 - Train Loss: 0.2606 - Train Metric: 0.9383
+Epoch 37/50 - Val Metric: 0.9104
+Epoch 38/50 - Train Loss: 0.2598 - Train Metric: 0.9388
+Epoch 38/50 - Val Metric: 0.9096
+Epoch 39/50 - Train Loss: 0.2596 - Train Metric: 0.9388
+Epoch 39/50 - Val Metric: 0.9107
+Epoch 40/50 - Train Loss: 0.2588 - Train Metric: 0.9392
+Epoch 40/50 - Val Metric: 0.9098
+Epoch 41/50 - Train Loss: 0.2584 - Train Metric: 0.9394
+Epoch 41/50 - Val Metric: 0.9098
+Epoch 42/50 - Train Loss: 0.2580 - Train Metric: 0.9395
+Epoch 42/50 - Val Metric: 0.9097
+Epoch 43/50 - Train Loss: 0.2574 - Train Metric: 0.9398
+Epoch 43/50 - Val Metric: 0.9094
+Epoch 44/50 - Train Loss: 0.2571 - Train Metric: 0.9400
+Epoch 44/50 - Val Metric: 0.9092
+Epoch 45/50 - Train Loss: 0.2565 - Train Metric: 0.9404
+Epoch 45/50 - Val Metric: 0.9091
+Epoch 46/50 - Train Loss: 0.2564 - Train Metric: 0.9404
+Epoch 46/50 - Val Metric: 0.9089
+Epoch 47/50 - Train Loss: 0.2558 - Train Metric: 0.9407
+Epoch 47/50 - Val Metric: 0.9086
+Epoch 48/50 - Train Loss: 0.2557 - Train Metric: 0.9407
+Epoch 48/50 - Val Metric: 0.9087
+Epoch 49/50 - Train Loss: 0.2555 - Train Metric: 0.9409
+Epoch 49/50 - Val Metric: 0.9085
+Epoch 50/50 - Train Loss: 0.2553 - Train Metric: 0.9409
+Epoch 50/50 - Val Metric: 0.9085
+Best val: 0.9140, Best test: 0.9234
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Epoch 1/50 - Train Loss: 0.4706 - Train Metric: 0.7589
+Epoch 1/50 - Val Metric: 0.8711
+Epoch 2/50 - Train Loss: 0.3706 - Train Metric: 0.8709
+Epoch 2/50 - Val Metric: 0.8897
+Epoch 3/50 - Train Loss: 0.3323 - Train Metric: 0.8983
+Epoch 3/50 - Val Metric: 0.9084
+Epoch 4/50 - Train Loss: 0.3146 - Train Metric: 0.9090
+Epoch 4/50 - Val Metric: 0.9076
+Epoch 5/50 - Train Loss: 0.3112 - Train Metric: 0.9110
+Epoch 5/50 - Val Metric: 0.9062
+Epoch 6/50 - Train Loss: 0.3084 - Train Metric: 0.9124
+Epoch 6/50 - Val Metric: 0.9086
+Epoch 7/50 - Train Loss: 0.3059 - Train Metric: 0.9139
+Epoch 7/50 - Val Metric: 0.9067
+Epoch 8/50 - Train Loss: 0.3029 - Train Metric: 0.9152
+Epoch 8/50 - Val Metric: 0.9104
+Epoch 9/50 - Train Loss: 0.3043 - Train Metric: 0.9149
+Epoch 9/50 - Val Metric: 0.9101
+Epoch 10/50 - Train Loss: 0.3032 - Train Metric: 0.9153
+Epoch 10/50 - Val Metric: 0.9107
+Epoch 11/50 - Train Loss: 0.3010 - Train Metric: 0.9164
+Epoch 11/50 - Val Metric: 0.9123
+Epoch 12/50 - Train Loss: 0.2987 - Train Metric: 0.9179
+Epoch 12/50 - Val Metric: 0.9104
+Epoch 13/50 - Train Loss: 0.2988 - Train Metric: 0.9177
+Epoch 13/50 - Val Metric: 0.9121
+Epoch 14/50 - Train Loss: 0.2962 - Train Metric: 0.9191
+Epoch 14/50 - Val Metric: 0.9114
+Epoch 15/50 - Train Loss: 0.2966 - Train Metric: 0.9187
+Epoch 15/50 - Val Metric: 0.9118
+Epoch 16/50 - Train Loss: 0.2952 - Train Metric: 0.9198
+Epoch 16/50 - Val Metric: 0.9116
+Epoch 17/50 - Train Loss: 0.2955 - Train Metric: 0.9195
+Epoch 17/50 - Val Metric: 0.9131
+Epoch 18/50 - Train Loss: 0.2925 - Train Metric: 0.9210
+Epoch 18/50 - Val Metric: 0.9130
+Epoch 19/50 - Train Loss: 0.2924 - Train Metric: 0.9210
+Epoch 19/50 - Val Metric: 0.9116
+Epoch 20/50 - Train Loss: 0.2901 - Train Metric: 0.9222
+Epoch 20/50 - Val Metric: 0.9130
+Epoch 21/50 - Train Loss: 0.2911 - Train Metric: 0.9219
+Epoch 21/50 - Val Metric: 0.9130
+Epoch 22/50 - Train Loss: 0.2897 - Train Metric: 0.9224
+Epoch 22/50 - Val Metric: 0.9131
+Epoch 23/50 - Train Loss: 0.2892 - Train Metric: 0.9225
+Epoch 23/50 - Val Metric: 0.9121
+Epoch 24/50 - Train Loss: 0.2896 - Train Metric: 0.9225
+Epoch 24/50 - Val Metric: 0.9123
+Epoch 25/50 - Train Loss: 0.2892 - Train Metric: 0.9226
+Epoch 25/50 - Val Metric: 0.9118
+Epoch 26/50 - Train Loss: 0.2884 - Train Metric: 0.9233
+Epoch 26/50 - Val Metric: 0.9115
+Epoch 27/50 - Train Loss: 0.2875 - Train Metric: 0.9236
+Epoch 27/50 - Val Metric: 0.9123
+Epoch 28/50 - Train Loss: 0.2889 - Train Metric: 0.9230
+Epoch 28/50 - Val Metric: 0.9108
+Epoch 29/50 - Train Loss: 0.2865 - Train Metric: 0.9241
+Epoch 29/50 - Val Metric: 0.9116
+Epoch 30/50 - Train Loss: 0.2872 - Train Metric: 0.9238
+Epoch 30/50 - Val Metric: 0.9118
+Epoch 31/50 - Train Loss: 0.2868 - Train Metric: 0.9238
+Epoch 31/50 - Val Metric: 0.9123
+Epoch 32/50 - Train Loss: 0.2868 - Train Metric: 0.9238
+Epoch 32/50 - Val Metric: 0.9120
+Epoch 33/50 - Train Loss: 0.2864 - Train Metric: 0.9243
+Epoch 33/50 - Val Metric: 0.9127
+Epoch 34/50 - Train Loss: 0.2869 - Train Metric: 0.9239
+Epoch 34/50 - Val Metric: 0.9122
+Epoch 35/50 - Train Loss: 0.2857 - Train Metric: 0.9244
+Epoch 35/50 - Val Metric: 0.9121
+Epoch 36/50 - Train Loss: 0.2855 - Train Metric: 0.9245
+Epoch 36/50 - Val Metric: 0.9127
+Epoch 37/50 - Train Loss: 0.2853 - Train Metric: 0.9247
+Epoch 37/50 - Val Metric: 0.9119
+Epoch 38/50 - Train Loss: 0.2856 - Train Metric: 0.9244
+Epoch 38/50 - Val Metric: 0.9122
+Epoch 39/50 - Train Loss: 0.2850 - Train Metric: 0.9248
+Epoch 39/50 - Val Metric: 0.9124
+Epoch 40/50 - Train Loss: 0.2841 - Train Metric: 0.9253
+Epoch 40/50 - Val Metric: 0.9124
+Epoch 41/50 - Train Loss: 0.2853 - Train Metric: 0.9248
+Epoch 41/50 - Val Metric: 0.9120
+Epoch 42/50 - Train Loss: 0.2864 - Train Metric: 0.9242
+Epoch 42/50 - Val Metric: 0.9121
+Epoch 43/50 - Train Loss: 0.2847 - Train Metric: 0.9251
+Epoch 43/50 - Val Metric: 0.9120
+Epoch 44/50 - Train Loss: 0.2850 - Train Metric: 0.9250
+Epoch 44/50 - Val Metric: 0.9123
+Epoch 45/50 - Train Loss: 0.2850 - Train Metric: 0.9249
+Epoch 45/50 - Val Metric: 0.9122
+Epoch 46/50 - Train Loss: 0.2852 - Train Metric: 0.9248
+Epoch 46/50 - Val Metric: 0.9119
+Epoch 47/50 - Train Loss: 0.2843 - Train Metric: 0.9251
+Epoch 47/50 - Val Metric: 0.9124
+Epoch 48/50 - Train Loss: 0.2840 - Train Metric: 0.9253
+Epoch 48/50 - Val Metric: 0.9125
+Epoch 49/50 - Train Loss: 0.2855 - Train Metric: 0.9243
+Epoch 49/50 - Val Metric: 0.9123
+Epoch 50/50 - Train Loss: 0.2844 - Train Metric: 0.9249
+Epoch 50/50 - Val Metric: 0.9124
+Best val: 0.9131, Best test: 0.9116
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Epoch 1/50 - Train Loss: 0.4671 - Train Metric: 0.7641
+Epoch 1/50 - Val Metric: 0.8758
+Epoch 2/50 - Train Loss: 0.3584 - Train Metric: 0.8800
+Epoch 2/50 - Val Metric: 0.9096
+Epoch 3/50 - Train Loss: 0.3202 - Train Metric: 0.9052
+Epoch 3/50 - Val Metric: 0.9154
+Epoch 4/50 - Train Loss: 0.3134 - Train Metric: 0.9091
+Epoch 4/50 - Val Metric: 0.9150
+Epoch 5/50 - Train Loss: 0.3088 - Train Metric: 0.9117
+Epoch 5/50 - Val Metric: 0.9151
+Epoch 6/50 - Train Loss: 0.3062 - Train Metric: 0.9129
+Epoch 6/50 - Val Metric: 0.9165
+Epoch 7/50 - Train Loss: 0.3061 - Train Metric: 0.9132
+Epoch 7/50 - Val Metric: 0.9155
+Epoch 8/50 - Train Loss: 0.3024 - Train Metric: 0.9153
+Epoch 8/50 - Val Metric: 0.9159
+Epoch 9/50 - Train Loss: 0.3036 - Train Metric: 0.9144
+Epoch 9/50 - Val Metric: 0.9165
+Epoch 10/50 - Train Loss: 0.3041 - Train Metric: 0.9145
+Epoch 10/50 - Val Metric: 0.9170
+Epoch 11/50 - Train Loss: 0.3004 - Train Metric: 0.9163
+Epoch 11/50 - Val Metric: 0.9181
+Epoch 12/50 - Train Loss: 0.2993 - Train Metric: 0.9171
+Epoch 12/50 - Val Metric: 0.9156
+Epoch 13/50 - Train Loss: 0.2985 - Train Metric: 0.9178
+Epoch 13/50 - Val Metric: 0.9179
+Epoch 14/50 - Train Loss: 0.2982 - Train Metric: 0.9178
+Epoch 14/50 - Val Metric: 0.9172
+Epoch 15/50 - Train Loss: 0.2968 - Train Metric: 0.9186
+Epoch 15/50 - Val Metric: 0.9168
+Epoch 16/50 - Train Loss: 0.2967 - Train Metric: 0.9184
+Epoch 16/50 - Val Metric: 0.9177
+Epoch 17/50 - Train Loss: 0.2973 - Train Metric: 0.9181
+Epoch 17/50 - Val Metric: 0.9173
+Epoch 18/50 - Train Loss: 0.2946 - Train Metric: 0.9197
+Epoch 18/50 - Val Metric: 0.9162
+Epoch 19/50 - Train Loss: 0.2935 - Train Metric: 0.9204
+Epoch 19/50 - Val Metric: 0.9186
+Epoch 20/50 - Train Loss: 0.2924 - Train Metric: 0.9209
+Epoch 20/50 - Val Metric: 0.9166
+Epoch 21/50 - Train Loss: 0.2939 - Train Metric: 0.9200
+Epoch 21/50 - Val Metric: 0.9180
+Epoch 22/50 - Train Loss: 0.2914 - Train Metric: 0.9215
+Epoch 22/50 - Val Metric: 0.9172
+Epoch 23/50 - Train Loss: 0.2912 - Train Metric: 0.9218
+Epoch 23/50 - Val Metric: 0.9167
+Epoch 24/50 - Train Loss: 0.2925 - Train Metric: 0.9211
+Epoch 24/50 - Val Metric: 0.9172
+Epoch 25/50 - Train Loss: 0.2910 - Train Metric: 0.9217
+Epoch 25/50 - Val Metric: 0.9165
+Epoch 26/50 - Train Loss: 0.2890 - Train Metric: 0.9226
+Epoch 26/50 - Val Metric: 0.9169
+Epoch 27/50 - Train Loss: 0.2896 - Train Metric: 0.9228
+Epoch 27/50 - Val Metric: 0.9169
+Epoch 28/50 - Train Loss: 0.2888 - Train Metric: 0.9229
+Epoch 28/50 - Val Metric: 0.9169
+Epoch 29/50 - Train Loss: 0.2871 - Train Metric: 0.9239
+Epoch 29/50 - Val Metric: 0.9170
+Epoch 30/50 - Train Loss: 0.2880 - Train Metric: 0.9233
+Epoch 30/50 - Val Metric: 0.9156
+Epoch 31/50 - Train Loss: 0.2854 - Train Metric: 0.9249
+Epoch 31/50 - Val Metric: 0.9173
+Epoch 32/50 - Train Loss: 0.2852 - Train Metric: 0.9250
+Epoch 32/50 - Val Metric: 0.9164
+Epoch 33/50 - Train Loss: 0.2852 - Train Metric: 0.9248
+Epoch 33/50 - Val Metric: 0.9164
+Epoch 34/50 - Train Loss: 0.2841 - Train Metric: 0.9256
+Epoch 34/50 - Val Metric: 0.9158
+Epoch 35/50 - Train Loss: 0.2831 - Train Metric: 0.9258
+Epoch 35/50 - Val Metric: 0.9151
+Epoch 36/50 - Train Loss: 0.2827 - Train Metric: 0.9261
+Epoch 36/50 - Val Metric: 0.9148
+Epoch 37/50 - Train Loss: 0.2839 - Train Metric: 0.9258
+Epoch 37/50 - Val Metric: 0.9159
+Epoch 38/50 - Train Loss: 0.2822 - Train Metric: 0.9265
+Epoch 38/50 - Val Metric: 0.9156
+Epoch 39/50 - Train Loss: 0.2820 - Train Metric: 0.9268
+Epoch 39/50 - Val Metric: 0.9155
+Epoch 40/50 - Train Loss: 0.2814 - Train Metric: 0.9270
+Epoch 40/50 - Val Metric: 0.9155
+Epoch 41/50 - Train Loss: 0.2810 - Train Metric: 0.9272
+Epoch 41/50 - Val Metric: 0.9134
+Epoch 42/50 - Train Loss: 0.2803 - Train Metric: 0.9278
+Epoch 42/50 - Val Metric: 0.9148
+Epoch 43/50 - Train Loss: 0.2799 - Train Metric: 0.9278
+Epoch 43/50 - Val Metric: 0.9139
+Epoch 44/50 - Train Loss: 0.2791 - Train Metric: 0.9283
+Epoch 44/50 - Val Metric: 0.9139
+Epoch 45/50 - Train Loss: 0.2780 - Train Metric: 0.9286
+Epoch 45/50 - Val Metric: 0.9146
+Epoch 46/50 - Train Loss: 0.2794 - Train Metric: 0.9282
+Epoch 46/50 - Val Metric: 0.9136
+Epoch 47/50 - Train Loss: 0.2780 - Train Metric: 0.9291
+Epoch 47/50 - Val Metric: 0.9145
+Epoch 48/50 - Train Loss: 0.2771 - Train Metric: 0.9293
+Epoch 48/50 - Val Metric: 0.9142
+Epoch 49/50 - Train Loss: 0.2770 - Train Metric: 0.9294
+Epoch 49/50 - Val Metric: 0.9136
+Epoch 50/50 - Train Loss: 0.2761 - Train Metric: 0.9298
+Epoch 50/50 - Val Metric: 0.9135
+Best val: 0.9186, Best test: 0.9205
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Epoch 1/50 - Train Loss: 0.4639 - Train Metric: 0.7702
+Epoch 1/50 - Val Metric: 0.8657
+Epoch 2/50 - Train Loss: 0.3742 - Train Metric: 0.8703
+Epoch 2/50 - Val Metric: 0.8916
+Epoch 3/50 - Train Loss: 0.3477 - Train Metric: 0.8904
+Epoch 3/50 - Val Metric: 0.9012
+Epoch 4/50 - Train Loss: 0.3360 - Train Metric: 0.8981
+Epoch 4/50 - Val Metric: 0.9067
+Epoch 5/50 - Train Loss: 0.3245 - Train Metric: 0.9050
+Epoch 5/50 - Val Metric: 0.9074
+Epoch 6/50 - Train Loss: 0.3195 - Train Metric: 0.9077
+Epoch 6/50 - Val Metric: 0.9103
+Epoch 7/50 - Train Loss: 0.3171 - Train Metric: 0.9085
+Epoch 7/50 - Val Metric: 0.9127
+Epoch 8/50 - Train Loss: 0.3137 - Train Metric: 0.9106
+Epoch 8/50 - Val Metric: 0.9112
+Epoch 9/50 - Train Loss: 0.3140 - Train Metric: 0.9098
+Epoch 9/50 - Val Metric: 0.9143
+Epoch 10/50 - Train Loss: 0.3097 - Train Metric: 0.9125
+Epoch 10/50 - Val Metric: 0.9145
+Epoch 11/50 - Train Loss: 0.3100 - Train Metric: 0.9120
+Epoch 11/50 - Val Metric: 0.9144
+Epoch 12/50 - Train Loss: 0.3080 - Train Metric: 0.9130
+Epoch 12/50 - Val Metric: 0.9157
+Epoch 13/50 - Train Loss: 0.3071 - Train Metric: 0.9134
+Epoch 13/50 - Val Metric: 0.9133
+Epoch 14/50 - Train Loss: 0.3080 - Train Metric: 0.9127
+Epoch 14/50 - Val Metric: 0.9154
+Epoch 15/50 - Train Loss: 0.3056 - Train Metric: 0.9140
+Epoch 15/50 - Val Metric: 0.9148
+Epoch 16/50 - Train Loss: 0.3043 - Train Metric: 0.9147
+Epoch 16/50 - Val Metric: 0.9161
+Epoch 17/50 - Train Loss: 0.3034 - Train Metric: 0.9153
+Epoch 17/50 - Val Metric: 0.9163
+Epoch 18/50 - Train Loss: 0.3035 - Train Metric: 0.9149
+Epoch 18/50 - Val Metric: 0.9148
+Epoch 19/50 - Train Loss: 0.3031 - Train Metric: 0.9150
+Epoch 19/50 - Val Metric: 0.9167
+Epoch 20/50 - Train Loss: 0.3025 - Train Metric: 0.9155
+Epoch 20/50 - Val Metric: 0.9157
+Epoch 21/50 - Train Loss: 0.3017 - Train Metric: 0.9160
+Epoch 21/50 - Val Metric: 0.9153
+Epoch 22/50 - Train Loss: 0.3007 - Train Metric: 0.9165
+Epoch 22/50 - Val Metric: 0.9166
+Epoch 23/50 - Train Loss: 0.2989 - Train Metric: 0.9174
+Epoch 23/50 - Val Metric: 0.9140
+Epoch 24/50 - Train Loss: 0.3023 - Train Metric: 0.9154
+Epoch 24/50 - Val Metric: 0.9162
+Epoch 25/50 - Train Loss: 0.2992 - Train Metric: 0.9170
+Epoch 25/50 - Val Metric: 0.9178
+Epoch 26/50 - Train Loss: 0.2982 - Train Metric: 0.9175
+Epoch 26/50 - Val Metric: 0.9142
+Epoch 27/50 - Train Loss: 0.2995 - Train Metric: 0.9172
+Epoch 27/50 - Val Metric: 0.9176
+Epoch 28/50 - Train Loss: 0.2987 - Train Metric: 0.9174
+Epoch 28/50 - Val Metric: 0.9167
+Epoch 29/50 - Train Loss: 0.2997 - Train Metric: 0.9166
+Epoch 29/50 - Val Metric: 0.9184
+Epoch 30/50 - Train Loss: 0.2973 - Train Metric: 0.9178
+Epoch 30/50 - Val Metric: 0.9153
+Epoch 31/50 - Train Loss: 0.2995 - Train Metric: 0.9168
+Epoch 31/50 - Val Metric: 0.9168
+Epoch 32/50 - Train Loss: 0.2991 - Train Metric: 0.9173
+Epoch 32/50 - Val Metric: 0.9167
+Epoch 33/50 - Train Loss: 0.2973 - Train Metric: 0.9181
+Epoch 33/50 - Val Metric: 0.9147
+Epoch 34/50 - Train Loss: 0.2989 - Train Metric: 0.9173
+Epoch 34/50 - Val Metric: 0.9161
+Epoch 35/50 - Train Loss: 0.2971 - Train Metric: 0.9182
+Epoch 35/50 - Val Metric: 0.9175
+Epoch 36/50 - Train Loss: 0.2973 - Train Metric: 0.9181
+Epoch 36/50 - Val Metric: 0.9174
+Epoch 37/50 - Train Loss: 0.2969 - Train Metric: 0.9182
+Epoch 37/50 - Val Metric: 0.9158
+Epoch 38/50 - Train Loss: 0.2939 - Train Metric: 0.9198
+Epoch 38/50 - Val Metric: 0.9177
+Epoch 39/50 - Train Loss: 0.2968 - Train Metric: 0.9179
+Epoch 39/50 - Val Metric: 0.9163
+Epoch 40/50 - Train Loss: 0.2950 - Train Metric: 0.9192
+Epoch 40/50 - Val Metric: 0.9184
+Epoch 41/50 - Train Loss: 0.2943 - Train Metric: 0.9198
+Epoch 41/50 - Val Metric: 0.9155
+Epoch 42/50 - Train Loss: 0.2945 - Train Metric: 0.9194
+Epoch 42/50 - Val Metric: 0.9159
+Epoch 43/50 - Train Loss: 0.2955 - Train Metric: 0.9189
+Epoch 43/50 - Val Metric: 0.9184
+Epoch 44/50 - Train Loss: 0.2946 - Train Metric: 0.9196
+Epoch 44/50 - Val Metric: 0.9182
+Epoch 45/50 - Train Loss: 0.2925 - Train Metric: 0.9205
+Epoch 45/50 - Val Metric: 0.9163
+Epoch 46/50 - Train Loss: 0.2928 - Train Metric: 0.9204
+Epoch 46/50 - Val Metric: 0.9177
+Epoch 47/50 - Train Loss: 0.2942 - Train Metric: 0.9197
+Epoch 47/50 - Val Metric: 0.9176
+Epoch 48/50 - Train Loss: 0.2948 - Train Metric: 0.9193
+Epoch 48/50 - Val Metric: 0.9182
+Epoch 49/50 - Train Loss: 0.2915 - Train Metric: 0.9211
+Epoch 49/50 - Val Metric: 0.9176
+Epoch 50/50 - Train Loss: 0.2940 - Train Metric: 0.9195
+Epoch 50/50 - Val Metric: 0.9137
+Best val: 0.9184, Best test: 0.9174
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Epoch 1/50 - Train Loss: 0.4164 - Train Metric: 0.8223
+Epoch 1/50 - Val Metric: 0.9063
+Epoch 2/50 - Train Loss: 0.3241 - Train Metric: 0.9028
+Epoch 2/50 - Val Metric: 0.9128
+Epoch 3/50 - Train Loss: 0.3156 - Train Metric: 0.9067
+Epoch 3/50 - Val Metric: 0.9117
+Epoch 4/50 - Train Loss: 0.3124 - Train Metric: 0.9089
+Epoch 4/50 - Val Metric: 0.9132
+Epoch 5/50 - Train Loss: 0.3072 - Train Metric: 0.9120
+Epoch 5/50 - Val Metric: 0.9064
+Epoch 6/50 - Train Loss: 0.3086 - Train Metric: 0.9111
+Epoch 6/50 - Val Metric: 0.9142
+Epoch 7/50 - Train Loss: 0.3044 - Train Metric: 0.9138
+Epoch 7/50 - Val Metric: 0.9136
+Epoch 8/50 - Train Loss: 0.3018 - Train Metric: 0.9149
+Epoch 8/50 - Val Metric: 0.9146
+Epoch 9/50 - Train Loss: 0.3026 - Train Metric: 0.9144
+Epoch 9/50 - Val Metric: 0.9147
+Epoch 10/50 - Train Loss: 0.3019 - Train Metric: 0.9150
+Epoch 10/50 - Val Metric: 0.9136
+Epoch 11/50 - Train Loss: 0.3009 - Train Metric: 0.9154
+Epoch 11/50 - Val Metric: 0.9128
+Epoch 12/50 - Train Loss: 0.2998 - Train Metric: 0.9160
+Epoch 12/50 - Val Metric: 0.9140
+Epoch 13/50 - Train Loss: 0.2987 - Train Metric: 0.9169
+Epoch 13/50 - Val Metric: 0.9157
+Epoch 14/50 - Train Loss: 0.2980 - Train Metric: 0.9168
+Epoch 14/50 - Val Metric: 0.9140
+Epoch 15/50 - Train Loss: 0.2979 - Train Metric: 0.9173
+Epoch 15/50 - Val Metric: 0.9129
+Epoch 16/50 - Train Loss: 0.2944 - Train Metric: 0.9192
+Epoch 16/50 - Val Metric: 0.9118
+Epoch 17/50 - Train Loss: 0.2974 - Train Metric: 0.9176
+Epoch 17/50 - Val Metric: 0.9109
+Epoch 18/50 - Train Loss: 0.2935 - Train Metric: 0.9198
+Epoch 18/50 - Val Metric: 0.9119
+Epoch 19/50 - Train Loss: 0.2943 - Train Metric: 0.9191
+Epoch 19/50 - Val Metric: 0.9123
+Epoch 20/50 - Train Loss: 0.2918 - Train Metric: 0.9208
+Epoch 20/50 - Val Metric: 0.9081
+Epoch 21/50 - Train Loss: 0.2947 - Train Metric: 0.9194
+Epoch 21/50 - Val Metric: 0.9116
+Epoch 22/50 - Train Loss: 0.2927 - Train Metric: 0.9200
+Epoch 22/50 - Val Metric: 0.9126
+Epoch 23/50 - Train Loss: 0.2894 - Train Metric: 0.9219
+Epoch 23/50 - Val Metric: 0.9111
+Epoch 24/50 - Train Loss: 0.2905 - Train Metric: 0.9212
+Epoch 24/50 - Val Metric: 0.9113
+Epoch 25/50 - Train Loss: 0.2882 - Train Metric: 0.9226
+Epoch 25/50 - Val Metric: 0.9119
+Epoch 26/50 - Train Loss: 0.2890 - Train Metric: 0.9221
+Epoch 26/50 - Val Metric: 0.9123
+Epoch 27/50 - Train Loss: 0.2886 - Train Metric: 0.9228
+Epoch 27/50 - Val Metric: 0.9121
+Epoch 28/50 - Train Loss: 0.2868 - Train Metric: 0.9233
+Epoch 28/50 - Val Metric: 0.9104
+Epoch 29/50 - Train Loss: 0.2891 - Train Metric: 0.9224
+Epoch 29/50 - Val Metric: 0.9134
+Epoch 30/50 - Train Loss: 0.2863 - Train Metric: 0.9237
+Epoch 30/50 - Val Metric: 0.9100
+Epoch 31/50 - Train Loss: 0.2877 - Train Metric: 0.9234
+Epoch 31/50 - Val Metric: 0.9107
+Epoch 32/50 - Train Loss: 0.2851 - Train Metric: 0.9241
+Epoch 32/50 - Val Metric: 0.9126
+Epoch 33/50 - Train Loss: 0.2839 - Train Metric: 0.9248
+Epoch 33/50 - Val Metric: 0.9147
+Epoch 34/50 - Train Loss: 0.2840 - Train Metric: 0.9250
+Epoch 34/50 - Val Metric: 0.9115
+Epoch 35/50 - Train Loss: 0.2823 - Train Metric: 0.9257
+Epoch 35/50 - Val Metric: 0.9132
+Epoch 36/50 - Train Loss: 0.2807 - Train Metric: 0.9265
+Epoch 36/50 - Val Metric: 0.9091
+Epoch 37/50 - Train Loss: 0.2792 - Train Metric: 0.9273
+Epoch 37/50 - Val Metric: 0.9081
+Epoch 38/50 - Train Loss: 0.2849 - Train Metric: 0.9250
+Epoch 38/50 - Val Metric: 0.9144
+Epoch 39/50 - Train Loss: 0.2853 - Train Metric: 0.9243
+Epoch 39/50 - Val Metric: 0.9122
+Epoch 40/50 - Train Loss: 0.2813 - Train Metric: 0.9266
+Epoch 40/50 - Val Metric: 0.9115
+Epoch 41/50 - Train Loss: 0.2803 - Train Metric: 0.9270
+Epoch 41/50 - Val Metric: 0.9124
+Epoch 42/50 - Train Loss: 0.2775 - Train Metric: 0.9284
+Epoch 42/50 - Val Metric: 0.9116
+Epoch 43/50 - Train Loss: 0.2769 - Train Metric: 0.9286
+Epoch 43/50 - Val Metric: 0.9089
+Epoch 44/50 - Train Loss: 0.2772 - Train Metric: 0.9289
+Epoch 44/50 - Val Metric: 0.9105
+Epoch 45/50 - Train Loss: 0.2760 - Train Metric: 0.9291
+Epoch 45/50 - Val Metric: 0.9123
+Epoch 46/50 - Train Loss: 0.2755 - Train Metric: 0.9296
+Epoch 46/50 - Val Metric: 0.9097
+Epoch 47/50 - Train Loss: 0.2741 - Train Metric: 0.9301
+Epoch 47/50 - Val Metric: 0.9061
+Epoch 48/50 - Train Loss: 0.2727 - Train Metric: 0.9310
+Epoch 48/50 - Val Metric: 0.9083
+Epoch 49/50 - Train Loss: 0.2736 - Train Metric: 0.9305
+Epoch 49/50 - Val Metric: 0.9113
+Epoch 50/50 - Train Loss: 0.2722 - Train Metric: 0.9313
+Epoch 50/50 - Val Metric: 0.9088
+Best val: 0.9157, Best test: 0.9145
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Epoch 1/50 - Train Loss: 0.4538 - Train Metric: 0.7924
+Epoch 1/50 - Val Metric: 0.8784
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Epoch 1/50 - Train Loss: 0.4261 - Train Metric: 0.8156
+Epoch 1/50 - Val Metric: 0.8957
+Epoch 2/50 - Train Loss: 0.3406 - Train Metric: 0.8933
+Epoch 2/50 - Val Metric: 0.9115
+Epoch 3/50 - Train Loss: 0.3281 - Train Metric: 0.9010
+Epoch 3/50 - Val Metric: 0.9159
+Epoch 4/50 - Train Loss: 0.3177 - Train Metric: 0.9074
+Epoch 4/50 - Val Metric: 0.9170
+Epoch 5/50 - Train Loss: 0.3115 - Train Metric: 0.9107
+Epoch 5/50 - Val Metric: 0.9179
+Epoch 6/50 - Train Loss: 0.3136 - Train Metric: 0.9091
+Epoch 6/50 - Val Metric: 0.9180
+Epoch 7/50 - Train Loss: 0.3096 - Train Metric: 0.9113
+Epoch 7/50 - Val Metric: 0.9209
+Epoch 8/50 - Train Loss: 0.3062 - Train Metric: 0.9130
+Epoch 8/50 - Val Metric: 0.9211
+Epoch 9/50 - Train Loss: 0.3054 - Train Metric: 0.9136
+Epoch 9/50 - Val Metric: 0.9219
+Epoch 10/50 - Train Loss: 0.3043 - Train Metric: 0.9140
+Epoch 10/50 - Val Metric: 0.9211
+Epoch 11/50 - Train Loss: 0.3026 - Train Metric: 0.9150
+Epoch 11/50 - Val Metric: 0.9225
+Epoch 12/50 - Train Loss: 0.3029 - Train Metric: 0.9149
+Epoch 12/50 - Val Metric: 0.9225
+Epoch 13/50 - Train Loss: 0.3026 - Train Metric: 0.9151
+Epoch 13/50 - Val Metric: 0.9209
+Epoch 14/50 - Train Loss: 0.3015 - Train Metric: 0.9155
+Epoch 14/50 - Val Metric: 0.9217
+Epoch 15/50 - Train Loss: 0.3009 - Train Metric: 0.9157
+Epoch 15/50 - Val Metric: 0.9222
+Epoch 16/50 - Train Loss: 0.3012 - Train Metric: 0.9159
+Epoch 16/50 - Val Metric: 0.9227
+Epoch 17/50 - Train Loss: 0.3002 - Train Metric: 0.9162
+Epoch 17/50 - Val Metric: 0.9212
+Epoch 18/50 - Train Loss: 0.3041 - Train Metric: 0.9143
+Epoch 18/50 - Val Metric: 0.9215
+Epoch 19/50 - Train Loss: 0.3025 - Train Metric: 0.9151
+Epoch 19/50 - Val Metric: 0.9218
+Epoch 20/50 - Train Loss: 0.2993 - Train Metric: 0.9168
+Epoch 20/50 - Val Metric: 0.9240
+Epoch 21/50 - Train Loss: 0.2983 - Train Metric: 0.9174
+Epoch 21/50 - Val Metric: 0.9238
+Epoch 22/50 - Train Loss: 0.2958 - Train Metric: 0.9188
+Epoch 22/50 - Val Metric: 0.9241
+Epoch 23/50 - Train Loss: 0.2963 - Train Metric: 0.9187
+Epoch 23/50 - Val Metric: 0.9243
+Epoch 24/50 - Train Loss: 0.2958 - Train Metric: 0.9187
+Epoch 24/50 - Val Metric: 0.9255
+Epoch 25/50 - Train Loss: 0.2936 - Train Metric: 0.9202
+Epoch 25/50 - Val Metric: 0.9238
+Epoch 26/50 - Train Loss: 0.2947 - Train Metric: 0.9193
+Epoch 26/50 - Val Metric: 0.9232
+Epoch 27/50 - Train Loss: 0.2958 - Train Metric: 0.9189
+Epoch 27/50 - Val Metric: 0.9261
+Epoch 28/50 - Train Loss: 0.2931 - Train Metric: 0.9202
+Epoch 28/50 - Val Metric: 0.9256
+Epoch 29/50 - Train Loss: 0.2927 - Train Metric: 0.9204
+Epoch 29/50 - Val Metric: 0.9266
+Epoch 30/50 - Train Loss: 0.2933 - Train Metric: 0.9199
+Epoch 30/50 - Val Metric: 0.9256
+Epoch 31/50 - Train Loss: 0.2952 - Train Metric: 0.9194
+Epoch 31/50 - Val Metric: 0.9236
+Epoch 32/50 - Train Loss: 0.2949 - Train Metric: 0.9196
+Epoch 32/50 - Val Metric: 0.9233
+Epoch 33/50 - Train Loss: 0.2941 - Train Metric: 0.9201
+Epoch 33/50 - Val Metric: 0.9241
+Epoch 34/50 - Train Loss: 0.2935 - Train Metric: 0.9203
+Epoch 34/50 - Val Metric: 0.9237
+Epoch 35/50 - Train Loss: 0.2937 - Train Metric: 0.9201
+Epoch 35/50 - Val Metric: 0.9231
+Epoch 36/50 - Train Loss: 0.2927 - Train Metric: 0.9209
+Epoch 36/50 - Val Metric: 0.9240
+Epoch 37/50 - Train Loss: 0.2925 - Train Metric: 0.9211
+Epoch 37/50 - Val Metric: 0.9230
+Epoch 38/50 - Train Loss: 0.2917 - Train Metric: 0.9213
+Epoch 38/50 - Val Metric: 0.9239
+Epoch 39/50 - Train Loss: 0.2897 - Train Metric: 0.9223
+Epoch 39/50 - Val Metric: 0.9244
+Epoch 40/50 - Train Loss: 0.2889 - Train Metric: 0.9226
+Epoch 40/50 - Val Metric: 0.9248
+Epoch 41/50 - Train Loss: 0.2923 - Train Metric: 0.9213
+Epoch 41/50 - Val Metric: 0.9207
+Epoch 42/50 - Train Loss: 0.2954 - Train Metric: 0.9192
+Epoch 42/50 - Val Metric: 0.9212
+Epoch 43/50 - Train Loss: 0.2938 - Train Metric: 0.9203
+Epoch 43/50 - Val Metric: 0.9220
+Epoch 44/50 - Train Loss: 0.2886 - Train Metric: 0.9231
+Epoch 44/50 - Val Metric: 0.9242
+Epoch 45/50 - Train Loss: 0.2879 - Train Metric: 0.9229
+Epoch 45/50 - Val Metric: 0.9255
+Epoch 46/50 - Train Loss: 0.2872 - Train Metric: 0.9234
+Epoch 46/50 - Val Metric: 0.9236
+Epoch 47/50 - Train Loss: 0.2854 - Train Metric: 0.9242
+Epoch 47/50 - Val Metric: 0.9248
+Epoch 48/50 - Train Loss: 0.2869 - Train Metric: 0.9237
+Epoch 48/50 - Val Metric: 0.9189
+Epoch 49/50 - Train Loss: 0.2915 - Train Metric: 0.9214
+Epoch 49/50 - Val Metric: 0.9216
+Epoch 50/50 - Train Loss: 0.2882 - Train Metric: 0.9232
+Epoch 50/50 - Val Metric: 0.9232
+Best val: 0.9266, Best test: 0.9172
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Epoch 1/50 - Train Loss: 0.4074 - Train Metric: 0.8352
+Epoch 1/50 - Val Metric: 0.8970
+Epoch 2/50 - Train Loss: 0.3365 - Train Metric: 0.8945
+Epoch 2/50 - Val Metric: 0.9101
+Epoch 3/50 - Train Loss: 0.3176 - Train Metric: 0.9055
+Epoch 3/50 - Val Metric: 0.9126
+Epoch 4/50 - Train Loss: 0.3142 - Train Metric: 0.9075
+Epoch 4/50 - Val Metric: 0.9139
+Epoch 5/50 - Train Loss: 0.3112 - Train Metric: 0.9090
+Epoch 5/50 - Val Metric: 0.9139
+Epoch 6/50 - Train Loss: 0.3089 - Train Metric: 0.9103
+Epoch 6/50 - Val Metric: 0.9138
+Epoch 7/50 - Train Loss: 0.3071 - Train Metric: 0.9113
+Epoch 7/50 - Val Metric: 0.9166
+Epoch 8/50 - Train Loss: 0.3049 - Train Metric: 0.9125
+Epoch 8/50 - Val Metric: 0.9151
+Epoch 9/50 - Train Loss: 0.3028 - Train Metric: 0.9138
+Epoch 9/50 - Val Metric: 0.9162
+Epoch 10/50 - Train Loss: 0.3012 - Train Metric: 0.9149
+Epoch 10/50 - Val Metric: 0.9160
+Epoch 11/50 - Train Loss: 0.3016 - Train Metric: 0.9144
+Epoch 11/50 - Val Metric: 0.9152
+Epoch 12/50 - Train Loss: 0.3013 - Train Metric: 0.9145
+Epoch 12/50 - Val Metric: 0.9158
+Epoch 13/50 - Train Loss: 0.3008 - Train Metric: 0.9147
+Epoch 13/50 - Val Metric: 0.9150
+Epoch 14/50 - Train Loss: 0.2984 - Train Metric: 0.9165
+Epoch 14/50 - Val Metric: 0.9155
+Epoch 15/50 - Train Loss: 0.2971 - Train Metric: 0.9173
+Epoch 15/50 - Val Metric: 0.9157
+Epoch 16/50 - Train Loss: 0.2975 - Train Metric: 0.9169
+Epoch 16/50 - Val Metric: 0.9154
+Epoch 17/50 - Train Loss: 0.2970 - Train Metric: 0.9173
+Epoch 17/50 - Val Metric: 0.9166
+Epoch 18/50 - Train Loss: 0.2967 - Train Metric: 0.9174
+Epoch 18/50 - Val Metric: 0.9163
+Epoch 19/50 - Train Loss: 0.2958 - Train Metric: 0.9180
+Epoch 19/50 - Val Metric: 0.9173
+Epoch 20/50 - Train Loss: 0.2973 - Train Metric: 0.9170
+Epoch 20/50 - Val Metric: 0.9170
+Epoch 21/50 - Train Loss: 0.2965 - Train Metric: 0.9176
+Epoch 21/50 - Val Metric: 0.9164
+Epoch 22/50 - Train Loss: 0.2942 - Train Metric: 0.9189
+Epoch 22/50 - Val Metric: 0.9168
+Epoch 23/50 - Train Loss: 0.2928 - Train Metric: 0.9197
+Epoch 23/50 - Val Metric: 0.9162
+Epoch 24/50 - Train Loss: 0.2948 - Train Metric: 0.9188
+Epoch 24/50 - Val Metric: 0.9152
+Epoch 25/50 - Train Loss: 0.2930 - Train Metric: 0.9196
+Epoch 25/50 - Val Metric: 0.9153
+Epoch 26/50 - Train Loss: 0.2920 - Train Metric: 0.9201
+Epoch 26/50 - Val Metric: 0.9152
+Epoch 27/50 - Train Loss: 0.2929 - Train Metric: 0.9195
+Epoch 27/50 - Val Metric: 0.9154
+Epoch 28/50 - Train Loss: 0.2912 - Train Metric: 0.9206
+Epoch 28/50 - Val Metric: 0.9168
+Epoch 29/50 - Train Loss: 0.2919 - Train Metric: 0.9202
+Epoch 29/50 - Val Metric: 0.9155
+Epoch 30/50 - Train Loss: 0.2913 - Train Metric: 0.9206
+Epoch 30/50 - Val Metric: 0.9174
+Epoch 31/50 - Train Loss: 0.2907 - Train Metric: 0.9211
+Epoch 31/50 - Val Metric: 0.9160
+Epoch 32/50 - Train Loss: 0.2907 - Train Metric: 0.9210
+Epoch 32/50 - Val Metric: 0.9161
+Epoch 33/50 - Train Loss: 0.2886 - Train Metric: 0.9223
+Epoch 33/50 - Val Metric: 0.9170
+Epoch 34/50 - Train Loss: 0.2890 - Train Metric: 0.9219
+Epoch 34/50 - Val Metric: 0.9149
+Epoch 35/50 - Train Loss: 0.2890 - Train Metric: 0.9219
+Epoch 35/50 - Val Metric: 0.9147
+Epoch 36/50 - Train Loss: 0.2877 - Train Metric: 0.9227
+Epoch 36/50 - Val Metric: 0.9160
+Epoch 37/50 - Train Loss: 0.2878 - Train Metric: 0.9225
+Epoch 37/50 - Val Metric: 0.9170
+Epoch 38/50 - Train Loss: 0.2877 - Train Metric: 0.9226
+Epoch 38/50 - Val Metric: 0.9156
+Epoch 39/50 - Train Loss: 0.2877 - Train Metric: 0.9226
+Epoch 39/50 - Val Metric: 0.9179
+Epoch 40/50 - Train Loss: 0.2879 - Train Metric: 0.9230
+Epoch 40/50 - Val Metric: 0.9173
+Epoch 41/50 - Train Loss: 0.2848 - Train Metric: 0.9242
+Epoch 41/50 - Val Metric: 0.9167
+Epoch 42/50 - Train Loss: 0.2848 - Train Metric: 0.9242
+Epoch 42/50 - Val Metric: 0.9166
+Epoch 43/50 - Train Loss: 0.2848 - Train Metric: 0.9244
+Epoch 43/50 - Val Metric: 0.9173
+Epoch 44/50 - Train Loss: 0.2836 - Train Metric: 0.9250
+Epoch 44/50 - Val Metric: 0.9165
+Epoch 45/50 - Train Loss: 0.2836 - Train Metric: 0.9249
+Epoch 45/50 - Val Metric: 0.9167
+Epoch 46/50 - Train Loss: 0.2838 - Train Metric: 0.9246
+Epoch 46/50 - Val Metric: 0.9164
+Epoch 47/50 - Train Loss: 0.2855 - Train Metric: 0.9241
+Epoch 47/50 - Val Metric: 0.9174
+Epoch 48/50 - Train Loss: 0.2852 - Train Metric: 0.9241
+Epoch 48/50 - Val Metric: 0.9176
+Epoch 49/50 - Train Loss: 0.2841 - Train Metric: 0.9247
+Epoch 49/50 - Val Metric: 0.9170
+Epoch 50/50 - Train Loss: 0.2823 - Train Metric: 0.9258
+Epoch 50/50 - Val Metric: 0.9179
+Best val: 0.9179, Best test: 0.9085
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Epoch 1/50 - Train Loss: 0.4157 - Train Metric: 0.8278
+Epoch 1/50 - Val Metric: 0.8954
+Epoch 2/50 - Train Loss: 0.3509 - Train Metric: 0.8859
+Epoch 2/50 - Val Metric: 0.9116
+Epoch 3/50 - Train Loss: 0.3244 - Train Metric: 0.9023
+Epoch 3/50 - Val Metric: 0.9143
+Epoch 4/50 - Train Loss: 0.3180 - Train Metric: 0.9056
+Epoch 4/50 - Val Metric: 0.9146
+Epoch 5/50 - Train Loss: 0.3127 - Train Metric: 0.9088
+Epoch 5/50 - Val Metric: 0.9161
+Epoch 6/50 - Train Loss: 0.3096 - Train Metric: 0.9104
+Epoch 6/50 - Val Metric: 0.9158
+Epoch 7/50 - Train Loss: 0.3078 - Train Metric: 0.9116
+Epoch 7/50 - Val Metric: 0.9146
+Epoch 8/50 - Train Loss: 0.3095 - Train Metric: 0.9105
+Epoch 8/50 - Val Metric: 0.9153
+Epoch 9/50 - Train Loss: 0.3059 - Train Metric: 0.9125
+Epoch 9/50 - Val Metric: 0.9154
+Epoch 10/50 - Train Loss: 0.3055 - Train Metric: 0.9132
+Epoch 10/50 - Val Metric: 0.9159
+Epoch 11/50 - Train Loss: 0.3033 - Train Metric: 0.9143
+Epoch 11/50 - Val Metric: 0.9161
+Epoch 12/50 - Train Loss: 0.3021 - Train Metric: 0.9150
+Epoch 12/50 - Val Metric: 0.9158
+Epoch 13/50 - Train Loss: 0.3021 - Train Metric: 0.9147
+Epoch 13/50 - Val Metric: 0.9145
+Epoch 14/50 - Train Loss: 0.3013 - Train Metric: 0.9154
+Epoch 14/50 - Val Metric: 0.9149
+Epoch 15/50 - Train Loss: 0.3005 - Train Metric: 0.9159
+Epoch 15/50 - Val Metric: 0.9153
+Epoch 16/50 - Train Loss: 0.2992 - Train Metric: 0.9166
+Epoch 16/50 - Val Metric: 0.9149
+Epoch 17/50 - Train Loss: 0.2986 - Train Metric: 0.9172
+Epoch 17/50 - Val Metric: 0.9142
+Epoch 18/50 - Train Loss: 0.2983 - Train Metric: 0.9173
+Epoch 18/50 - Val Metric: 0.9160
+Epoch 19/50 - Train Loss: 0.2990 - Train Metric: 0.9170
+Epoch 19/50 - Val Metric: 0.9158
+Epoch 20/50 - Train Loss: 0.2984 - Train Metric: 0.9171
+Epoch 20/50 - Val Metric: 0.9162
+Epoch 21/50 - Train Loss: 0.2967 - Train Metric: 0.9181
+Epoch 21/50 - Val Metric: 0.9156
+Epoch 22/50 - Train Loss: 0.2969 - Train Metric: 0.9179
+Epoch 22/50 - Val Metric: 0.9162
+Epoch 23/50 - Train Loss: 0.2979 - Train Metric: 0.9174
+Epoch 23/50 - Val Metric: 0.9161
+Epoch 24/50 - Train Loss: 0.2958 - Train Metric: 0.9186
+Epoch 24/50 - Val Metric: 0.9156
+Epoch 25/50 - Train Loss: 0.2956 - Train Metric: 0.9188
+Epoch 25/50 - Val Metric: 0.9158
+Epoch 26/50 - Train Loss: 0.2952 - Train Metric: 0.9190
+Epoch 26/50 - Val Metric: 0.9157
+Epoch 27/50 - Train Loss: 0.2952 - Train Metric: 0.9190
+Epoch 27/50 - Val Metric: 0.9155
+Epoch 28/50 - Train Loss: 0.2955 - Train Metric: 0.9188
+Epoch 28/50 - Val Metric: 0.9155
+Epoch 29/50 - Train Loss: 0.2937 - Train Metric: 0.9197
+Epoch 29/50 - Val Metric: 0.9164
+Epoch 30/50 - Train Loss: 0.2946 - Train Metric: 0.9195
+Epoch 30/50 - Val Metric: 0.9165
+Epoch 31/50 - Train Loss: 0.2944 - Train Metric: 0.9192
+Epoch 31/50 - Val Metric: 0.9160
+Epoch 32/50 - Train Loss: 0.2932 - Train Metric: 0.9202
+Epoch 32/50 - Val Metric: 0.9164
+Epoch 33/50 - Train Loss: 0.2926 - Train Metric: 0.9202
+Epoch 33/50 - Val Metric: 0.9167
+Epoch 34/50 - Train Loss: 0.2929 - Train Metric: 0.9200
+Epoch 34/50 - Val Metric: 0.9164
+Epoch 35/50 - Train Loss: 0.2924 - Train Metric: 0.9203
+Epoch 35/50 - Val Metric: 0.9165
+Epoch 36/50 - Train Loss: 0.2923 - Train Metric: 0.9207
+Epoch 36/50 - Val Metric: 0.9164
+Epoch 37/50 - Train Loss: 0.2921 - Train Metric: 0.9206
+Epoch 37/50 - Val Metric: 0.9160
+Epoch 38/50 - Train Loss: 0.2912 - Train Metric: 0.9213
+Epoch 38/50 - Val Metric: 0.9161
+Epoch 39/50 - Train Loss: 0.2913 - Train Metric: 0.9213
+Epoch 39/50 - Val Metric: 0.9165
+Epoch 40/50 - Train Loss: 0.2908 - Train Metric: 0.9214
+Epoch 40/50 - Val Metric: 0.9164
+Epoch 41/50 - Train Loss: 0.2911 - Train Metric: 0.9212
+Epoch 41/50 - Val Metric: 0.9167
+Epoch 42/50 - Train Loss: 0.2915 - Train Metric: 0.9209
+Epoch 42/50 - Val Metric: 0.9167
+Epoch 43/50 - Train Loss: 0.2905 - Train Metric: 0.9217
+Epoch 43/50 - Val Metric: 0.9163
+Epoch 44/50 - Train Loss: 0.2903 - Train Metric: 0.9219
+Epoch 44/50 - Val Metric: 0.9165
+Epoch 45/50 - Train Loss: 0.2908 - Train Metric: 0.9214
+Epoch 45/50 - Val Metric: 0.9166
+Epoch 46/50 - Train Loss: 0.2894 - Train Metric: 0.9223
+Epoch 46/50 - Val Metric: 0.9161
+Epoch 47/50 - Train Loss: 0.2906 - Train Metric: 0.9215
+Epoch 47/50 - Val Metric: 0.9170
+Epoch 48/50 - Train Loss: 0.2902 - Train Metric: 0.9216
+Epoch 48/50 - Val Metric: 0.9166
+Epoch 49/50 - Train Loss: 0.2896 - Train Metric: 0.9221
+Epoch 49/50 - Val Metric: 0.9167
+Epoch 50/50 - Train Loss: 0.2895 - Train Metric: 0.9221
+Epoch 50/50 - Val Metric: 0.9169
+Best val: 0.9170, Best test: 0.9077
+Hyper-parameter search done. Found the best config.
+Repeat experiments 5 times with the best train config {'batch_size': 128, 'gamma_rate': 1.0, 'base_lr': 0.001} and model config {'num_heads': 8, 'num_layers': 4, 'hidden_dim': 32, 'mlp_ratio': 4, 'dropout_prob': 0.2, 'top_k': 5}.
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Epoch 1/50 - Train Loss: 0.4235 - Train Metric: 0.8205
+Epoch 1/50 - Val Metric: 0.8861
+Epoch 2/50 - Train Loss: 0.3446 - Train Metric: 0.8920
+Epoch 2/50 - Val Metric: 0.9046
+Epoch 3/50 - Train Loss: 0.3264 - Train Metric: 0.9022
+Epoch 3/50 - Val Metric: 0.9078
+Epoch 4/50 - Train Loss: 0.3190 - Train Metric: 0.9065
+Epoch 4/50 - Val Metric: 0.9094
+Epoch 5/50 - Train Loss: 0.3142 - Train Metric: 0.9093
+Epoch 5/50 - Val Metric: 0.9083
+Epoch 6/50 - Train Loss: 0.3114 - Train Metric: 0.9107
+Epoch 6/50 - Val Metric: 0.9101
+Epoch 7/50 - Train Loss: 0.3090 - Train Metric: 0.9120
+Epoch 7/50 - Val Metric: 0.9102
+Epoch 8/50 - Train Loss: 0.3095 - Train Metric: 0.9116
+Epoch 8/50 - Val Metric: 0.9107
+Epoch 9/50 - Train Loss: 0.3091 - Train Metric: 0.9118
+Epoch 9/50 - Val Metric: 0.9107
+Epoch 10/50 - Train Loss: 0.3068 - Train Metric: 0.9132
+Epoch 10/50 - Val Metric: 0.9109
+Epoch 11/50 - Train Loss: 0.3051 - Train Metric: 0.9141
+Epoch 11/50 - Val Metric: 0.9113
+Epoch 12/50 - Train Loss: 0.3040 - Train Metric: 0.9149
+Epoch 12/50 - Val Metric: 0.9109
+Epoch 13/50 - Train Loss: 0.3036 - Train Metric: 0.9149
+Epoch 13/50 - Val Metric: 0.9112
+Epoch 14/50 - Train Loss: 0.3038 - Train Metric: 0.9150
+Epoch 14/50 - Val Metric: 0.9100
+Epoch 15/50 - Train Loss: 0.3028 - Train Metric: 0.9153
+Epoch 15/50 - Val Metric: 0.9106
+Epoch 16/50 - Train Loss: 0.3031 - Train Metric: 0.9153
+Epoch 16/50 - Val Metric: 0.9110
+Epoch 17/50 - Train Loss: 0.3028 - Train Metric: 0.9154
+Epoch 17/50 - Val Metric: 0.9101
+Epoch 18/50 - Train Loss: 0.3023 - Train Metric: 0.9159
+Epoch 18/50 - Val Metric: 0.9112
+Epoch 19/50 - Train Loss: 0.2999 - Train Metric: 0.9172
+Epoch 19/50 - Val Metric: 0.9111
+Epoch 20/50 - Train Loss: 0.3005 - Train Metric: 0.9168
+Epoch 20/50 - Val Metric: 0.9114
+Epoch 21/50 - Train Loss: 0.2990 - Train Metric: 0.9178
+Epoch 21/50 - Val Metric: 0.9121
+Epoch 22/50 - Train Loss: 0.2979 - Train Metric: 0.9182
+Epoch 22/50 - Val Metric: 0.9115
+Epoch 23/50 - Train Loss: 0.2973 - Train Metric: 0.9185
+Epoch 23/50 - Val Metric: 0.9123
+Epoch 24/50 - Train Loss: 0.2965 - Train Metric: 0.9191
+Epoch 24/50 - Val Metric: 0.9118
+Epoch 25/50 - Train Loss: 0.2972 - Train Metric: 0.9186
+Epoch 25/50 - Val Metric: 0.9111
+Epoch 26/50 - Train Loss: 0.2972 - Train Metric: 0.9187
+Epoch 26/50 - Val Metric: 0.9121
+Epoch 27/50 - Train Loss: 0.2959 - Train Metric: 0.9193
+Epoch 27/50 - Val Metric: 0.9131
+Epoch 28/50 - Train Loss: 0.2951 - Train Metric: 0.9197
+Epoch 28/50 - Val Metric: 0.9117
+Epoch 29/50 - Train Loss: 0.2952 - Train Metric: 0.9197
+Epoch 29/50 - Val Metric: 0.9124
+Epoch 30/50 - Train Loss: 0.2933 - Train Metric: 0.9207
+Epoch 30/50 - Val Metric: 0.9128
+Epoch 31/50 - Train Loss: 0.2948 - Train Metric: 0.9200
+Epoch 31/50 - Val Metric: 0.9128
+Epoch 32/50 - Train Loss: 0.2938 - Train Metric: 0.9206
+Epoch 32/50 - Val Metric: 0.9125
+Epoch 33/50 - Train Loss: 0.2928 - Train Metric: 0.9212
+Epoch 33/50 - Val Metric: 0.9137
+Epoch 34/50 - Train Loss: 0.2921 - Train Metric: 0.9213
+Epoch 34/50 - Val Metric: 0.9128
+Epoch 35/50 - Train Loss: 0.2918 - Train Metric: 0.9216
+Epoch 35/50 - Val Metric: 0.9122
+Epoch 36/50 - Train Loss: 0.2911 - Train Metric: 0.9220
+Epoch 36/50 - Val Metric: 0.9138
+Epoch 37/50 - Train Loss: 0.2921 - Train Metric: 0.9216
+Epoch 37/50 - Val Metric: 0.9135
+Epoch 38/50 - Train Loss: 0.2903 - Train Metric: 0.9224
+Epoch 38/50 - Val Metric: 0.9128
+Epoch 39/50 - Train Loss: 0.2908 - Train Metric: 0.9223
+Epoch 39/50 - Val Metric: 0.9134
+Epoch 40/50 - Train Loss: 0.2879 - Train Metric: 0.9237
+Epoch 40/50 - Val Metric: 0.9116
+Epoch 41/50 - Train Loss: 0.2901 - Train Metric: 0.9225
+Epoch 41/50 - Val Metric: 0.9136
+Epoch 42/50 - Train Loss: 0.2871 - Train Metric: 0.9240
+Epoch 42/50 - Val Metric: 0.9141
+Epoch 43/50 - Train Loss: 0.2885 - Train Metric: 0.9234
+Epoch 43/50 - Val Metric: 0.9132
+Epoch 44/50 - Train Loss: 0.2877 - Train Metric: 0.9235
+Epoch 44/50 - Val Metric: 0.9145
+Epoch 45/50 - Train Loss: 0.2874 - Train Metric: 0.9238
+Epoch 45/50 - Val Metric: 0.9124
+Epoch 46/50 - Train Loss: 0.2858 - Train Metric: 0.9247
+Epoch 46/50 - Val Metric: 0.9137
+Epoch 47/50 - Train Loss: 0.2856 - Train Metric: 0.9251
+Epoch 47/50 - Val Metric: 0.9123
+Epoch 48/50 - Train Loss: 0.2871 - Train Metric: 0.9243
+Epoch 48/50 - Val Metric: 0.9139
+Epoch 49/50 - Train Loss: 0.2832 - Train Metric: 0.9256
+Epoch 49/50 - Val Metric: 0.9129
+Epoch 50/50 - Train Loss: 0.2854 - Train Metric: 0.9248
+Epoch 50/50 - Val Metric: 0.9140
+Best val: 0.9145, Best test: 0.9208
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Epoch 1/50 - Train Loss: 0.4193 - Train Metric: 0.8240
+Epoch 1/50 - Val Metric: 0.8848
+Epoch 2/50 - Train Loss: 0.3484 - Train Metric: 0.8881
+Epoch 2/50 - Val Metric: 0.9046
+Epoch 3/50 - Train Loss: 0.3314 - Train Metric: 0.8987
+Epoch 3/50 - Val Metric: 0.9119
+Epoch 4/50 - Train Loss: 0.3192 - Train Metric: 0.9055
+Epoch 4/50 - Val Metric: 0.9156
+Epoch 5/50 - Train Loss: 0.3180 - Train Metric: 0.9062
+Epoch 5/50 - Val Metric: 0.9183
+Epoch 6/50 - Train Loss: 0.3117 - Train Metric: 0.9095
+Epoch 6/50 - Val Metric: 0.9174
+Epoch 7/50 - Train Loss: 0.3108 - Train Metric: 0.9096
+Epoch 7/50 - Val Metric: 0.9191
+Epoch 8/50 - Train Loss: 0.3101 - Train Metric: 0.9098
+Epoch 8/50 - Val Metric: 0.9199
+Epoch 9/50 - Train Loss: 0.3054 - Train Metric: 0.9129
+Epoch 9/50 - Val Metric: 0.9206
+Epoch 10/50 - Train Loss: 0.3047 - Train Metric: 0.9136
+Epoch 10/50 - Val Metric: 0.9201
+Epoch 11/50 - Train Loss: 0.3063 - Train Metric: 0.9122
+Epoch 11/50 - Val Metric: 0.9189
+Epoch 12/50 - Train Loss: 0.3028 - Train Metric: 0.9141
+Epoch 12/50 - Val Metric: 0.9211
+Epoch 13/50 - Train Loss: 0.3026 - Train Metric: 0.9145
+Epoch 13/50 - Val Metric: 0.9217
+Epoch 14/50 - Train Loss: 0.3016 - Train Metric: 0.9149
+Epoch 14/50 - Val Metric: 0.9215
+Epoch 15/50 - Train Loss: 0.3030 - Train Metric: 0.9143
+Epoch 15/50 - Val Metric: 0.9222
+Epoch 16/50 - Train Loss: 0.3009 - Train Metric: 0.9153
+Epoch 16/50 - Val Metric: 0.9198
+Epoch 17/50 - Train Loss: 0.2992 - Train Metric: 0.9160
+Epoch 17/50 - Val Metric: 0.9229
+Epoch 18/50 - Train Loss: 0.2979 - Train Metric: 0.9169
+Epoch 18/50 - Val Metric: 0.9219
+Epoch 19/50 - Train Loss: 0.3022 - Train Metric: 0.9145
+Epoch 19/50 - Val Metric: 0.9218
+Epoch 20/50 - Train Loss: 0.2978 - Train Metric: 0.9169
+Epoch 20/50 - Val Metric: 0.9205
+Epoch 21/50 - Train Loss: 0.2969 - Train Metric: 0.9180
+Epoch 21/50 - Val Metric: 0.9235
+Epoch 22/50 - Train Loss: 0.2982 - Train Metric: 0.9168
+Epoch 22/50 - Val Metric: 0.9220
+Epoch 23/50 - Train Loss: 0.2980 - Train Metric: 0.9167
+Epoch 23/50 - Val Metric: 0.9224
+Epoch 24/50 - Train Loss: 0.2978 - Train Metric: 0.9173
+Epoch 24/50 - Val Metric: 0.9234
+Epoch 25/50 - Train Loss: 0.2953 - Train Metric: 0.9184
+Epoch 25/50 - Val Metric: 0.9226
+Epoch 26/50 - Train Loss: 0.2945 - Train Metric: 0.9190
+Epoch 26/50 - Val Metric: 0.9227
+Epoch 27/50 - Train Loss: 0.2946 - Train Metric: 0.9187
+Epoch 27/50 - Val Metric: 0.9227
+Epoch 28/50 - Train Loss: 0.2945 - Train Metric: 0.9189
+Epoch 28/50 - Val Metric: 0.9237
+Epoch 29/50 - Train Loss: 0.2943 - Train Metric: 0.9192
+Epoch 29/50 - Val Metric: 0.9229
+Epoch 30/50 - Train Loss: 0.2951 - Train Metric: 0.9185
+Epoch 30/50 - Val Metric: 0.9228
+Epoch 31/50 - Train Loss: 0.2918 - Train Metric: 0.9202
+Epoch 31/50 - Val Metric: 0.9227
+Epoch 32/50 - Train Loss: 0.2964 - Train Metric: 0.9185
+Epoch 32/50 - Val Metric: 0.9229
+Epoch 33/50 - Train Loss: 0.2914 - Train Metric: 0.9206
+Epoch 33/50 - Val Metric: 0.9243
+Epoch 34/50 - Train Loss: 0.2896 - Train Metric: 0.9216
+Epoch 34/50 - Val Metric: 0.9229
+Epoch 35/50 - Train Loss: 0.2911 - Train Metric: 0.9205
+Epoch 35/50 - Val Metric: 0.9233
+Epoch 36/50 - Train Loss: 0.2895 - Train Metric: 0.9216
+Epoch 36/50 - Val Metric: 0.9224
+Epoch 37/50 - Train Loss: 0.2887 - Train Metric: 0.9218
+Epoch 37/50 - Val Metric: 0.9233
+Epoch 38/50 - Train Loss: 0.2877 - Train Metric: 0.9221
+Epoch 38/50 - Val Metric: 0.9209
+Epoch 39/50 - Train Loss: 0.2902 - Train Metric: 0.9212
+Epoch 39/50 - Val Metric: 0.9193
+Epoch 40/50 - Train Loss: 0.2879 - Train Metric: 0.9224
+Epoch 40/50 - Val Metric: 0.9230
+Epoch 41/50 - Train Loss: 0.2878 - Train Metric: 0.9228
+Epoch 41/50 - Val Metric: 0.9229
+Epoch 42/50 - Train Loss: 0.2877 - Train Metric: 0.9227
+Epoch 42/50 - Val Metric: 0.9225
+Epoch 43/50 - Train Loss: 0.2872 - Train Metric: 0.9229
+Epoch 43/50 - Val Metric: 0.9233
+Epoch 44/50 - Train Loss: 0.2866 - Train Metric: 0.9228
+Epoch 44/50 - Val Metric: 0.9234
+Epoch 45/50 - Train Loss: 0.2865 - Train Metric: 0.9233
+Epoch 45/50 - Val Metric: 0.9232
+Epoch 46/50 - Train Loss: 0.2866 - Train Metric: 0.9231
+Epoch 46/50 - Val Metric: 0.9240
+Epoch 47/50 - Train Loss: 0.2848 - Train Metric: 0.9240
+Epoch 47/50 - Val Metric: 0.9214
+Epoch 48/50 - Train Loss: 0.2862 - Train Metric: 0.9237
+Epoch 48/50 - Val Metric: 0.9220
+Epoch 49/50 - Train Loss: 0.2856 - Train Metric: 0.9239
+Epoch 49/50 - Val Metric: 0.9191
+Epoch 50/50 - Train Loss: 0.2852 - Train Metric: 0.9239
+Epoch 50/50 - Val Metric: 0.9214
+Best val: 0.9243, Best test: 0.9154
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Epoch 1/50 - Train Loss: 0.4140 - Train Metric: 0.8301
+Epoch 1/50 - Val Metric: 0.8949
+Epoch 2/50 - Train Loss: 0.3416 - Train Metric: 0.8936
+Epoch 2/50 - Val Metric: 0.9089
+Epoch 3/50 - Train Loss: 0.3231 - Train Metric: 0.9043
+Epoch 3/50 - Val Metric: 0.9118
+Epoch 4/50 - Train Loss: 0.3152 - Train Metric: 0.9081
+Epoch 4/50 - Val Metric: 0.9121
+Epoch 5/50 - Train Loss: 0.3160 - Train Metric: 0.9074
+Epoch 5/50 - Val Metric: 0.9116
+Epoch 6/50 - Train Loss: 0.3121 - Train Metric: 0.9097
+Epoch 6/50 - Val Metric: 0.9159
+Epoch 7/50 - Train Loss: 0.3091 - Train Metric: 0.9110
+Epoch 7/50 - Val Metric: 0.9158
+Epoch 8/50 - Train Loss: 0.3080 - Train Metric: 0.9118
+Epoch 8/50 - Val Metric: 0.9163
+Epoch 9/50 - Train Loss: 0.3060 - Train Metric: 0.9133
+Epoch 9/50 - Val Metric: 0.9151
+Epoch 10/50 - Train Loss: 0.3052 - Train Metric: 0.9134
+Epoch 10/50 - Val Metric: 0.9161
+Epoch 11/50 - Train Loss: 0.3061 - Train Metric: 0.9129
+Epoch 11/50 - Val Metric: 0.9171
+Epoch 12/50 - Train Loss: 0.3040 - Train Metric: 0.9144
+Epoch 12/50 - Val Metric: 0.9173
+Epoch 13/50 - Train Loss: 0.3058 - Train Metric: 0.9129
+Epoch 13/50 - Val Metric: 0.9165
+Epoch 14/50 - Train Loss: 0.3043 - Train Metric: 0.9140
+Epoch 14/50 - Val Metric: 0.9170
+Epoch 15/50 - Train Loss: 0.3018 - Train Metric: 0.9153
+Epoch 15/50 - Val Metric: 0.9169
+Epoch 16/50 - Train Loss: 0.3024 - Train Metric: 0.9149
+Epoch 16/50 - Val Metric: 0.9182
+Epoch 17/50 - Train Loss: 0.3012 - Train Metric: 0.9158
+Epoch 17/50 - Val Metric: 0.9183
+Epoch 18/50 - Train Loss: 0.3009 - Train Metric: 0.9159
+Epoch 18/50 - Val Metric: 0.9175
+Epoch 19/50 - Train Loss: 0.3005 - Train Metric: 0.9163
+Epoch 19/50 - Val Metric: 0.9173
+Epoch 20/50 - Train Loss: 0.2985 - Train Metric: 0.9176
+Epoch 20/50 - Val Metric: 0.9188
+Epoch 21/50 - Train Loss: 0.3001 - Train Metric: 0.9163
+Epoch 21/50 - Val Metric: 0.9180
+Epoch 22/50 - Train Loss: 0.2983 - Train Metric: 0.9172
+Epoch 22/50 - Val Metric: 0.9181
+Epoch 23/50 - Train Loss: 0.2984 - Train Metric: 0.9173
+Epoch 23/50 - Val Metric: 0.9192
+Epoch 24/50 - Train Loss: 0.2980 - Train Metric: 0.9177
+Epoch 24/50 - Val Metric: 0.9195
+Epoch 25/50 - Train Loss: 0.2963 - Train Metric: 0.9186
+Epoch 25/50 - Val Metric: 0.9186
+Epoch 26/50 - Train Loss: 0.2958 - Train Metric: 0.9184
+Epoch 26/50 - Val Metric: 0.9192
+Epoch 27/50 - Train Loss: 0.2958 - Train Metric: 0.9189
+Epoch 27/50 - Val Metric: 0.9204
+Epoch 28/50 - Train Loss: 0.2960 - Train Metric: 0.9186
+Epoch 28/50 - Val Metric: 0.9187
+Epoch 29/50 - Train Loss: 0.2957 - Train Metric: 0.9188
+Epoch 29/50 - Val Metric: 0.9177
+Epoch 30/50 - Train Loss: 0.2943 - Train Metric: 0.9197
+Epoch 30/50 - Val Metric: 0.9191
+Epoch 31/50 - Train Loss: 0.2937 - Train Metric: 0.9202
+Epoch 31/50 - Val Metric: 0.9193
+Epoch 32/50 - Train Loss: 0.2932 - Train Metric: 0.9204
+Epoch 32/50 - Val Metric: 0.9185
+Epoch 33/50 - Train Loss: 0.2951 - Train Metric: 0.9190
+Epoch 33/50 - Val Metric: 0.9197
+Epoch 34/50 - Train Loss: 0.2913 - Train Metric: 0.9213
+Epoch 34/50 - Val Metric: 0.9182
+Epoch 35/50 - Train Loss: 0.2929 - Train Metric: 0.9204
+Epoch 35/50 - Val Metric: 0.9192
+Epoch 36/50 - Train Loss: 0.2911 - Train Metric: 0.9210
+Epoch 36/50 - Val Metric: 0.9188
+Epoch 37/50 - Train Loss: 0.2894 - Train Metric: 0.9220
+Epoch 37/50 - Val Metric: 0.9190
+Epoch 38/50 - Train Loss: 0.2921 - Train Metric: 0.9208
+Epoch 38/50 - Val Metric: 0.9198
+Epoch 39/50 - Train Loss: 0.2886 - Train Metric: 0.9224
+Epoch 39/50 - Val Metric: 0.9194
+Epoch 40/50 - Train Loss: 0.2888 - Train Metric: 0.9222
+Epoch 40/50 - Val Metric: 0.9180
+Epoch 41/50 - Train Loss: 0.2898 - Train Metric: 0.9220
+Epoch 41/50 - Val Metric: 0.9184
+Epoch 42/50 - Train Loss: 0.2868 - Train Metric: 0.9230
+Epoch 42/50 - Val Metric: 0.9196
+Epoch 43/50 - Train Loss: 0.2874 - Train Metric: 0.9229
+Epoch 43/50 - Val Metric: 0.9183
+Epoch 44/50 - Train Loss: 0.2874 - Train Metric: 0.9233
+Epoch 44/50 - Val Metric: 0.9192
+Epoch 45/50 - Train Loss: 0.2871 - Train Metric: 0.9236
+Epoch 45/50 - Val Metric: 0.9195
+Epoch 46/50 - Train Loss: 0.2870 - Train Metric: 0.9233
+Epoch 46/50 - Val Metric: 0.9180
+Epoch 47/50 - Train Loss: 0.2851 - Train Metric: 0.9243
+Epoch 47/50 - Val Metric: 0.9196
+Epoch 48/50 - Train Loss: 0.2861 - Train Metric: 0.9240
+Epoch 48/50 - Val Metric: 0.9186
+Epoch 49/50 - Train Loss: 0.2837 - Train Metric: 0.9250
+Epoch 49/50 - Val Metric: 0.9185
+Epoch 50/50 - Train Loss: 0.2846 - Train Metric: 0.9244
+Epoch 50/50 - Val Metric: 0.9184
+Best val: 0.9204, Best test: 0.9138
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Epoch 1/50 - Train Loss: 0.4232 - Train Metric: 0.8190
+Epoch 1/50 - Val Metric: 0.8922
+Epoch 2/50 - Train Loss: 0.3349 - Train Metric: 0.8978
+Epoch 2/50 - Val Metric: 0.9034
+Epoch 3/50 - Train Loss: 0.3207 - Train Metric: 0.9056
+Epoch 3/50 - Val Metric: 0.9046
+Epoch 4/50 - Train Loss: 0.3168 - Train Metric: 0.9072
+Epoch 4/50 - Val Metric: 0.9049
+Epoch 5/50 - Train Loss: 0.3108 - Train Metric: 0.9110
+Epoch 5/50 - Val Metric: 0.9064
+Epoch 6/50 - Train Loss: 0.3116 - Train Metric: 0.9100
+Epoch 6/50 - Val Metric: 0.9066
+Epoch 7/50 - Train Loss: 0.3094 - Train Metric: 0.9114
+Epoch 7/50 - Val Metric: 0.9070
+Epoch 8/50 - Train Loss: 0.3065 - Train Metric: 0.9132
+Epoch 8/50 - Val Metric: 0.9071
+Epoch 9/50 - Train Loss: 0.3091 - Train Metric: 0.9115
+Epoch 9/50 - Val Metric: 0.9077
+Epoch 10/50 - Train Loss: 0.3059 - Train Metric: 0.9135
+Epoch 10/50 - Val Metric: 0.9068
+Epoch 11/50 - Train Loss: 0.3038 - Train Metric: 0.9142
+Epoch 11/50 - Val Metric: 0.9087
+Epoch 12/50 - Train Loss: 0.3029 - Train Metric: 0.9150
+Epoch 12/50 - Val Metric: 0.9079
+Epoch 13/50 - Train Loss: 0.3017 - Train Metric: 0.9159
+Epoch 13/50 - Val Metric: 0.9068
+Epoch 14/50 - Train Loss: 0.3017 - Train Metric: 0.9159
+Epoch 14/50 - Val Metric: 0.9081
+Epoch 15/50 - Train Loss: 0.2996 - Train Metric: 0.9171
+Epoch 15/50 - Val Metric: 0.9085
+Epoch 16/50 - Train Loss: 0.2999 - Train Metric: 0.9168
+Epoch 16/50 - Val Metric: 0.9086
+Epoch 17/50 - Train Loss: 0.2997 - Train Metric: 0.9173
+Epoch 17/50 - Val Metric: 0.9082
+Epoch 18/50 - Train Loss: 0.2981 - Train Metric: 0.9182
+Epoch 18/50 - Val Metric: 0.9085
+Epoch 19/50 - Train Loss: 0.2976 - Train Metric: 0.9182
+Epoch 19/50 - Val Metric: 0.9089
+Epoch 20/50 - Train Loss: 0.2965 - Train Metric: 0.9189
+Epoch 20/50 - Val Metric: 0.9094
+Epoch 21/50 - Train Loss: 0.2994 - Train Metric: 0.9172
+Epoch 21/50 - Val Metric: 0.9081
+Epoch 22/50 - Train Loss: 0.2969 - Train Metric: 0.9185
+Epoch 22/50 - Val Metric: 0.9098
+Epoch 23/50 - Train Loss: 0.2954 - Train Metric: 0.9193
+Epoch 23/50 - Val Metric: 0.9094
+Epoch 24/50 - Train Loss: 0.2958 - Train Metric: 0.9195
+Epoch 24/50 - Val Metric: 0.9078
+Epoch 25/50 - Train Loss: 0.2951 - Train Metric: 0.9196
+Epoch 25/50 - Val Metric: 0.9085
+Epoch 26/50 - Train Loss: 0.2933 - Train Metric: 0.9205
+Epoch 26/50 - Val Metric: 0.9102
+Epoch 27/50 - Train Loss: 0.2927 - Train Metric: 0.9210
+Epoch 27/50 - Val Metric: 0.9092
+Epoch 28/50 - Train Loss: 0.2937 - Train Metric: 0.9205
+Epoch 28/50 - Val Metric: 0.9096
+Epoch 29/50 - Train Loss: 0.2937 - Train Metric: 0.9204
+Epoch 29/50 - Val Metric: 0.9096
+Epoch 30/50 - Train Loss: 0.2914 - Train Metric: 0.9216
+Epoch 30/50 - Val Metric: 0.9107
+Epoch 31/50 - Train Loss: 0.2909 - Train Metric: 0.9219
+Epoch 31/50 - Val Metric: 0.9093
+Epoch 32/50 - Train Loss: 0.2907 - Train Metric: 0.9223
+Epoch 32/50 - Val Metric: 0.9082
+Epoch 33/50 - Train Loss: 0.2922 - Train Metric: 0.9212
+Epoch 33/50 - Val Metric: 0.9103
+Epoch 34/50 - Train Loss: 0.2910 - Train Metric: 0.9218
+Epoch 34/50 - Val Metric: 0.9069
+Epoch 35/50 - Train Loss: 0.2952 - Train Metric: 0.9198
+Epoch 35/50 - Val Metric: 0.9085
+Epoch 36/50 - Train Loss: 0.2924 - Train Metric: 0.9213
+Epoch 36/50 - Val Metric: 0.9075
+Epoch 37/50 - Train Loss: 0.2909 - Train Metric: 0.9221
+Epoch 37/50 - Val Metric: 0.9078
+Epoch 38/50 - Train Loss: 0.2910 - Train Metric: 0.9223
+Epoch 38/50 - Val Metric: 0.9073
+Epoch 39/50 - Train Loss: 0.2908 - Train Metric: 0.9225
+Epoch 39/50 - Val Metric: 0.9071
+Epoch 40/50 - Train Loss: 0.2899 - Train Metric: 0.9228
+Epoch 40/50 - Val Metric: 0.9084
+Epoch 41/50 - Train Loss: 0.2884 - Train Metric: 0.9236
+Epoch 41/50 - Val Metric: 0.9091
+Epoch 42/50 - Train Loss: 0.2873 - Train Metric: 0.9237
+Epoch 42/50 - Val Metric: 0.9060
+Epoch 43/50 - Train Loss: 0.2880 - Train Metric: 0.9236
+Epoch 43/50 - Val Metric: 0.9059
+Epoch 44/50 - Train Loss: 0.2884 - Train Metric: 0.9234
+Epoch 44/50 - Val Metric: 0.9084
+Epoch 45/50 - Train Loss: 0.2857 - Train Metric: 0.9247
+Epoch 45/50 - Val Metric: 0.9090
+Epoch 46/50 - Train Loss: 0.2863 - Train Metric: 0.9247
+Epoch 46/50 - Val Metric: 0.9085
+Epoch 47/50 - Train Loss: 0.2853 - Train Metric: 0.9251
+Epoch 47/50 - Val Metric: 0.9058
+Epoch 48/50 - Train Loss: 0.2895 - Train Metric: 0.9231
+Epoch 48/50 - Val Metric: 0.9079
+Epoch 49/50 - Train Loss: 0.2839 - Train Metric: 0.9258
+Epoch 49/50 - Val Metric: 0.9078
+Epoch 50/50 - Train Loss: 0.2840 - Train Metric: 0.9258
+Epoch 50/50 - Val Metric: 0.9069
+Best val: 0.9107, Best test: 0.9153
+Training set has 26048 instances
+Validation set has 3256 instances
+Test set has 3257 instances
+Epoch 1/50 - Train Loss: 0.4112 - Train Metric: 0.8341
+Epoch 1/50 - Val Metric: 0.8822
+Epoch 2/50 - Train Loss: 0.3418 - Train Metric: 0.8931
+Epoch 2/50 - Val Metric: 0.9081
+Epoch 3/50 - Train Loss: 0.3257 - Train Metric: 0.9025
+Epoch 3/50 - Val Metric: 0.9125
+Epoch 4/50 - Train Loss: 0.3199 - Train Metric: 0.9052
+Epoch 4/50 - Val Metric: 0.9135
+Epoch 5/50 - Train Loss: 0.3133 - Train Metric: 0.9093
+Epoch 5/50 - Val Metric: 0.9151
+Epoch 6/50 - Train Loss: 0.3108 - Train Metric: 0.9107
+Epoch 6/50 - Val Metric: 0.9146
+Epoch 7/50 - Train Loss: 0.3124 - Train Metric: 0.9097
+Epoch 7/50 - Val Metric: 0.9162
+Epoch 8/50 - Train Loss: 0.3072 - Train Metric: 0.9129
+Epoch 8/50 - Val Metric: 0.9158
+Epoch 9/50 - Train Loss: 0.3084 - Train Metric: 0.9117
+Epoch 9/50 - Val Metric: 0.9167
+Epoch 10/50 - Train Loss: 0.3068 - Train Metric: 0.9130
+Epoch 10/50 - Val Metric: 0.9170
+Epoch 11/50 - Train Loss: 0.3051 - Train Metric: 0.9141
+Epoch 11/50 - Val Metric: 0.9181
+Epoch 12/50 - Train Loss: 0.3039 - Train Metric: 0.9144
+Epoch 12/50 - Val Metric: 0.9159
+Epoch 13/50 - Train Loss: 0.3047 - Train Metric: 0.9143
+Epoch 13/50 - Val Metric: 0.9183
+Epoch 14/50 - Train Loss: 0.3033 - Train Metric: 0.9149
+Epoch 14/50 - Val Metric: 0.9176
+Epoch 15/50 - Train Loss: 0.3014 - Train Metric: 0.9160
+Epoch 15/50 - Val Metric: 0.9186
+Epoch 16/50 - Train Loss: 0.3024 - Train Metric: 0.9155
+Epoch 16/50 - Val Metric: 0.9180
+Epoch 17/50 - Train Loss: 0.3025 - Train Metric: 0.9155
+Epoch 17/50 - Val Metric: 0.9175
+Epoch 18/50 - Train Loss: 0.3012 - Train Metric: 0.9160
+Epoch 18/50 - Val Metric: 0.9176
+Epoch 19/50 - Train Loss: 0.3012 - Train Metric: 0.9160
+Epoch 19/50 - Val Metric: 0.9193
+Epoch 20/50 - Train Loss: 0.3013 - Train Metric: 0.9160
+Epoch 20/50 - Val Metric: 0.9185
+Epoch 21/50 - Train Loss: 0.2993 - Train Metric: 0.9173
+Epoch 21/50 - Val Metric: 0.9202
+Epoch 22/50 - Train Loss: 0.2997 - Train Metric: 0.9171
+Epoch 22/50 - Val Metric: 0.9192
+Epoch 23/50 - Train Loss: 0.2991 - Train Metric: 0.9173
+Epoch 23/50 - Val Metric: 0.9202
+Epoch 24/50 - Train Loss: 0.2971 - Train Metric: 0.9186
+Epoch 24/50 - Val Metric: 0.9180
+Epoch 25/50 - Train Loss: 0.2973 - Train Metric: 0.9185
+Epoch 25/50 - Val Metric: 0.9184
+Epoch 26/50 - Train Loss: 0.2972 - Train Metric: 0.9183
+Epoch 26/50 - Val Metric: 0.9167
+Epoch 27/50 - Train Loss: 0.3003 - Train Metric: 0.9165
+Epoch 27/50 - Val Metric: 0.9195
+Epoch 28/50 - Train Loss: 0.2970 - Train Metric: 0.9185
+Epoch 28/50 - Val Metric: 0.9203
+Epoch 29/50 - Train Loss: 0.2957 - Train Metric: 0.9190
+Epoch 29/50 - Val Metric: 0.9208
+Epoch 30/50 - Train Loss: 0.2945 - Train Metric: 0.9197
+Epoch 30/50 - Val Metric: 0.9210
+Epoch 31/50 - Train Loss: 0.2965 - Train Metric: 0.9188
+Epoch 31/50 - Val Metric: 0.9200
+Epoch 32/50 - Train Loss: 0.2944 - Train Metric: 0.9199
+Epoch 32/50 - Val Metric: 0.9193
+Epoch 33/50 - Train Loss: 0.2952 - Train Metric: 0.9195
+Epoch 33/50 - Val Metric: 0.9191
+Epoch 34/50 - Train Loss: 0.2952 - Train Metric: 0.9193
+Epoch 34/50 - Val Metric: 0.9205
+Epoch 35/50 - Train Loss: 0.2936 - Train Metric: 0.9203
+Epoch 35/50 - Val Metric: 0.9206
+Epoch 36/50 - Train Loss: 0.2948 - Train Metric: 0.9195
+Epoch 36/50 - Val Metric: 0.9197
+Epoch 37/50 - Train Loss: 0.2928 - Train Metric: 0.9206
+Epoch 37/50 - Val Metric: 0.9209
+Epoch 38/50 - Train Loss: 0.2912 - Train Metric: 0.9216
+Epoch 38/50 - Val Metric: 0.9203
+Epoch 39/50 - Train Loss: 0.2921 - Train Metric: 0.9212
+Epoch 39/50 - Val Metric: 0.9204
+Epoch 40/50 - Train Loss: 0.2894 - Train Metric: 0.9225
+Epoch 40/50 - Val Metric: 0.9216
+Epoch 41/50 - Train Loss: 0.2911 - Train Metric: 0.9216
+Epoch 41/50 - Val Metric: 0.9212
+Epoch 42/50 - Train Loss: 0.2890 - Train Metric: 0.9230
+Epoch 42/50 - Val Metric: 0.9199
+Epoch 43/50 - Train Loss: 0.2908 - Train Metric: 0.9221
+Epoch 43/50 - Val Metric: 0.9209
+Epoch 44/50 - Train Loss: 0.2902 - Train Metric: 0.9224
+Epoch 44/50 - Val Metric: 0.9214
+Epoch 45/50 - Train Loss: 0.2889 - Train Metric: 0.9229
+Epoch 45/50 - Val Metric: 0.9197
+Epoch 46/50 - Train Loss: 0.2885 - Train Metric: 0.9233
+Epoch 46/50 - Val Metric: 0.9207
+Epoch 47/50 - Train Loss: 0.2894 - Train Metric: 0.9225
+Epoch 47/50 - Val Metric: 0.9211
+Epoch 48/50 - Train Loss: 0.2868 - Train Metric: 0.9241
+Epoch 48/50 - Val Metric: 0.9208
+Epoch 49/50 - Train Loss: 0.2872 - Train Metric: 0.9237
+Epoch 49/50 - Val Metric: 0.9198
+Epoch 50/50 - Train Loss: 0.2861 - Train Metric: 0.9245
+Epoch 50/50 - Val Metric: 0.9211
+Best val: 0.9216, Best test: 0.9147
+[0.92084706 0.91535461 0.91380352 0.91530442 0.91474211]

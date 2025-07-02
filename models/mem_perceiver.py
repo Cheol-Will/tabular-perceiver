@@ -16,7 +16,6 @@ from torch_frame.nn.encoder.stype_encoder import (
     StypeEncoder,
 )
 from torch_frame.nn.encoder.stypewise_encoder import StypeWiseFeatureEncoder
-from encoder.piecewise_linear_encoder import StypeWiseFeatureEncoderCustom, PiecewiseLinearEncoder 
 
 def attend(query, key, value, dropout_prob=0.0, train=True):
     r"""
@@ -238,7 +237,6 @@ class MemPerceiver(nn.Module):
         attn_retrival: bool = False,
         ensemble: bool = False,
         is_cos_sim: bool = True,
-        bins_list: list[list[float]] | None = None,  
     ):
         super(MemPerceiver, self).__init__()
 
@@ -254,15 +252,13 @@ class MemPerceiver(nn.Module):
         self.latents = nn.Parameter(torch.empty(1, num_latents, hidden_dim))
         self.query = nn.Parameter(torch.empty(1, 1, hidden_dim))
 
-        self.tensor_frame_encoder = StypeWiseFeatureEncoderCustom(
+        self.tensor_frame_encoder = StypeWiseFeatureEncoder(
             out_channels=hidden_dim,
             col_stats=col_stats,
             col_names_dict=col_names_dict,
-            bins_list=bins_list,
             stype_encoder_dict={
                 stype.categorical: EmbeddingEncoder(),
-                stype.numerical: PiecewiseLinearEncoder(),
-                # stype.numerical: LinearEncoder(),
+                stype.numerical: LinearEncoder(),
             }
         )
         self.encoder = CrossAttention(
@@ -398,8 +394,6 @@ class MemPerceiver(nn.Module):
     def forward(self, tf):
         is_cos_sim = self.is_cos_sim
         # (B, F, 1) -> (B, F, D)
-        print("[Debug]: forward tf")
-        print(tf)
         if not self.ensemble:
             batch_size = len(tf)
             latents = self.latents.repeat(batch_size, 1, 1)
@@ -407,8 +401,6 @@ class MemPerceiver(nn.Module):
 
             # Embed features and encode into latent space
             x, _ = self.tensor_frame_encoder(tf) # x, all_col_names
-            print(f"[Debug]: after encoder: {x.shape}")
-            print(x)
             x = x + self.pos_embedding
             
             if self.attn_retrival:
@@ -436,8 +428,6 @@ class MemPerceiver(nn.Module):
             query = self.query.repeat(batch_size * self.top_k, 1, 1) # (B*K, 1, D)
             
             x, _ = self.tensor_frame_encoder(tf)
-            print("[Debug]: after tensor frame encoder")
-            print(x)
             x = x + self.pos_embedding
             x = self.encoder(latents, x)
             

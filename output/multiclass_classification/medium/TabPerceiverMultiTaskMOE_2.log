@@ -1,0 +1,71 @@
+Start building multiclass_classification dataset_medium_0
+Start building multiclass_classification dataset_medium_1
+Start building multiclass_classification dataset_medium_2
+Training set has 86400 instances
+Validation set has 10800 instances
+Test set has 10800 instances
+Training set has 52156 instances
+Validation set has 6519 instances
+Test set has 6521 instances
+Training set has 66986 instances
+Validation set has 8373 instances
+Test set has 8374 instances
+Train Loss: 3.9566429
+Train Loss: 2.9649458
+Train Loss: 2.1774854
+Train Loss: 1.7712105
+Train Loss: 1.5499656
+Train Loss: 1.4172586
+Train Loss: 1.3237700
+Train Loss: 1.2613507
+Train Loss: 1.2024148
+Train Loss: 1.1581036
+Train Loss: 1.1229950
+Train Loss: 1.0912394
+Train Loss: 1.0655933
+Train Loss: 1.0411975
+Train Loss: 1.0211310
+Train Loss: 1.0022474
+Train Loss: 0.9860030
+Train Loss: 0.9716497
+Train Loss: 0.9579584
+Train Loss: 0.9469638
+Train Loss: 0.9343330
+Train Loss: 0.9244904
+Train Loss: 0.9151811
+Train Loss: 0.9066731
+Train Loss: 0.8995804
+Train Loss: 0.8924188
+Train Loss: 0.8861247
+Train Loss: 0.8797872
+Train Loss: 0.8749315
+Train Loss: 0.8698472
+Train Loss: 0.8650686
+Train Loss: 0.8611633
+Train Loss: 0.8571648
+Train Loss: 0.8539289
+Train Loss: 0.8507718
+Train Loss: 0.8480051
+Train Loss: 0.8452893
+Train Loss: 0.8430138
+Train Loss: 0.8407480
+Train Loss: 0.8386510
+Train Loss: 0.8368081
+Train Loss: 0.8353711
+Train Loss: 0.8335514
+Train Loss: 0.8322666
+Train Loss: 0.8309217
+Train Loss: 0.8300499
+Train Loss: 0.8289923
+Train Loss: 0.8280227
+Train Loss: 0.8271589
+Train Loss: 0.8264950
+[Task 0]
+Test metric: 0.901296
+Result is saved into output/multiclass_classification/medium/0/TabPerceiverMultiTaskMOE_2.pt
+[Task 1]
+Test metric: 0.356847
+Result is saved into output/multiclass_classification/medium/1/TabPerceiverMultiTaskMOE_2.pt
+[Task 2]
+Test metric: 0.701576
+Result is saved into output/multiclass_classification/medium/2/TabPerceiverMultiTaskMOE_2.pt
