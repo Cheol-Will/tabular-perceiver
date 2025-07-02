@@ -94,16 +94,16 @@ def load_result(
         scale_types = [scale_type]
     model_types = [
         "LightGBM",
-        # "TabNet", 
+        "TabNet",     
         "FTTransformer", 
         "ResNet", 
-        # "TabTransformer", 
+        "TabTransformer", 
         "Trompt", 
         "ExcelFormer",
         "LinearL1",
         "TabPerceiver", 
-        "MemPerceiver",
-        "MemGlovalAvgPool",
+        # "MemPerceiver",
+        # "MemGlovalAvgPool",
         # "MemPerceiver_ens",
         # "MemPerceiver_Ens_Attn",
         # "TabPerceiverMultiTask_1",
@@ -192,10 +192,10 @@ def plot_result(
 
     # Prepare plot
     plt.figure(figsize=(9, 9))
-    x = np.linspace(0.45, 1.05, 500)  # 확장된 x 범위
-    plt.fill_between(x, x, 1.05, color='blue', alpha=0.1)  # 위쪽 삼각형
-    plt.fill_between(x, 0.45, x, color='red', alpha=0.1)   # 아래쪽 삼각형
-    plt.plot([0.45, 1.05], [0.45, 1.05], 'r--')            # 대각선 기준선
+    x = np.linspace(0.45, 1.05, 500)  
+    plt.fill_between(x, x, 1.05, color='blue', alpha=0.1)  
+    plt.fill_between(x, 0.45, x, color='red', alpha=0.1)   
+    plt.plot([0.45, 1.05], [0.45, 1.05], 'r--')           
 
     for model_type in pivot_df.columns:
         if model_type == "LightGBM":
@@ -338,6 +338,8 @@ def save_result_dataframe(
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     result_df.to_csv(out_path, index=False)
     print(f"Saved leaderboard to {out_path}")
+
+    return result_df
 
 def plot_hyperparameter_distribution(
     result_dict: dict[str, list[dict]],

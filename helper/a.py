@@ -1,31 +1,28 @@
+import pandas as pd
+import re
 import os
-import torch
+import numpy as np
 
-# 매핑할 키: old_key -> new_key
-key_map = {
-    'num_latent_array': 'num_latents',
-    'latent_channels': 'hidden_dim'
-}
+def extract_main_score(cell):
+    """Extract float before '±', or return NaN if OOM, Too slow*, or empty."""
+    if pd.isna(cell) or str(cell).strip() in ["OOM", "Too slow*", ""]:
+        return np.nan
+    match = re.match(r"([0-9.]+)", str(cell))
+    return float(match.group(1)) if match else np.nan
 
+def clean_btxt_with_exceptions(input_path: str, output_path: str):
+    # Read TSV (tab-separated) input
+    df = pd.read_csv(input_path, sep='\t')
 
-def update_checkpoint(path: str):
-    """
-    주어진 경로의 .pt 체크포인트를 로드하여
-    best_model_cfg 딕셔너리 내부의 키 이름을 변경한 뒤 다시 저장합니다.
-    """
-    ckpt = torch.load(path, weights_only=False)
-    
-    if 'best_model_cfg' in ckpt:
-        cfg = ckpt['best_model_cfg']
-        for old_key, new_key in key_map.items():
-            if old_key in cfg:
-                cfg[new_key] = cfg.pop(old_key)
-        ckpt['best_model_cfg'] = cfg
-    
-    torch.save(ckpt, path)
+    # Clean each cell (except model column)
+    for col in df.columns[1:]:
+        df[col] = df[col].map(extract_main_score)
 
-for root, dirs, files in os.walk('output'):
-    if 'TabPerceiver.pt' in files:
-        pt_path = os.path.join(root, 'TabPerceiver.pt')
-        update_checkpoint(pt_path)
-        print(f"Updated keys in: {pt_path}")
+    # Save as CSV
+    df.to_csv(output_path, index=False)
+    print(f"Cleaned CSV saved to: {output_path}")
+
+if __name__ == "__main__":
+    input_path = "helper/b.txt"
+    output_path = "helper/multi_large.csv"
+    clean_btxt_with_exceptions(input_path, output_path)

@@ -1,0 +1,12 @@
+Unnamed: 0,dataset_0,dataset_1,dataset_2,dataset_3,dataset_4,dataset_5
+XGBoost,0.966,,,,,
+CatBoost,0.971,,,,,
+LightGBM,0.965,,,,,
+Trompt,0.97,,,,0.796,0.799
+ResNet,0.969,0.976,0.655,0.88,0.757,0.772
+MLP,0.973,0.98,0.681,0.908,0.792,0.81
+FTTransformerBucket,0.97,0.977,0.776,0.896,0.785,0.808
+ExcelFormer,0.969,0.978,0.649,,,0.782
+FTTransformer,0.969,0.975,0.67,0.888,,0.788
+TabNet,0.968,0.974,0.655,0.891,0.767,0.784
+TabTransformer,0.984,0.986,0.713,0.895,0.764,0.781
