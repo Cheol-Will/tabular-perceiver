@@ -1,1 +1,0 @@
-Namespace(task_type='binary_classification', scale='small', idx=13, epochs=50, num_trials=20, num_repeats=5, model_type='LightGBM', seed=0, shots=7, result_path='output/binary_classification/small/13/LightGBM_7.pt')
