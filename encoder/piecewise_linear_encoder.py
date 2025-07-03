@@ -460,7 +460,7 @@ class PiecewiseLinearEncoder(StypeEncoder):
         super().init_modules()
         # Convert lists of floats to list of 1D tensors
         bins: List[Tensor] = [torch.as_tensor(b, dtype=torch.float32) for b in self.bins_list]
-        _check_bins(bins)
+        # _check_bins(bins)
 
         # Piecewise-linear encoding implementation from rtdl_num_embeddings (no trainable params)
         self.impl = _PiecewiseLinearEncodingImpl(bins)

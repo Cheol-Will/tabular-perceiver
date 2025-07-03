@@ -27,8 +27,7 @@ from torch_frame.nn.models import (
     TabTransformer,
     Trompt,
 )
-from models import TabPerceiver
-from models import LinearL1
+from models import TabPerceiver, LinearL1, TabM
 from torch_frame.typing import TaskType
 
 TRAIN_CONFIG_KEYS = ["batch_size", "gamma_rate", "base_lr"]
@@ -266,6 +265,18 @@ else:
         model_cls = TabPerceiver
         col_stats = dataset.col_stats
 
+    # elif args.model_type == 'TabM':
+    #     model_search_space = {
+    #         'channels': [64, 128, 256],
+    #         'num_layers': [1, 2, 4],
+    #     }
+    #     train_search_space = {
+    #         'batch_size': [256, 512],
+    #         'base_lr': [0.0001, 0.001],
+    #         'gamma_rate': [0.9, 0.95, 1.],
+    #     }
+    #     model_cls = TabM
+    #     col_stats = dataset.col_stats
     assert model_cls is not None
     assert col_stats is not None
     assert set(train_search_space.keys()) == set(TRAIN_CONFIG_KEYS)

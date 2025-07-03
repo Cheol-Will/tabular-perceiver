@@ -7,6 +7,7 @@ from .mem_gap import MemGlovalAvgPool
 from .mem_perceiver_ple import MemPerceiverPLE
 from .linear_l1 import LinearL1
 from .tuned_lightgbm import LightGBM
+from .tabm import TabM
 
 __all__ = classes = [
     'TabPerceiver',
@@ -15,6 +16,7 @@ __all__ = classes = [
     'MemPerceiver',
     'MemGlovalAvgPool',
     'MemPerceiverPLE',
+    'TabM'
     'LinearL1',
     'LightGBM'
 ]
