@@ -37,12 +37,12 @@ def save_rank_csv(model_names, is_save = False):
 
     # 3) 합치기
     df = pd.concat([df_paper, df_converted], axis=0, sort=False)
+    df = df.round(3)
 
     # 4) 모델들이 전부 갖고 있는 컬럼(열)만 필터링
     model_list = model_names if isinstance(model_names, list) else [model_names]
     good_cols = df.loc[model_list].dropna(axis=1).columns  # ← axis=1
     df_filtered = df[good_cols]
-    df_filtered = df_filtered.round(3)
     # 5) rank 계산
     rank_df = pd.DataFrame(index=df_filtered.index)
     for col in df_filtered:
