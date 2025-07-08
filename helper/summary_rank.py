@@ -42,15 +42,18 @@ def save_rank_csv(model_names, is_save = False):
     model_list = model_names if isinstance(model_names, list) else [model_names]
     good_cols = df.loc[model_list].dropna(axis=1).columns  # ← axis=1
     df_filtered = df[good_cols]
-
+    df_filtered = df_filtered.round(3)
     # 5) rank 계산
     rank_df = pd.DataFrame(index=df_filtered.index)
     for col in df_filtered:
         tp = col.split("_")[0]
         ascending = (tp == "reg")   # regression은 낮을수록 좋다고 가정
         rank_df[col] = df_filtered[col].rank(ascending=ascending, method="min")
+    
     rank_df["avg_rank"] = rank_df.mean(axis=1)
     rank_df = rank_df.sort_values(by="avg_rank")
+    rank_df = rank_df.round(3)
+    
     # 6) 저장
     joined = "_".join(model_list) if isinstance(model_list, list) else model_list[0]
     df.to_csv(f"helper/{joined}_metrics.csv")
