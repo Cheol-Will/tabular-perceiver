@@ -31,7 +31,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 def setup_environment(seed: int):
     torch.manual_seed(seed)
     random.seed(seed)
-
+    
 def train(
     model: Module,
     loader: DataLoader,
@@ -47,52 +47,39 @@ def train(
 
     for tf in tqdm(loader, desc=f'Epoch: {epoch}'):
         tf = tf.to(device)
-        y = tf.y # (B)
-        pred = model(tf) # (B, K, C)  
-        B = pred.shape[0]
-        K = pred.shape[1]
+        y_true = tf.y  # (B) 
+        preds = model(tf) # (B, K, C) 
+        B, K = preds.shape[:2]
 
-        # print("[Debug]")
-        # print(y.shape)
-        # print(pred.shape)
-        if pred.size(2) == 1:
-            pred = pred.view(-1, K) # (B, K) for Reg and BC
-        # print("[Debug]")
-        # print(f"after view pred: {pred.shape}")
-
-        if task_type == TaskType.BINARY_CLASSIFICATION:
-            y = y.to(torch.float) 
-            y = y.unsqueeze(1).expand(-1, K) # (B, K)
+        metric_preds = preds.mean(dim=1)  # (B, C) or (B, 1)
         if task_type == TaskType.MULTICLASS_CLASSIFICATION:
-            # (B) -> (B, K)
-            y = y.unsqueeze(1).expand(-1, K) # (B, K)
+            metric_preds = metric_preds.argmax(dim=-1) # (B,)
+        else:
+            metric_preds = metric_preds.squeeze(-1) # (B,)
 
-        # print("[Debug]")
-        # print(f"after unsq y: {y.shape}")
-        
-        loss = loss_fn(pred, y)
+        metric_computer.update(metric_preds, y_true)
+
+        if task_type == TaskType.MULTICLASS_CLASSIFICATION:
+            C = preds.size(2)
+            loss_preds = preds.reshape(B*K, C) # (B*K, C)
+            y_loss = y_true.unsqueeze(1).expand(-1, K) # (B, K)
+            y_loss = y_loss.reshape(-1) # (B*K,)
+        else:
+            loss_preds = preds.reshape(B, K) # (B, K)
+            y_loss = y_true.float() if task_type == TaskType.BINARY_CLASSIFICATION else y_true
+            y_loss = y_loss.unsqueeze(1).expand(-1, K) # (B, K)
+
+        loss = loss_fn(loss_preds, y_loss)
         optimizer.zero_grad()
         loss.backward()
-        loss_accum += float(loss) * len(tf.y)
-        total_count += len(tf.y)
         optimizer.step()
-        
-        # update metric
-        metric_preds = pred.mean(dim=1) # (B, K, *) -> (B, *) 
-        if task_type == TaskType.MULTICLASS_CLASSIFICATION:
-            metric_preds = metric_preds.argmax(dim=-1)
-        else:
-            metric_preds = metric_preds
-        # print("[Debug]")
-        # print(metric_preds.shape)
-        # print(tf.y.shape)        
-        metric_computer.update(metric_preds, tf.y)
 
-    train_loss = loss_accum / total_count
+        loss_accum += loss.item() * B
+        total_count += B
+
+    train_loss   = loss_accum / total_count
     train_metric = metric_computer.compute().item()
-
     return train_loss, train_metric
-
 
 def evaluate(
     model: Module,
@@ -174,7 +161,7 @@ def train_and_eval_with_cfg(
     # train_loader returns (tensor_frame, index) 
     train_loader, valid_loader, test_loader, meta, train_dataset = build_dataloader(dataset, train_cfg["batch_size"], use_train_dataset=True)
     num_classes, loss_fn, metric_computer, higher_is_better, task_type = create_train_setup(dataset)
-
+    metric_computer = metric_computer.to(device)
     if torch_frame.numerical in meta["col_names_dict"]:
         if "n_bins" in train_cfg: 
             numerical_cols = meta["col_names_dict"][torch_frame.numerical]
@@ -195,9 +182,14 @@ def train_and_eval_with_cfg(
             )
             print(f"Bin edges for {numerical_cols}")
             print(bin_edges)
+        else:
+            bin_edges = None
+            print("bin_edges is not given")
+            print(f"Use Linear Embedding, not Piecewise Linear Embedding")
     else:
         bin_edges = None
-        print(f"Piecewise Linear Encoding is not called since current data does not have numerical featrues.")
+        print("Current dataset does not have numerical features.")
+        print(f"Use Linear Embedding, not Piecewise Linear Embedding")
     
     model = TabM(
         **model_cfg,
@@ -232,7 +224,8 @@ def main(args):
     print(f"Device: {device}")
 
     # define search space
-    TRAIN_CONFIG_KEYS = ["batch_size", "gamma_rate", "base_lr", "n_bins"]
+
+    TRAIN_CONFIG_KEYS = ["batch_size", "gamma_rate", "base_lr"]
     model_search_space = {
         'embed_dim': [4, 8, 16, 32],
         'num_layers': [1, 2, 3, 4], # With piecewise linear embedding, set num_blocks up to 4.
@@ -243,8 +236,13 @@ def main(args):
         'batch_size': [128, 256],
         'base_lr': [0.0001, 0.001],
         'gamma_rate': [0.9, 0.95, 1.],
-        'n_bins': [2, 4, 8, 16, 32, 64, 128]
+        # 'n_bins': [2, 4, 8, 16, 32, 64, 128]
     }
+    if args.num_embedding == 'ple':
+        print("Add Piecewise Linear Embedding Config.")
+        TRAIN_CONFIG_KEYS += ['n_bins']
+        train_search_space['n_bins'] = [2, 4, 8, 16, 32, 64, 128]
+
 
     dataset = build_dataset(task_type=args.task_type, dataset_scale=args.scale, dataset_index=args.idx)
     higher_is_better = False if dataset.task_type == TaskType.REGRESSION else True
@@ -331,6 +329,7 @@ if __name__ == '__main__':
         help='Number of repeated training and eval on the best config.')
     parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--exp_name', type=str, default='TabM')
+    parser.add_argument('--num_embedding', type=str, default='linear')
     parser.add_argument('--result_path', type=str, default='')
     args = parser.parse_args()
     

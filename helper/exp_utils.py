@@ -83,6 +83,7 @@ def load_result(
     dir_name : str = "output", 
     task_type : str = None,
     scale_type : str = None,
+    model_type: str = None,
 ):  
     if task_type is None:
         task_types = ["binary_classification", "regression", "multiclass_classification"]
@@ -92,24 +93,30 @@ def load_result(
         scale_types = ["small", "medium", "large"]
     else:
         scale_types = [scale_type]
-    model_types = [
-        "LightGBM",
-        "TabNet",     
-        "FTTransformer", 
-        "ResNet", 
-        "TabTransformer", 
-        "Trompt", 
-        "ExcelFormer",
-        "LinearL1",
-        "TabPerceiver", 
-        # "MemPerceiver",
-        # "MemGlovalAvgPool",
-        # "MemPerceiver_ens",
-        # "MemPerceiver_Ens_Attn",
-        # "TabPerceiverMultiTask_1",
-        # "TabPerceiverMultiTaskMOE_1",
-    ]
-
+    if model_type is None:
+        model_types = [
+            "LightGBM",
+            "TabNet",     
+            "FTTransformer", 
+            "ResNet", 
+            "TabTransformer", 
+            "Trompt", 
+            "ExcelFormer",
+            "LinearL1",
+            "TabPerceiver", 
+            'TabM'
+            # "MemPerceiver",
+            # "MemGlovalAvgPool",
+            # "MemPerceiver_ens",
+            # "MemPerceiver_Ens_Attn",
+            # "TabPerceiverMultiTask_1",
+            # "TabPerceiverMultiTaskMOE_1",
+        ]
+    else:
+        if not isinstance(model_type, list):
+            model_types = [model_type]
+        else:
+            model_types = model_type
     # model_types += [f"TPMT_250509_config_d4_{i}" for i in range(12)]
     # model_types += [f"TPMT_250509_config_d6_{i}" for i in range(12)]
     # model_types += [f"TPMOE_250512_config_{i}" for i in range(12)]
